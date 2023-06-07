@@ -1,0 +1,14 @@
+.col-transition {
+  transition:  0.3s  ease-in-out;
+  z-index: 11;
+  background-color: #fff;
+}
+
+.col-transition.grow {
+  transform: scaleX(1);
+}
+
+
+
+
+
