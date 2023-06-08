@@ -31,8 +31,8 @@ export const AuthPage = (): React.JSX.Element => {
         backgroundImage="https://picsum.photos/200/300"
         shrink={shrink}
       >
-        <Container className="" fluid>
-          <Row variant={Col} md={12}>
+        <Container className="mt-5" fluid>
+          <Row variant={Col} md={12} sm={12} lg={12} >
             <NavTabs tabsProps={navTabsArray} setShrink={setShrink} />
           </Row>
         </Container>

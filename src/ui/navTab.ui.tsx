@@ -31,7 +31,7 @@ export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
     <Tabs
       defaultActiveKey={getDefault()}
       id="uncontrolled-tab-example"
-      className="mb-3 d-flex flex-row"
+      className="d-flex flex-row"
       transition={Fade}
       onSelect={handleSelect}
     >
@@ -40,7 +40,6 @@ export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
           <Tab
             eventKey={prop.key}
             title={prop.title}
-            className="mb-3 d-flex flex-column align-items-center mt-5"
           >
             {prop.Component}
           </Tab>

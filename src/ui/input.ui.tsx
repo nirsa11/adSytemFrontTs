@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { InputProps } from "../common/types/interface/ui/inputProps.interface";
-import "./input.css"; // Import custom CSS file
+import "./style/input.css"; // Import custom CSS file
 
 export const InputComponent: React.FC<InputProps> = ({
   name,
@@ -19,19 +19,23 @@ export const InputComponent: React.FC<InputProps> = ({
     setFocused(false);
   };
 
+  
+
   return (
-    <Form.Group as={Row}>
-      <Form.Label column sm={2} className={focused ? "shrink" : ""}>
+    <Form.Group as={Row} className="d-flex"> 
+     <Form.Label className={focused ? "shrink" : ""} >
         {label}
-      </Form.Label>
-      <Col sm={10}>
+      </Form.Label> 
+      <Col sm={8}>
         <Form.Control
+        
+          name= { name}
           type={type}
-          placeholder={placeholder}
           onFocus={handleFocus}
           onBlur={handleBlur}
           className={`borderless ${focused ? "focused" : ""}`}
         />
+
         {/* Add error validation element here */}
       </Col>
     </Form.Group>

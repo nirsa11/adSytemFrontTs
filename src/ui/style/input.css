@@ -1,0 +1,55 @@
+.borderless {
+  border: none !important;
+  border-bottom: 2px solid #ccc !important;
+  transition: border-color 0.3s;
+  outline: none; 
+  background: transparent !important;
+  border-radius: 0 !important;
+  }
+  
+  .shrink {
+    transform: translateY(2.1rem) scale(0.75);
+    transform-origin: top right;
+    transition: transform .4s ease-in-out;
+    font-weight: 300;
+    color: #75757c;
+    text-shadow:rgb(94, 94, 94) 1px 0 5px; ;
+  }
+  .borderless:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+  }
+  .focused {
+    border-bottom: 2px solid #adadad;
+  }
+
+  label{
+    font-weight: bold;
+    height: 3em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+  }
+
+  /* Animation when the input element is focused */
+  input:not([type='checkbox']):focus {
+    border-color: #bbbcff  !important; /* New color for the border */
+  }
+  
+  /* Animation for the border transition */
+  input:not([type='checkbox'])::after {
+    content: "" !important;
+    display: block !important;
+    width: 0 !important;
+    height: 12px !important;
+    background-color: #555151 !important; /* Initial color for the animated border */
+    transition: width 0.3s !important;
+  }
+  
+  input:not([type='checkbox']):focus::after {
+    width: 100% !important; /* Fills the border with the new color */
+  }
+ 
+  

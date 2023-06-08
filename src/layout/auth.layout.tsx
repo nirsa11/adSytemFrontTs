@@ -13,9 +13,8 @@ export const AuthLayout: React.FC<LayoutProps> = ({
   children,
   shrink,
 }) => {
-  const [smValue, setSmValue] = useState(5);
   const layoutStyle = {
-    backgroundImage: `url(${backgroundImage})`,
+  backgroundImage: `url(${backgroundImage})`,
     backgroundPosition: "right",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
@@ -25,17 +24,17 @@ export const AuthLayout: React.FC<LayoutProps> = ({
 
   return (
     <Container fluid>
-      <Row>
-        <Col
-          sm={12}
-          style={layoutStyle}
-          className={`col-transition ${shrink ? " grow" : ""}`}
-        >
+      <Row className="bg-primary nopadding">
           <Col
-            sm={shrink ? 7 : 5}
-            className={`col-transition ${shrink ? " grow" : ""}`}
+            sm={12}
+            style={layoutStyle}
+            className={`bg-dark nopadding  d-flex justify-content-end col-transition ${shrink ? " grow" : ""}`}
           >
-            <div className="layout-children ">{children}</div>
+            <Col
+            sm={shrink ? 7 : 5}
+            className={`h-100 nopadding col-transition ${shrink ? " grow" : ""}`}
+            >
+            {children}
           </Col>
         </Col>
       </Row>
