@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface NavTabsProps {
   isDefault?: boolean;
+  notRender?: boolean;
+  disabled?: boolean;
   Component: ReactNode;
   key: string;
   title: string;

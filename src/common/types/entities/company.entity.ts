@@ -1,5 +1,5 @@
 export class CompanyEntity {
-  id: number;
+  id?: number;
 
   name: string;
 
@@ -9,5 +9,5 @@ export class CompanyEntity {
 
   address: string;
 
-  createdAt: Date;
+  createdAt?: Date;
 }

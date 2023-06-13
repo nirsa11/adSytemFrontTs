@@ -51,5 +51,13 @@
   input:not([type='checkbox']):focus::after {
     width: 100% !important; /* Fills the border with the new color */
   }
- 
-  
+ input::placeholder{
+  text-align: right !important;
+  font-size: 11px;
+  color: #c2a5a5;
+ }
+ input:focus::placeholder {
+  font-size: 16px;
+  transition: font-size 0.3s;
+  font-weight: bolder;
+}

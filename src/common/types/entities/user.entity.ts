@@ -1,7 +1,7 @@
-import { CompanyEntity } from "./company.entity";
+import { CompanyEntity } from './company.entity';
 
 export class UserEntity {
-  id: number;
+  id?: number;
 
   name: string;
 
@@ -15,5 +15,5 @@ export class UserEntity {
 
   companies?: CompanyEntity[];
 
-  createdAt: Date;
+  createdAt?: Date;
 }

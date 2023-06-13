@@ -1,9 +1,5 @@
-import React, {
-  ChangeEventHandler,
-  Fragment,
-  ReactElement,
-  ReactNode,
-} from "react";
+import React, { ChangeEventHandler, Fragment, ReactElement, ReactNode } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 export interface InputProps {
   name: string;
@@ -11,8 +7,10 @@ export interface InputProps {
   type: string;
   placeholder?: string;
   value: any;
+  defaultValue?: string;
   handleChange: ChangeEventHandler<HTMLInputElement>;
-  error?: string;
+  errors?: FieldErrors;
+  register?: (name: string, RegisterOptions?) => { onChange; onBlur; name; ref };
 }
 
 export interface FormProps {

@@ -21,4 +21,22 @@ export class RegisterPageState {
   nameForTaxInvoice: string;
   businessId: string;
   address: string;
+  error: string;
+}
+
+export class LoginPageState {
+  email: string;
+  password: string;
+  error: string;
+}
+
+export class ResetPasswordState {
+  emailReset: string;
+  error: string;
+}
+
+export class ResetPasswordPageState {
+  password: string;
+  confirmPassword: string;
+  error: string;
 }
