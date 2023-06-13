@@ -5,7 +5,9 @@ import store from '../../redux/store';
 import { setCookies } from '../utils/index';
 import { setLoader } from '../../redux/loaderSlice';
 export class AxiosService {
-  private baseUrl: string = 'http://localhost:4000/api/v1';
+  private baseUrl: string = window.location.href.includes('localhost')
+    ? 'http://localhost:4000/api/v1'
+    : 'https://us-central1-adsystem-388212.cloudfunctions.net/api';
   public client: AxiosInstance;
 
   constructor() {
