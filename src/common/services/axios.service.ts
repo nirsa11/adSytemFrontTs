@@ -7,7 +7,7 @@ import { setLoader } from '../../redux/loaderSlice';
 export class AxiosService {
   private baseUrl: string = window.location.href.includes('localhost')
     ? 'http://localhost:4000/api/v1'
-    : 'https://us-central1-adsystem-388212.cloudfunctions.net/api';
+    : 'https://us-central1-adsystem-388212.cloudfunctions.net/api/v1';
   public client: AxiosInstance;
 
   constructor() {
