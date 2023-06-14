@@ -45,6 +45,8 @@ export const checkTokenApi = async ({ token }: { token: string }): Promise<boole
       const seventDays = new Date().getTime() + 360000 * 24 * 60 * 7;
 
       setCookies('accessToken', response.data.accessToken, seventDays);
+
+      setCookies('tokenTime', seventDays.toString(), seventDays);
       return true;
     }
 

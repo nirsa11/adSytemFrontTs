@@ -1,0 +1,46 @@
+.alert-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    animation-name: slideDown;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    
+  }
+  .alert-container{
+    width: 300px;
+    text-align: center;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .alert-transition-enter {
+    opacity: 0;
+  }
+  
+  .alert-transition-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+  }
+  
+  .alert-transition-exit {
+    opacity: 1;
+  }
+  
+  .alert-transition-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
+  }

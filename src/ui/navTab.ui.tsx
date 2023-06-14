@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
-import { Fade } from "react-bootstrap";
-import { ReactNode } from "react";
-import {
-  NavTabsProps,
-  TabsProps,
-} from "../common/types/interface/ui/navTabsProps.interface";
+import React, { useEffect, useState } from 'react';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import { Fade } from 'react-bootstrap';
+import { ReactNode } from 'react';
+import { NavTabsProps, TabsProps } from '../common/types/interface/ui/navTabsProps.interface';
 
-export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink}) => {
-
+export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
   const getDefault = (): string => {
     const defaultProp: NavTabsProps = tabsProps.find((prop) => prop.isDefault)!;
-  
-    return defaultProp.key;
-  }
 
-  const [defaultTab,setDefault] = useState(getDefault())
+    return defaultProp.key;
+  };
+
+  const [defaultTab, setDefault] = useState(getDefault());
 
   const IsShrink = (key: string): boolean => {
     return !tabsProps.find((prop) => prop.key === key && prop.shrink);
@@ -39,12 +35,7 @@ export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink}) => {
     >
       {tabsProps.map((prop) => {
         return (
-          <Tab
-            key = {prop.key}
-            eventKey={prop.key}
-            title={prop.title}
-            disabled = {prop.disabled}
-          >
+          <Tab key={prop.key} eventKey={prop.key} title={prop.title} disabled={prop.disabled}>
             {prop.Component}
           </Tab>
         );

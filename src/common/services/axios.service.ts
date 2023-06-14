@@ -5,7 +5,7 @@ import store from '../../redux/store';
 import { setCookies } from '../utils/index';
 import { setLoader } from '../../redux/loaderSlice';
 export class AxiosService {
-  private baseUrl: string = window.location.href.includes('localhost')
+  private baseUrl: string = window.location.href.includes('tttt')
     ? 'http://localhost:4000/api/v1'
     : 'https://us-central1-adsystem-388212.cloudfunctions.net/api/v1';
   public client: AxiosInstance;
@@ -48,10 +48,11 @@ export class AxiosService {
         return response;
       },
       (error) => {
-        console.log('Response  Error: ', error);
+        console.log('Response  Errorssss: ', error);
         store.dispatch(setLoader(false));
+
         return Promise.reject(
-          (error && error?.response?.data?.errorMessage) || error?.response?.data?.message
+          (error && error?.response?.data?.message) || error?.response?.data?.message
         );
       }
     );
