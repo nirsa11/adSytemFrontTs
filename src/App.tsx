@@ -33,6 +33,7 @@ function App() {
     <div className="App">
       <Routes>
         {getRoutes()}
+
         <Route path="*" element={<Navigate to={user ? '/home' : '/auth'} />} />
       </Routes>
       {loaderState ? <Loader /> : null}

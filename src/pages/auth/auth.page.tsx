@@ -38,6 +38,8 @@ export const AuthPage = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [token, setToken] = useState(searchParams.get('token'));
   const [resetPassword, setResetPassword] = useState<boolean>(false);
+  const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -52,6 +54,12 @@ export const AuthPage = (): JSX.Element => {
         });
     }
   }, [token]);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/home');
+    }
+  }, [navigate]);
 
   return (
     <>
