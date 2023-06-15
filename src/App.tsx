@@ -8,13 +8,23 @@ import { mainRoutes } from './routes';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AlertComponent } from './ui/alert.ui';
 import { clearAlert } from './redux/errorSlice';
+import { ProtectedRoute } from './routes/protected.route';
 
 function App() {
   const loaderState: boolean = useSelector((state: RootState) => state?.loader.loader);
 
   const getRoutes = (): ReactNode => {
     return mainRoutes.map((route) => {
-      return <Route path={route.path} element={route.component} key={route.path} />;
+      if (route.public) {
+        return <Route path={route.path} element={route.component} key={route.path} />;
+      } else {
+        return (
+          <Route
+            path={route.path}
+            element={<ProtectedRoute outlet={route.component} key={route.path} />}
+          />
+        );
+      }
     });
   };
 

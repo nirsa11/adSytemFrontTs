@@ -31,6 +31,7 @@ import { setAlert } from '../../../redux/errorSlice';
 const initialState: LoginPageState = {
   email: '',
   password: '',
+  rememberMe: false,
   error: ''
 };
 
@@ -39,7 +40,7 @@ const initialStateReset: ResetPasswordState = {
   error: ''
 };
 
-export const LoginPage = () => {
+export const LoginPage = (): JSX.Element => {
   const [state, setState] = useState<LoginPageState>(initialState);
   const [stateReset, setResetState] = useState<ResetPasswordState>(initialStateReset);
   const [modal, setModal] = useState<boolean>(false);
@@ -122,7 +123,7 @@ export const LoginPage = () => {
     try {
       const user: UserEntity = await ApiLogin(state as LoginPageState);
       if (user) {
-        dispatch(setUser(user));
+        dispatch(setUser({ ...user, rememberMe: state.rememberMe }));
         dispatch(setAlert({ message: `ברוך שובך ${user.name}`, type: 'success' }));
         navigate('/home');
       }
@@ -200,6 +201,13 @@ export const LoginPage = () => {
             <Form.Check // prettier-ignore
               type={'checkbox'}
               label="זכור אותי"
+              checked={state && state.rememberMe}
+              onChange={(e) =>
+                setState((prevState) => ({
+                  ...prevState,
+                  rememberMe: !state.rememberMe
+                }))
+              }
             />
             <a className="link" onClick={() => setModal(!modal)}>
               {' '}

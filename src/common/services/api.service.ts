@@ -10,7 +10,8 @@ export const ApiLogin = async ({ email, password }: LoginPageState) => {
   try {
     const response = await httpRequest.post('/users/login', { email, password });
 
-    console.log(response);
+    setLoginCookies(response.data.accessToken);
+
     return response.data;
   } catch (error) {
     throw new Error(error);
@@ -21,6 +22,8 @@ export const ApiRegister = async (data: UserEntity): Promise<UserEntity> => {
   try {
     const response = await httpRequest.post('/users/register', data);
 
+    setLoginCookies(response.data.accessToken);
+
     return response.data;
   } catch (error) {
     throw new Error(error);
@@ -30,6 +33,8 @@ export const ApiRegister = async (data: UserEntity): Promise<UserEntity> => {
 export const ApiResetEmail = async ({ email }: { email: string }): Promise<UserEntity> => {
   try {
     const response = await httpRequest.post('/users/forgotpassword', { email });
+
+    setLoginCookies(response.data.accessToken);
 
     return response.data;
   } catch (error) {
@@ -42,11 +47,7 @@ export const checkTokenApi = async ({ token }: { token: string }): Promise<boole
     const response = await httpRequest.get('/users/forgotpasswordtoken', { params: { token } });
 
     if (response.status === 200) {
-      const seventDays = new Date().getTime() + 360000 * 24 * 60 * 7;
-
-      setCookies('accessToken', response.data.accessToken, seventDays);
-
-      setCookies('tokenTime', seventDays.toString(), seventDays);
+      setLoginCookies(response.data.accessToken);
       return true;
     }
 
@@ -64,4 +65,12 @@ export const updateUser = async (userUpdates: Partial<UserEntity>): Promise<User
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const setLoginCookies = (accessToken: string) => {
+  const seventDays = new Date().getTime() + 360000 * 24 * 60 * 7;
+
+  setCookies('accessToken', accessToken, seventDays);
+
+  setCookies('tokenTime', seventDays.toString(), seventDays);
 };

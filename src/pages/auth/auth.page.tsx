@@ -2,13 +2,17 @@ import { NavTabsProps } from '../../common/types/interface/ui/navTabsProps.inter
 import { AuthLayout } from '../../layout/auth.layout';
 import { NavTabs } from '../../ui/navTab.ui';
 import { LoginPage } from './components/login.page';
-import React, { useEffect, useState } from 'react';
+import React, { ElementType, useEffect, useState } from 'react';
 import { RegisterPage } from './components/register.page';
 import { Col, Container, Row } from 'react-bootstrap';
 import backgroundImage from './../../assets/bg.png';
 import { ResetPasswordPage } from './components/ResetPasswordPage';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { checkTokenApi } from '../../common/services/api.service';
+import { UserEntity } from '../../common/types/entities/user.entity';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { createBrowserHistory } from 'history';
 
 type NavTabKey = 'login' | 'register';
 
@@ -28,7 +32,7 @@ let navTabsArray: NavTabsProps[] = [
   }
 ];
 
-export const AuthPage = (): React.JSX.Element => {
+export const AuthPage = (): JSX.Element => {
   const [shrink, setShrink] = useState<boolean>(false);
   const [tabs, setTabs] = useState<NavTabsProps[]>(navTabsArray);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,7 +40,6 @@ export const AuthPage = (): React.JSX.Element => {
   const [resetPassword, setResetPassword] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(token);
     if (token) {
       checkTokenApi({ token })
         .then((response) => {

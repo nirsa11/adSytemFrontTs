@@ -35,7 +35,7 @@ const initialState: RegisterPageState = {
   error: ''
 };
 
-export const RegisterPage = () => {
+export const RegisterPage = (): JSX.Element => {
   const [state, setState] = useState<RegisterPageState>(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();

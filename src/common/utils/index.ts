@@ -7,3 +7,9 @@ export const setCookies = (key: string, value: string, expireIn: number) => {
     expires: new Date(expireIn)
   });
 };
+
+export const removeCookies = (key: string) => {
+  const cookies = new Cookies();
+
+  cookies.remove(key);
+};

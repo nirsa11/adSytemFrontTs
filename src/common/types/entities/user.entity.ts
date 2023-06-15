@@ -16,4 +16,6 @@ export class UserEntity {
   companies?: CompanyEntity[];
 
   createdAt?: Date;
+
+  rememberMe?: boolean;
 }

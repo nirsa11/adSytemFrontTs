@@ -11,6 +11,9 @@
     "outDir": "lib",
     "sourceMap": true,
     "types": ["node"],
+    "paths": {
+      "react": [ "./node_modules/@types/react" ]
+    },
     "typeRoots": ["./node_modules/@types"],
     "isolatedModules": true,
         "jsx": "react-jsx",
