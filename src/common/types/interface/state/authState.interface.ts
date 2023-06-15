@@ -27,6 +27,7 @@ export class RegisterPageState {
 export class LoginPageState {
   email: string;
   password: string;
+  rememberMe: boolean;
   error: string;
 }
 

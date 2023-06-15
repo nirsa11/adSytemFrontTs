@@ -1,7 +1,15 @@
+import { ReactNode } from 'react';
 import { AuthPage } from '../pages/auth/auth.page';
 import { HomePage } from '../pages/home.page';
 
-export const mainRoutes = [
+class Route {
+  path: string;
+  name: string;
+  public: boolean;
+  component: JSX.Element;
+}
+
+export const mainRoutes: Route[] = [
   {
     path: 'auth',
     name: 'התחברות',
