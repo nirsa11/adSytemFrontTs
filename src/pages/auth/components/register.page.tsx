@@ -79,7 +79,7 @@ export const RegisterPage = (): JSX.Element => {
       const user: UserEntity = await ApiRegister(payload as UserEntity);
 
       if (user) {
-        dispatch(setUser(user));
+        dispatch(setUser({ ...user, rememberMe: true }));
         dispatch(setAlert({ message: `ברוך הבא ${user.name}`, type: 'success' }));
 
         navigate('/home');
