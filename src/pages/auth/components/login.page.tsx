@@ -6,7 +6,7 @@ import { InputComponent } from '../../../ui/input.ui';
 import { Button, Col, Form, FormGroup, Modal, Nav, Row } from 'react-bootstrap';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   ValidationLoginSchema,
@@ -74,10 +74,9 @@ export const LoginPage = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (forgotPasswordExpired) {
-      setModal(true);
-    }
-  }, []);
+    setModal(true);
+    return () => setModal(false);
+  }, [forgotPasswordExpired]);
 
   useEffect(() => {
     const inputs = document.querySelectorAll('input');

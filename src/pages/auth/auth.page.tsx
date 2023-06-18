@@ -56,6 +56,7 @@ export const AuthPage = (): JSX.Element => {
           navigate('/auth?forgotPassword=t');
         });
     }
+    return () => setToken('');
   }, [token]);
 
   useEffect(() => {
