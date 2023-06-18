@@ -53,10 +53,10 @@ export const AuthPage = (): JSX.Element => {
         })
         .catch((error) => {
           dispatch(setAlert({ message: 'הקישור פג תוקף, נסה שנית', type: 'warning' }));
-          navigate('/auth?forgotPassword=t');
+          setToken('');
+          navigate('/auth');
         });
     }
-    return () => setToken('');
   }, [token]);
 
   useEffect(() => {

@@ -45,9 +45,7 @@ export const LoginPage = (): JSX.Element => {
   const [stateReset, setResetState] = useState<ResetPasswordState>(initialStateReset);
   const [modal, setModal] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [forgotPasswordExpired, setForgotPasswordExpired] = useState(
-    searchParams.get('forgotPassword')
-  );
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -72,11 +70,6 @@ export const LoginPage = (): JSX.Element => {
     mode: 'onBlur',
     delayError: 500
   });
-
-  useEffect(() => {
-    setModal(true);
-    return () => setModal(false);
-  }, [forgotPasswordExpired]);
 
   useEffect(() => {
     const inputs = document.querySelectorAll('input');
