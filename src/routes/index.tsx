@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { AuthPage } from '../pages/auth/auth.page';
 import { HomePage } from '../pages/home.page';
+import { EditCompanyPage } from '../pages/dashboard/components/comapny.dashboard';
 
 class Route {
   path: string;
@@ -27,5 +28,11 @@ export const mainRoutes: Route[] = [
     name: 'דף הבית',
     public: false,
     component: <HomePage />
+  },
+  {
+    path: '/dashboard/edit-profile',
+    name: 'פרופיל',
+    public: false,
+    component: <EditCompanyPage />
   }
 ];

@@ -3,31 +3,11 @@ import {
   RegisterPageState,
   ResetPasswordPageState,
   ResetPasswordState
-} from '../../../common/types/interface/state/authState.interface';
-import { InputProps } from '../../../common/types/interface/ui/inputProps.interface';
+} from '../types/interface/state/authState.interface';
+import { InputProps } from '../types/interface/ui/inputProps.interface';
 import { z, ZodType } from 'zod';
-import i18next from 'i18next';
-import { zodI18nMap } from 'zod-i18n-map';
-import translation from 'zod-i18n-map/locales/he/zod.json';
 
-// Apply translation messages to each validation rule
-const applyTranslations = (rule: z.ZodTypeAny) => {
-  return rule.transform((val) => {
-    if (val instanceof z.ZodObject) {
-      return new z.ZodObject({
-        ...val.shape(),
-        ...Object.entries(val.shape()).reduce((acc, [key, value]) => {
-          return {
-            ...acc,
-
-            [key]: applyTranslations(value as z.ZodTypeAny).message(zodI18nMap[key])
-          };
-        }, {})
-      });
-    }
-    return val;
-  });
-};
+import { applyTranslations } from '.';
 
 export const registerSchema: ZodType<Partial<RegisterPageState>> = applyTranslations(
   z
@@ -71,16 +51,6 @@ export const resetPasswordSchema: ZodType<Partial<ResetPasswordPageState>> = z
 export const resetEmailSchema: ZodType<Partial<ResetPasswordState>> = z.object({
   emailReset: z.string().email().nonempty('שדה זה הינו שדה חובה')
 });
-
-i18next.init({
-  lng: 'he',
-  resources: {
-    he: { zod: translation }
-  }
-});
-
-// Set the global translation messages for Zod
-z.setErrorMap(zodI18nMap);
 
 export type ValidationRegisterSchema = z.infer<typeof registerSchema>;
 

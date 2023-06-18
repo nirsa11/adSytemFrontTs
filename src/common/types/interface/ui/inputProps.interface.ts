@@ -6,7 +6,7 @@ export interface InputProps {
   label: string;
   type: string;
   placeholder?: string;
-  value: any;
+  value?: any;
   defaultValue?: string;
   handleChange: ChangeEventHandler<HTMLInputElement>;
   errors?: FieldErrors;

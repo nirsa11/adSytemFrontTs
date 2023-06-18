@@ -13,7 +13,7 @@ import {
   ValidationResetSchema,
   loginSchema,
   resetEmailSchema
-} from './schemas.zod';
+} from '../../../common/schemas/schemas.auth';
 import { ButtonUI } from '../../../ui/button.ui';
 import { UserEntity } from '../../../common/types/entities/user.entity';
 import { ApiLogin, ApiResetEmail } from '../../../common/services/api.service';

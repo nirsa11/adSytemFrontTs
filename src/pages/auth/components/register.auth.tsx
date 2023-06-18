@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ValidationRegisterSchema, registerSchema } from './schemas.zod';
+import { ValidationRegisterSchema, registerSchema } from '../../../common/schemas/schemas.auth';
 import { ButtonUI } from '../../../ui/button.ui';
 import { ApiRegister } from '../../../common/services/api.service';
 import { setUser } from '../../../redux/userSlice';
