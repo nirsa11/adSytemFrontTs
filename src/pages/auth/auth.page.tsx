@@ -43,11 +43,9 @@ export const AuthPage = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/home');
-    }
-  }, [user]);
+  if (user) {
+    navigate('/home', { replace: true });
+  }
 
   useEffect(() => {
     if (token) {
