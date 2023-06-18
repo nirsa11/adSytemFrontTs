@@ -44,6 +44,12 @@ export const AuthPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (user) {
+      navigate('/home');
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (token) {
       checkTokenApi({ token })
         .then((response) => {
@@ -53,25 +59,20 @@ export const AuthPage = (): JSX.Element => {
         })
         .catch((error) => {
           dispatch(setAlert({ message: 'הקישור פג תוקף, נסה שנית', type: 'warning' }));
-          navigate('/auth?forgotPassword=t');
+          setToken('');
+          setResetPassword(false);
+          navigate('/auth');
         });
     }
-    return () => setToken('');
   }, [token]);
-
-  useEffect(() => {
-    if (user) {
-      navigate('/home');
-    }
-  }, [navigate]);
 
   return (
     <>
       <AuthLayout backgroundImage={backgroundImage} shrink={shrink}>
         <Container className="mt-5" fluid>
           <Row variant={Col} md={12} sm={12} lg={12}>
-            {token ? (
-              <ResetPasswordPage setToken={setToken} />
+            {resetPassword ? (
+              <ResetPasswordPage setToken={setToken} setResetPassword={setResetPassword} />
             ) : (
               <NavTabs tabsProps={tabs} setShrink={setShrink} />
             )}

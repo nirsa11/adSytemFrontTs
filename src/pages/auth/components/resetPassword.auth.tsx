@@ -29,6 +29,7 @@ import { setUser } from '../../../redux/userSlice';
 import { ResetPasswordPageState } from '../../../common/types/interface/state/authState.interface';
 import { ModalUIComponent } from '../../../ui/modal.ui';
 import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.interface';
+import { removeCookies } from '../../../common/utils';
 
 const initialState: ResetPasswordPageState = {
   password: '',
@@ -36,7 +37,7 @@ const initialState: ResetPasswordPageState = {
   error: ''
 };
 
-export const ResetPasswordPage = ({ setToken }) => {
+export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
   const [state, setState] = useState<ResetPasswordPageState>(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -64,10 +65,13 @@ export const ResetPasswordPage = ({ setToken }) => {
     try {
       const user: UserEntity = await updateUser({ password: state.password });
       if (user) {
-        dispatch(setUser(user));
         searchParams.delete('token');
         setSearchParams(searchParams);
+        removeCookies('accessToken');
+        removeCookies('tokenTime');
         setToken('');
+        setResetPassword(false);
+        navigate('/auth');
       }
     } catch (error) {
       setState((prevState) => ({
