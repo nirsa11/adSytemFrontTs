@@ -4,9 +4,9 @@ import { FormComponent } from '../../../ui/form.ui';
 import { InputProps } from '../../../common/types/interface/ui/inputProps.interface';
 import { InputComponent } from '../../../ui/input.ui';
 import { Button, Col, Form, FormGroup, Modal, Nav, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   ValidationLoginSchema,
@@ -44,6 +44,10 @@ export const LoginPage = (): JSX.Element => {
   const [state, setState] = useState<LoginPageState>(initialState);
   const [stateReset, setResetState] = useState<ResetPasswordState>(initialStateReset);
   const [modal, setModal] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [forgotPasswordExpired, setForgotPasswordExpired] = useState(
+    searchParams.get('forgotPassword')
+  );
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -68,6 +72,11 @@ export const LoginPage = (): JSX.Element => {
     mode: 'onBlur',
     delayError: 500
   });
+
+  useEffect(() => {
+    setModal(true);
+    return () => setModal(false);
+  }, [forgotPasswordExpired]);
 
   useEffect(() => {
     const inputs = document.querySelectorAll('input');
@@ -111,6 +120,9 @@ export const LoginPage = (): JSX.Element => {
   const resetPassword = async () => {
     try {
       await ApiResetEmail({ email: stateReset.emailReset });
+      dispatch(
+        setAlert({ message: "נשלח מייל לאיפוס , בדוק את תיבת הדוא''ל שלך", type: 'success' })
+      );
     } catch (error) {
       setResetState((prevState) => ({
         ...prevState,

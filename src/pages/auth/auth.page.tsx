@@ -10,9 +10,10 @@ import { ResetPasswordPage } from './components/resetPassword.auth';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { checkTokenApi } from '../../common/services/api.service';
 import { UserEntity } from '../../common/types/entities/user.entity';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { createBrowserHistory } from 'history';
+import { setAlert } from '../../redux/errorSlice';
 
 type NavTabKey = 'login' | 'register';
 
@@ -40,6 +41,7 @@ export const AuthPage = (): JSX.Element => {
   const [resetPassword, setResetPassword] = useState<boolean>(false);
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (token) {
@@ -50,9 +52,11 @@ export const AuthPage = (): JSX.Element => {
           }
         })
         .catch((error) => {
-          alert(error.message);
+          dispatch(setAlert({ message: 'הקישור פג תוקף, נסה שנית', type: 'warning' }));
+          navigate('/auth?forgotPassword=t');
         });
     }
+    return () => setToken('');
   }, [token]);
 
   useEffect(() => {
