@@ -1,12 +1,12 @@
 import { NavTabsProps } from '../../common/types/interface/ui/navTabsProps.interface';
 import { AuthLayout } from '../../layout/auth.layout';
 import { NavTabs } from '../../ui/navTab.ui';
-import { LoginPage } from './components/login.page';
+import { LoginPage } from './components/login.auth';
 import React, { ElementType, useEffect, useState } from 'react';
-import { RegisterPage } from './components/register.page';
+import { RegisterPage } from './components/register.auth';
 import { Col, Container, Row } from 'react-bootstrap';
 import backgroundImage from './../../assets/bg.png';
-import { ResetPasswordPage } from './components/ResetPasswordPage';
+import { ResetPasswordPage } from './components/resetPassword.auth';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { checkTokenApi } from '../../common/services/api.service';
 import { UserEntity } from '../../common/types/entities/user.entity';

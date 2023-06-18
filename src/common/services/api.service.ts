@@ -30,6 +30,16 @@ export const ApiRegister = async (data: UserEntity): Promise<UserEntity> => {
   }
 };
 
+export const ApiEditUser = async (data: UserEntity): Promise<UserEntity> => {
+  try {
+    const response = await httpRequest.patch('/users', data);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const ApiResetEmail = async ({ email }: { email: string }): Promise<UserEntity> => {
   try {
     const response = await httpRequest.post('/users/forgotpassword', { email });
@@ -60,6 +70,16 @@ export const checkTokenApi = async ({ token }: { token: string }): Promise<boole
 export const updateUser = async (userUpdates: Partial<UserEntity>): Promise<UserEntity> => {
   try {
     const response: AxiosResponse<any, any> = await httpRequest.put('/users', { ...userUpdates });
+
+    return response.data as UserEntity;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const updateCompleteUser = async (userUpdates: Partial<UserEntity>): Promise<UserEntity> => {
+  try {
+    const response: AxiosResponse<any, any> = await httpRequest.patch('/users', { ...userUpdates });
 
     return response.data as UserEntity;
   } catch (error) {
