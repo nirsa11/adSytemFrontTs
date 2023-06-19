@@ -13,6 +13,11 @@ const persistConfig = {
   whitelist: ['user']
 };
 
+/**
+ * Combines multiple reducers into a single reducer function using the combineReducers utility function from Redux.
+ * @param {Object} reducers - An object containing the individual reducer functions to be combined.
+ * @returns A single reducer function that can be used with the Redux store.
+ */
 const reducers = combineReducers({
   user: userReducer,
   loader: loaderReducer,

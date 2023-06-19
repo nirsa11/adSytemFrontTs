@@ -11,6 +11,13 @@ const initialState: AlertState = {
   type: null
 };
 
+/**
+ * A Redux slice that manages the state of alerts.
+ * @param {string} name - The name of the slice.
+ * @param initialState - The initial state of the slice.
+ * @param {Object} reducers - An object containing the reducer functions for the slice.
+ * @returns A Redux slice object.
+ */
 const alertSlice = createSlice({
   name: 'alert',
   initialState,

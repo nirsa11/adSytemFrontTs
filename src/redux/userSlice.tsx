@@ -7,6 +7,17 @@ const initialState: ReduxState = {
   user: null
 };
 
+/**
+ * A Redux slice that manages the user state.
+ * @typedef {Object} UserSlice
+ * @property {string} name - The name of the slice.
+ * @property {Object} initialState - The initial state of the slice.
+ * @property {UserEntity | null} initialState.user - The user entity or null if no user is logged in.
+ * @property {Object} reducers - The reducers of the slice.
+ * @property {Function} reducers.setUser - A reducer that sets the user entity in the state.
+ * @property {Function} reducers.removeUser - A reducer that removes the user entity from the state.
+ * @returns {UserSlice} The user slice object.
+ */
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,

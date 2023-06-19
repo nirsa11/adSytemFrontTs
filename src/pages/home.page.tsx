@@ -6,6 +6,7 @@ import { removeCookies } from '../common/utils';
 export const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const logOut = () => {
     dispatch(setUser(null));
     removeCookies('accessToken');

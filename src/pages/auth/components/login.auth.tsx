@@ -27,6 +27,7 @@ import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.i
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { setAlert } from '../../../redux/errorSlice';
+import { removeCookies } from '../../../common/utils';
 
 const initialState: LoginPageState = {
   email: '',
@@ -142,6 +143,9 @@ export const LoginPage = (): JSX.Element => {
         ...prevState,
         error: error.message
       }));
+      dispatch(setUser(null));
+      removeCookies('accessToken');
+      removeCookies('tokenTime');
       dispatch(setAlert({ message: error.message, type: 'danger' }));
     }
   };
