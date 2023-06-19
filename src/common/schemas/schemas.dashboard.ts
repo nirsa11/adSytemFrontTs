@@ -14,7 +14,7 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
       password: z
         .union([z.string().length(0), z.string().min(6).max(20)])
         .optional()
-        .transform((e) => (e === '' ? undefined : e)),
+        .transform((e) => (e.trim() === '' ? undefined : e.trim())),
       confirmPassword: z
         .union([z.string().length(0), z.string().min(6).max(20)])
         .optional()
@@ -25,7 +25,7 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
       address: z.string().nonempty('שדה זה הינו שדה חובה').min(6).max(50)
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: 'הסימה אינה תואמת',
+      message: 'הסיסמה אינה תואמת',
       path: ['confirmPassword']
     })
 );

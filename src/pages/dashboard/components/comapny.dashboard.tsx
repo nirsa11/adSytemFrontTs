@@ -75,7 +75,7 @@ export const EditCompanyPage = (): JSX.Element => {
     const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value?.trim() || undefined
     }));
   };
 
