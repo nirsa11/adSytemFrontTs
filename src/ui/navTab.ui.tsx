@@ -5,6 +5,12 @@ import { Fade } from 'react-bootstrap';
 import { ReactNode } from 'react';
 import { NavTabsProps, TabsProps } from '../common/types/interface/ui/navTabsProps.interface';
 
+/**
+ * A component that renders a set of navigation tabs based on the provided props.
+ * @param {TabsProps} tabsProps - An array of objects containing the properties for each tab.
+ * @param {function} setShrink - A function to set the state of whether or not the tabs should shrink.
+ * @returns A set of navigation tabs that can be rendered in a React application.
+ */
 export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
   const getDefault = (): string => {
     const defaultProp: NavTabsProps = tabsProps.find((prop) => prop.isDefault)!;

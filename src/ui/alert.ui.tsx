@@ -13,6 +13,10 @@ interface AlertProps {
   type: AlertType;
 }
 
+/**
+ * A React functional component that displays an alert message to the user.
+ * @returns A React component that displays an alert message to the user.
+ */
 export const AlertComponent: React.FC = () => {
   const dispatch = useDispatch();
   const { message, type } = useSelector((state: RootState) => state.alert);

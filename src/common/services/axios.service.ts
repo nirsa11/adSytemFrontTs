@@ -4,6 +4,10 @@ import Cookies from 'universal-cookie';
 import store from '../../redux/store';
 import { setCookies } from '../utils/index';
 import { setLoader } from '../../redux/loaderSlice';
+
+/**
+ * A class that provides an Axios client for making HTTP requests.
+ */
 export class AxiosService {
   private baseUrl: string = window.location.href.includes('localhost')
     ? 'http://localhost:4000/api/v1'
@@ -71,30 +75,5 @@ export class AxiosService {
     const tokenTime = parseInt(tokenExpire);
 
     return `Bearer ${cookies.get('accessToken')}` || '';
-    // if (new Date().getTime() > tokenTime) {
-    //   const token = await firebase.getAuth().currentUser.getIdToken(true);
-
-    //   console.log("token", token);
-
-    //   setCookies(
-    //     "token",
-    //     token,
-    //     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).getTime()
-    //   );
-
-    //   const timeHourString: string = new Date(Date.now() + 360000)
-    //     .getTime()
-    //     .toString();
-
-    //   setCookies(
-    //     "token-time",
-    //     timeHourString,
-    //     new Date(Date.now() + 360000).getTime()
-    //   );
-
-    //   return `Bearer ${token}` || "";
-    // } else {
-    //   return `Bearer ${cookies.get("token")}` || "";
-    // }
   }
 }

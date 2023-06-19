@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import Modal, { ModalProps } from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-/**
- * A loader component that displays a spinner while content is being loaded.
- * @returns A React component that displays a spinner.
- */
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import FormGroup from 'react-bootstrap/FormGroup';
@@ -12,6 +8,14 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import Alert from 'react-bootstrap/Alert';
 import './style/modal.css';
 
+/**
+ * A React functional component that renders a modal UI with a title and children components.
+ * @param {ModalProps} onHide - A function to handle the modal hide event.
+ * @param {boolean} show - A boolean value indicating whether the modal should be shown or not.
+ * @param {string} title - The title of the modal.
+ * @param {React.ReactNode} children - The children components to be rendered inside the modal body.
+ * @returns A React component that renders a modal UI.
+ */
 export const ModalUIComponent: React.FC<ModalProps> = ({ onHide, show, title, children }) => {
   return (
     <Modal onHide={onHide} show={show} centered className="col-12" style={{ zIndex: '1051' }}>
