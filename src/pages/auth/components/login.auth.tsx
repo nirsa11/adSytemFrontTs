@@ -40,6 +40,10 @@ const initialStateReset: ResetPasswordState = {
   error: ''
 };
 
+/**
+ * A functional component that renders a login page. The component uses React hooks to manage state and form validation.
+ * @returns {JSX.Element} - A JSX element that represents the login page.
+ */
 export const LoginPage = (): JSX.Element => {
   const [state, setState] = useState<LoginPageState>(initialState);
   const [stateReset, setResetState] = useState<ResetPasswordState>(initialStateReset);

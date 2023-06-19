@@ -4,6 +4,11 @@ import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { RootState } from '../redux/store';
 
+/**
+ * A protected route component that checks if the user is logged in and has a valid access token.
+ * @param {ProtectedRouteProps} outlet - The component to render if the user is logged in and has a valid access token.
+ * @returns {JSX.Element} - The component to render if the user is not logged in or does not have a valid access token.
+ */
 export type ProtectedRouteProps = {
   outlet: JSX.Element;
 };

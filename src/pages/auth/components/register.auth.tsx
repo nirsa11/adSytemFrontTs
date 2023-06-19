@@ -35,6 +35,10 @@ const initialState: RegisterPageState = {
   error: ''
 };
 
+/**
+ * A functional component that renders a registration form for a user to sign up.
+ * @returns {JSX.Element} - The JSX element that contains the registration form.
+ */
 export const RegisterPage = (): JSX.Element => {
   const [state, setState] = useState<RegisterPageState>(initialState);
   const dispatch = useDispatch();

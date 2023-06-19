@@ -11,6 +11,10 @@ import { clearAlert } from './redux/errorSlice';
 import { ProtectedRoute } from './routes/protected.route';
 import { UserEntity } from './common/types/entities/user.entity';
 
+/**
+ * The main component of the application that renders the routes and other components.
+ * @returns {JSX.Element} - The JSX element of the App component.
+ */
 function App() {
   const loaderState: boolean = useSelector((state: RootState) => state?.loader.loader);
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);

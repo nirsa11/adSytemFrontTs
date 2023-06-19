@@ -32,6 +32,10 @@ const initialState: EditCompanyPageState = {
   error: ''
 };
 
+/**
+ * A functional component that renders a form for editing a user's company profile.
+ * @returns {JSX.Element} - A form for editing a user's company profile.
+ */
 export const EditCompanyPage = (): JSX.Element => {
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
   const [state, setState] = useState<EditCompanyPageState>({

@@ -8,6 +8,13 @@ interface LayoutProps {
   shrink: boolean;
 }
 
+/**
+ * A layout component that displays a background image and wraps its children in a container.
+ * @param {LayoutProps} backgroundImage - The URL of the background image to display.
+ * @param {ReactNode} children - The child components to wrap in the layout.
+ * @param {boolean} shrink - Whether or not to shrink the layout.
+ * @returns A React component that displays a background image and wraps its children in a container.
+ */
 export const AuthLayout: React.FC<LayoutProps> = ({ backgroundImage, children, shrink }) => {
   const layoutStyle = {
     backgroundImage: `url(${backgroundImage})`,
