@@ -61,10 +61,10 @@ export const AuthLayout: React.FC<LayoutProps> = ({ backgroundImage, children, s
         >
           {window.innerWidth > 768 ? (
             <div className="d-flex justify-content-center w-100 h-100 align-items-center">
-              <Col md={2}>
+              <Col md={shrink ? 3 : 2}>
                 <img src={PiChatIcon2} alt="My Image" height={'130px'} />
               </Col>
-              <Col md={2} className="mt-4">
+              <Col md={shrink ? 3 : 2} className="mt-4">
                 <img src={PiChatIcon1} alt="My Image" className="image-animation" />
               </Col>
             </div>
