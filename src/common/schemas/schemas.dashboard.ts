@@ -12,11 +12,12 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
         .nonempty('שדה זה הינו שדה חובה')
         .regex(/^0\d([\d]{0,1})([-]{0,1})\d{7}$/, 'מספר הנייד אינו תקין'),
       password: z.string().refine((value) => value === '' || value.length >= 6, {
-        message: 'הסיסמה חייבת ממש להכיל לפחות 6 תווים'
+        message: 'המחרוזת חייבת להכיל לפחות 6 תווים'
       }),
       confirmPassword: z.string().refine((value) => value === '' || value.length >= 6, {
-        message: 'הסיסמה חייבת להכיל לפחות 6 תווים'
+        message: 'המחרוזת חייבת להכיל לפחות 6 תווים'
       }),
+
       companyName: z.string().nonempty('שדה זה הינו שדה חובה').min(3).max(20),
       nameForTaxInvoice: z.string().nonempty('שדה זה הינו שדה חובה').min(3).max(20),
       businessId: z.string().nonempty('שדה זה הינו שדה חובה').min(5).max(20),
