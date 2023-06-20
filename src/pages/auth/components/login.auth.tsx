@@ -229,9 +229,9 @@ export const LoginPage = (): JSX.Element => {
             </a>
           </div>
         </Row>
-        {/* {state && state.error ? <p className="text-danger">{state.error as string}</p> : ''} */}
-        <Row md={3} className="m-2">
-          <ButtonUI text={'כניסה'} />
+
+        <Row className="col-md-3 col-sm-6 align-self-start  m-5">
+          <ButtonUI text={'כניסה'} />{' '}
         </Row>
       </Form>
     </div>

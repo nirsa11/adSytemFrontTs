@@ -231,7 +231,7 @@ export const RegisterPage = (): JSX.Element => {
                 errors={errors}
               />
             </Col>
-            <Col className="col-md-6 col-sm-12 align-self-end">
+            <Col className="col-md-6 col-sm-12 align-self-end p-2">
               <ButtonUI text={'שמירה'} />
             </Col>
           </Row>

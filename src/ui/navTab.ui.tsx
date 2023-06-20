@@ -4,7 +4,7 @@ import Tab from 'react-bootstrap/Tab';
 import { Fade } from 'react-bootstrap';
 import { ReactNode } from 'react';
 import { NavTabsProps, TabsProps } from '../common/types/interface/ui/navTabsProps.interface';
-
+import './style/navTab.css';
 /**
  * A component that renders a set of navigation tabs based on the provided props.
  * @param {TabsProps} tabsProps - An array of objects containing the properties for each tab.
@@ -35,7 +35,7 @@ export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
   return (
     <Tabs
       defaultActiveKey={defaultTab}
-      className="d-flex flex-row"
+      className="d-flex flex-row tab-menu"
       transition={Fade}
       onSelect={handleSelect}
     >

@@ -11,4 +11,27 @@
 
 
 
+@keyframes circle-growth {
+  0% {
+    transform: scale(1) rotate(0deg);
+
+  }
+  100% {
+    transform: scale(1.2) rotate(360deg);
+
+  }
+
+}
+
+.image-animation:hover {
+  animation: circle-growth 2s ease-in-out;
+}
+
+
+@media (max-width: 576px) {
+  .parent {
+    padding : 1rem  !important; 
+     margin: 3rem 0 0 !important;
+  }
+}
 
