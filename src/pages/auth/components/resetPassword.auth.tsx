@@ -30,6 +30,7 @@ import { ResetPasswordPageState } from '../../../common/types/interface/state/au
 import { ModalUIComponent } from '../../../ui/modal.ui';
 import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.interface';
 import { removeCookies } from '../../../common/utils';
+import { setAlert } from '../../../redux/errorSlice';
 
 const initialState: ResetPasswordPageState = {
   password: '',
@@ -72,8 +73,17 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
         setToken('');
         setResetPassword(false);
         navigate('/auth');
+
+        setAlert({
+          message: 'הסיסמה שונתה בהצלחה',
+          type: 'success'
+        });
       }
     } catch (error) {
+      setAlert({
+        message: 'משהו השתבש . נסה שנית או פנה למפעיל',
+        type: 'danger'
+      });
       setState((prevState) => ({
         ...prevState,
         error: error.message

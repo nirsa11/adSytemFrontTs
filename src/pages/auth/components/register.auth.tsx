@@ -86,7 +86,7 @@ export const RegisterPage = (): JSX.Element => {
         dispatch(setUser({ ...user, rememberMe: true }));
         dispatch(setAlert({ message: `ברוך הבא ${user.name}`, type: 'success' }));
 
-        navigate('/home');
+        navigate('/dashboard');
       }
     } catch (error) {
       setState((prevState) => ({

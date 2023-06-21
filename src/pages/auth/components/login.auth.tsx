@@ -136,7 +136,7 @@ export const LoginPage = (): JSX.Element => {
       if (user) {
         dispatch(setUser({ ...user, rememberMe: state.rememberMe }));
         dispatch(setAlert({ message: `ברוך שובך ${user.name}`, type: 'success' }));
-        navigate('/home');
+        navigate('/dashboard');
       }
     } catch (error) {
       setState((prevState) => ({
@@ -225,7 +225,7 @@ export const LoginPage = (): JSX.Element => {
             />
             <a className="link" onClick={() => setModal(!modal)}>
               {' '}
-              שכחתי סיסמא
+              שכחתי סיסמה
             </a>
           </div>
         </Row>

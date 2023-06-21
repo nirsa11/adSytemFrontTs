@@ -37,7 +37,7 @@ let navTabsArray: NavTabsProps[] = [
  * The AuthPage component is responsible for rendering the authentication page. It displays
  * either the ResetPasswordPage or the NavTabs component based on whether a token is present
  * in the URL search parameters. If a user is already logged in, they will be redirected to
- * the home page.
+ * the dashboard page.
  * @returns {JSX.Element} - The rendered authentication page.
  */
 export const AuthPage = (): JSX.Element => {
@@ -51,7 +51,7 @@ export const AuthPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
   if (user) {
-    navigate('/home', { replace: true });
+    navigate('/dashboard', { replace: true });
   }
 
   useEffect(() => {

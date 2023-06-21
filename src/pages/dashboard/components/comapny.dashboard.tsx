@@ -17,6 +17,7 @@ import {
   ValidationEditCompanySchema,
   editCompanySchema
 } from '../../../common/schemas/schemas.dashboard';
+import { DashboardLayout } from '../../../layout/dashboard.layout';
 
 const initialState: EditCompanyPageState = {
   name: '',

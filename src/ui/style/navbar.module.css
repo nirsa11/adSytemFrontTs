@@ -1,0 +1,24 @@
+.navbarGreenBorder {
+  border-bottom: 2px solid #84be42;
+}
+
+.navLink {
+  color: white !important;
+}
+
+.navLink:hover {
+  color: #84be42 !important;
+}
+
+.active {
+  color: #84be42 !important;
+}
+
+.navLink ,.active{
+  font-size: 1.3rem !important;
+}
+
+.navLink.navLinkLogout {
+  color: rgb(151, 151, 151) !important;
+
+}

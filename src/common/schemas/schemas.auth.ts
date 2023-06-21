@@ -44,7 +44,7 @@ export const resetPasswordSchema: ZodType<Partial<ResetPasswordPageState>> = z
     password: z.string().nonempty('שדה זה הינו שדה חובה').min(6).max(20)
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
+    message: 'הסימה אינה תואמת',
     path: ['confirmPassword']
   });
 

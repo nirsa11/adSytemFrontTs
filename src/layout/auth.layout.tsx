@@ -51,7 +51,7 @@ export const AuthLayout: React.FC<LayoutProps> = ({ backgroundImage, children, s
 
   return (
     <Container fluid>
-      <Row className="bg-primary nopadding" style={{ border: 'none !important' }}>
+      <Row className="nopadding" style={{ border: 'none !important' }}>
         <Col
           sm={12}
           style={layoutStyle}
