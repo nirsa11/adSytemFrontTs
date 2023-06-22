@@ -29,12 +29,16 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
     maxHeight: '100vh'
   };
   return (
-    <Container fluid style={layoutStyle} className={`nopadding  d-flex flex-column dashboard-page`}>
-      <NavBar />
-      <div className="bg-transparent ">
-        <Container fluid>{children}</Container>
-      </div>
-      <Outlet />
+    <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column`}>
+      <Col>
+        <NavBar />
+      </Col>
+      <Col
+        className="d-flex  flex-column justify-content-start align-items-center"
+        style={{ minHeight: 'calc(80vh)' }}
+      >
+        {children}
+      </Col>
     </Container>
   );
 };

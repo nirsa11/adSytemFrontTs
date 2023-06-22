@@ -9,7 +9,7 @@ import { UserEntity } from '../../common/types/entities/user.entity';
 export const DashboardPage = (): JSX.Element => {
   return (
     <DashboardLayout>
-      <div className="text-light">hello</div>
+      <Outlet />
     </DashboardLayout>
   );
 };

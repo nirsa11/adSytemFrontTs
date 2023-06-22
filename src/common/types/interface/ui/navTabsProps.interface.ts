@@ -12,5 +12,5 @@ export interface NavTabsProps {
 
 export interface TabsProps {
   tabsProps: NavTabsProps[];
-  setShrink: Function;
+  setShrink?: Function;
 }

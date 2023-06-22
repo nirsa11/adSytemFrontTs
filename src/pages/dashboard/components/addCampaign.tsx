@@ -1,3 +1,3 @@
 export const AddCampaign = () => {
-  return <div>hello nested</div>;
+  return <div className="text-light">add campiegn</div>;
 };

@@ -139,14 +139,11 @@ export const LoginPage = (): JSX.Element => {
         navigate('/dashboard');
       }
     } catch (error) {
-      setState((prevState) => ({
-        ...prevState,
-        error: error.message
-      }));
+      dispatch(setAlert({ message: error.message || 'משהו השתבש', type: 'danger' }));
+
       dispatch(setUser(null));
       removeCookies('accessToken');
       removeCookies('tokenTime');
-      dispatch(setAlert({ message: error.message, type: 'danger' }));
     }
   };
 
