@@ -4,7 +4,7 @@ import { SubNavBar } from '../../../ui/subNav.ui';
 export const Campaign = (): JSX.Element => {
   return (
     <>
-      <SubNavBar></SubNavBar>
+      <SubNavBar />
       <Outlet />
     </>
   );

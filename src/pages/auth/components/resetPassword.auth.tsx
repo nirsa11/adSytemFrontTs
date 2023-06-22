@@ -66,6 +66,10 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
     try {
       const user: UserEntity = await updateUser({ password: state.password });
       if (user) {
+        setAlert({
+          message: 'הסיסמה שונתה בהצלחה',
+          type: 'success'
+        });
         searchParams.delete('token');
         setSearchParams(searchParams);
         removeCookies('accessToken');
@@ -73,11 +77,6 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
         setToken('');
         setResetPassword(false);
         navigate('/auth');
-
-        setAlert({
-          message: 'הסיסמה שונתה בהצלחה',
-          type: 'success'
-        });
       }
     } catch (error) {
       setAlert({

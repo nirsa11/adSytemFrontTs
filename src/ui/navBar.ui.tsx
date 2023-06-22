@@ -11,12 +11,13 @@ import { NavRoute, navRoutes } from '../routes';
 import { setUser } from '../redux/userSlice';
 import { removeCookies } from '../common/utils';
 import { RootState } from '../redux/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const NavBar = () => {
   const location = useLocation();
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const logOut = () => {
     dispatch(setUser(null));
@@ -63,6 +64,3 @@ export const NavBar = () => {
     </Navbar>
   );
 };
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}

@@ -6,6 +6,7 @@ import { NavBar } from '../ui/navBar.ui';
 import { mainRoutes, navRoutes } from '../routes';
 import { SubNavBar } from '../ui/subNav.ui';
 import './dashboard.css';
+import { Outlet } from 'react-router-dom';
 
 interface LayoutProps {
   children: ReactNode;
@@ -30,10 +31,10 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Container fluid style={layoutStyle} className={`nopadding  d-flex flex-column dashboard-page`}>
       <NavBar />
-
       <div className="bg-transparent ">
         <Container fluid>{children}</Container>
       </div>
+      <Outlet />
     </Container>
   );
 };
