@@ -66,10 +66,13 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
     try {
       const user: UserEntity = await updateUser({ password: state.password });
       if (user) {
-        setAlert({
-          message: 'הסיסמה שונתה בהצלחה',
-          type: 'success'
-        });
+        dispatch(
+          setAlert({
+            message: 'הסיסמה שונתה בהצלחה',
+            type: 'success'
+          })
+        );
+
         searchParams.delete('token');
         setSearchParams(searchParams);
         removeCookies('accessToken');
@@ -79,10 +82,12 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
         navigate('/auth');
       }
     } catch (error) {
-      setAlert({
-        message: 'משהו השתבש . נסה שנית או פנה למפעיל',
-        type: 'danger'
-      });
+      dispatch(
+        setAlert({
+          message: 'משהו השתבש . נסה שנית או פנה למפעיל',
+          type: 'danger'
+        })
+      );
       setState((prevState) => ({
         ...prevState,
         error: error.message
