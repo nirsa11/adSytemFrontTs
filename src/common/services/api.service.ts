@@ -3,6 +3,7 @@ import { AxiosService } from './axios.service';
 import { LoginPageState, RegisterPageState } from '../types/interface/state/authState.interface';
 import { UserEntity } from '../types/entities/user.entity';
 import { setCookies } from '../utils';
+import { CampaignEntity } from '../types/entities/campagin.entity';
 
 const httpRequest: AxiosInstance = new AxiosService().getClient();
 
@@ -112,6 +113,18 @@ export const updateUser = async (userUpdates: Partial<UserEntity>): Promise<User
     const response: AxiosResponse<any, any> = await httpRequest.put('/users', { ...userUpdates });
 
     return response.data as UserEntity;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const addCampagin = async (campaignPayload: CampaignEntity): Promise<CampaignEntity> => {
+  try {
+    const response: AxiosResponse<any, any> = await httpRequest.post('/campaigns', {
+      ...campaignPayload
+    });
+
+    return response.data as CampaignEntity;
   } catch (error) {
     throw new Error(error);
   }

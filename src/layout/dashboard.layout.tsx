@@ -1,12 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { Container, Row, Col, Nav } from 'react-bootstrap';
+import React, { ReactNode } from 'react';
+import { Container, Col } from 'react-bootstrap';
 import bg from '../assets/bg.png';
-import PiChatIcon2 from '../assets/logo-login-2.png';
 import { NavBar } from '../ui/navBar.ui';
-import { mainRoutes, navRoutes } from '../routes';
-import { SubNavBar } from '../ui/subNav.ui';
 import './dashboard.css';
-import { Outlet } from 'react-router-dom';
 
 interface LayoutProps {
   children: ReactNode;
@@ -29,14 +25,11 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
     maxHeight: '100vh'
   };
   return (
-    <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column`}>
+    <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column  `}>
       <Col>
         <NavBar />
       </Col>
-      <Col
-        className="d-flex  flex-column justify-content-start align-items-center"
-        style={{ minHeight: 'calc(80vh)' }}
-      >
+      <Col className="d-flex  flex-column justify-content-center align-items-center">
         {children}
       </Col>
     </Container>

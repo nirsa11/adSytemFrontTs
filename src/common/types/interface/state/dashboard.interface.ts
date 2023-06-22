@@ -1,3 +1,5 @@
+import { CampaignStatusEnum } from '../../entities/campagin.entity';
+
 export interface EditCompanyPageState {
   name: string;
   email: string;
@@ -10,4 +12,11 @@ export interface EditCompanyPageState {
   businessId: string;
   address: string;
   error: string;
+}
+export interface AddCampaginState {
+  name: string;
+  endDate: Date;
+  budget?: number;
+  dailyBudget: number;
+  status: CampaignStatusEnum;
 }

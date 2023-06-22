@@ -1,6 +1,10 @@
 import { z, ZodType } from 'zod';
-import { EditCompanyPageState } from '../types/interface/state/dashboard.interface';
+import {
+  AddCampaginState,
+  EditCompanyPageState
+} from '../types/interface/state/dashboard.interface';
 import { applyTranslations } from '.';
+import { CampaignStatusEnum } from '../types/entities/campagin.entity';
 
 export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTranslations(
   z
@@ -30,3 +34,17 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
 );
 
 export type ValidationEditCompanySchema = z.infer<typeof editCompanySchema>;
+
+export const addCampaignSchema: ZodType<Partial<AddCampaginState>> = applyTranslations(
+  z.object({
+    name: z.string().nonempty('שדה זה הינו שדה חובה').min(2).max(20),
+    dailyBudget: z.string().transform((val) => parseFloat(val)),
+    endDate: z.preprocess((arg) => {
+      if (typeof arg == 'string' || arg instanceof Date) return new Date(arg);
+    }, z.date()),
+    budget: z.string().transform((val) => parseFloat(val)),
+    status: z.string().nonempty()
+  })
+);
+
+export type ValidationAddCampaginSchema = z.infer<typeof addCampaignSchema>;

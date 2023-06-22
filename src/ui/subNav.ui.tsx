@@ -29,26 +29,29 @@ export const SubNavBar = () => {
 
   return (
     <Navbar
-      bg="dark"
-      variant="dark"
-      className={`${styles.navbarGreenBorder} bg-transparent`}
+      expand="lg"
       as={Col}
       md={9}
+      className={`${styles.navbarGreenBorder} bg-transparent nopadding bg-danger`}
     >
-      <Nav className="p-3 justify-content-end" as={Col} col={12}>
+      <Nav className="justify-content-center align-items-center" as={Col} md={12}>
         {navRoutes.map((route, index) => (
-          <Nav.Link
-            key={index}
-            as={Link}
-            to={route.path}
-            className={
-              location.pathname + '/' === route.path
-                ? `${styles.active} p-2`
-                : `${styles.navLink} p-2`
-            }
-          >
-            {route.name}
-          </Nav.Link>
+          <React.Fragment key={index}>
+            <Nav.Link
+              as={Link}
+              to={route.path}
+              className={
+                location.pathname + '/' === route.path
+                  ? `${styles.active} p-2`
+                  : `${styles.navLink} p-2`
+              }
+            >
+              {route.name}
+            </Nav.Link>
+            {index !== navRoutes.length - 1 && (
+              <span className="mx-2 align-self-center text-light">|</span>
+            )}
+          </React.Fragment>
         ))}
       </Nav>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />

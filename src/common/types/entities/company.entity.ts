@@ -1,3 +1,5 @@
+import { CampaignEntity } from './campagin.entity';
+
 export class CompanyEntity {
   id?: number;
 
@@ -10,4 +12,6 @@ export class CompanyEntity {
   address: string;
 
   createdAt?: Date;
+
+  public campagins: CampaignEntity[];
 }
