@@ -118,13 +118,40 @@ export const updateUser = async (userUpdates: Partial<UserEntity>): Promise<User
   }
 };
 
-export const addCampagin = async (campaignPayload: CampaignEntity): Promise<CampaignEntity> => {
+export const addCampagin = async (
+  campaignPayload: Omit<CampaignEntity, 'id'>
+): Promise<CampaignEntity> => {
   try {
     const response: AxiosResponse<any, any> = await httpRequest.post('/campaigns', {
       ...campaignPayload
     });
 
     return response.data as CampaignEntity;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const updateCampaign = async (campaignPayload: CampaignEntity): Promise<CampaignEntity> => {
+  try {
+    const response: AxiosResponse<any, any> = await httpRequest.patch(
+      `/campaigns/${campaignPayload.id}`,
+      {
+        ...campaignPayload
+      }
+    );
+
+    return response.data as CampaignEntity;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteCampaignApi = async (id: number): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<any, any> = await httpRequest.delete(`/campaigns/${id}`);
+
+    return response.data.status === 200;
   } catch (error) {
     throw new Error(error);
   }

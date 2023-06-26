@@ -13,5 +13,5 @@ export class CompanyEntity {
 
   createdAt?: Date;
 
-  public campagins: CampaignEntity[];
+  public campaigns: CampaignEntity[];
 }

@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
-import { Container, Col } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import bg from '../assets/bg.png';
 import { NavBar } from '../ui/navBar.ui';
-import './dashboard.css';
 
 interface LayoutProps {
   children: ReactNode;
@@ -26,10 +25,9 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
   };
   return (
     <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column  `}>
-      <Col>
-        <NavBar />
-      </Col>
-      <Col className="d-flex  flex-column justify-content-center align-items-center">
+      <NavBar />
+
+      <Col className="d-flex  flex-column justify-content-center align-items-center mb-5">
         {children}
       </Col>
     </Container>

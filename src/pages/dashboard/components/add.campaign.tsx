@@ -54,10 +54,6 @@ export const AddCampaign = (): JSX.Element => {
     delayError: 500
   });
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setState((prevState) => ({
@@ -92,12 +88,20 @@ export const AddCampaign = (): JSX.Element => {
       if (campaignCreated) {
         const companies = user.companies.map((company, index) => {
           if (index === 0) {
-            if (company.hasOwnProperty('campagins')) {
+            if (company.campaigns && company.campaigns.length) {
               // Push the value to the existing property
-              company.campagins = [...company.campagins, campaignCreated];
+              const campaigns = [...company.campaigns, campaignCreated];
+              return {
+                ...company,
+                campaigns: campaigns
+              };
             } else {
               // Create the property and assign an array with the value
-              company.campagins = [campaignCreated];
+              const campaigns = [campaignCreated];
+              return {
+                ...company,
+                campaigns: campaigns
+              };
             }
           }
           return company;

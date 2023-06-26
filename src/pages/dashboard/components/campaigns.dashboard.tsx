@@ -4,8 +4,10 @@ import { SubNavBar } from '../../../ui/subNav.ui';
 export const Campaign = (): JSX.Element => {
   return (
     <>
-      <SubNavBar />
-      <Outlet />
+      <div className="col-md-12 d-flex flex-column align-items-center " style={{ height: '70vh' }}>
+        <SubNavBar />
+        <Outlet />
+      </div>
     </>
   );
 };

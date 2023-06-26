@@ -7,10 +7,6 @@
 .col-transition.grow {
   transform: scaleX(1);
 }
-
-
-
-
 @keyframes circle-growth {
   0% {
     transform: scale(1) rotate(0deg);

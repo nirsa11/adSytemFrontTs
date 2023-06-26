@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
-import './auth.css';
+import './stlye/auth.css';
 import PiChatIcon1 from '../assets/logo-login-1.png';
 import PiChatIcon2 from '../assets/logo-login-2.png';
 

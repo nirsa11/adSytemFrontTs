@@ -12,6 +12,17 @@ export interface InputProps {
   errors?: FieldErrors;
   register?: (name: string, RegisterOptions?) => { onChange; onBlur; name; ref };
 }
+export interface InputDateProps {
+  name: string;
+  label: string;
+  type: string;
+  placeholder?: string;
+  value?: any;
+  defaultValue?: string;
+  setState: any;
+  errors?: FieldErrors;
+  register?: (name: string, RegisterOptions?) => { onChange; onBlur; name; ref };
+}
 
 export interface FormProps {
   inputs: InputProps[];

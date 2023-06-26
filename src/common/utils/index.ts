@@ -13,3 +13,15 @@ export const removeCookies = (key: string) => {
 
   cookies.remove(key);
 };
+
+export const timestampToDate = (timestamp: number): string => {
+  console.log(typeof timestamp);
+  const date = new Date(timestamp);
+  const formattedDate = date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+
+  return formattedDate;
+};

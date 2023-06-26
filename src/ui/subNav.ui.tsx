@@ -6,8 +6,8 @@ import LogoTwo from '../assets/logo-login-2.png';
 import styles from './style/navbar.module.css';
 import { ArrowRight } from 'react-bootstrap-icons';
 import { NavRoute, RouteProps, mainRoutes } from '../routes';
-import { AddCampaign } from '../pages/dashboard/components/addCampaign';
-import { MyCampaigns } from '../pages/dashboard/components/myCampaigns';
+import { AddCampaign } from '../pages/dashboard/components/add.campaign';
+import { MyCampaigns } from '../pages/dashboard/components/list.campaigns';
 
 let navRoutes: RouteProps[] = [
   {
@@ -29,10 +29,10 @@ export const SubNavBar = () => {
 
   return (
     <Navbar
-      expand="lg"
       as={Col}
       md={9}
-      className={`${styles.navbarGreenBorder} bg-transparent nopadding bg-danger`}
+      className={`${styles.navbarGreenBorder} bg-transparent nopadding bg-danger bg-dark`}
+      style={{ backgroundColor: 'red !important' }}
     >
       <Nav className="justify-content-center align-items-center" as={Col} md={12}>
         {navRoutes.map((route, index) => (
