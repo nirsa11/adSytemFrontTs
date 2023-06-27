@@ -121,15 +121,18 @@ export const EditCompanyPage = (): JSX.Element => {
   return (
     <>
       <Container
-        className="d-flex flex-column  justify-content-center  align-items-center p-1"
+        className="d-flex flex-column  justify-content-center  align-items-center p-1 col-md-12 d-flex flex-column "
         fluid
       >
+        <Col md={9} className="d-flex justify-content-start">
+          <h5 className="text-light">ערוך את הפרופיל שלך</h5>
+        </Col>
         <Col
           md={9}
           sm={9}
           className="d-flex flex-column justify-content-center  align-items-center bg-light m-1"
         >
-          <h5 className="align-self-start">ערוך את הפרופיל שלך</h5>
+          <h5 className="align-self-start"></h5>
           <Form
             className="d-flex flex-column mt-5 border-1 bg-light"
             style={{ maxHeight: '100vh' }}

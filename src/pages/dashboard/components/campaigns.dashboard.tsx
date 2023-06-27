@@ -6,7 +6,7 @@ export const Campaign = (): JSX.Element => {
     <>
       <div className="col-md-12 d-flex flex-column align-items-stretch" style={{ height: '85vh' }}>
         <SubNavBar />
-        <div style={{ flex: 1, overflow: 'auto', wordBreak: 'break-word' }}>
+        <div style={{ flex: 1, overflow: 'auto' }}>
           <Outlet />
         </div>
       </div>

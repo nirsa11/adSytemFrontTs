@@ -37,6 +37,7 @@ export const MyCampaigns = (): JSX.Element => {
   const [campaignToDelete, setCampaignToDelete] = useState<AddCampaignState>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
 
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
 
@@ -145,7 +146,38 @@ export const MyCampaigns = (): JSX.Element => {
     selectAllRowsItem: false,
     selectAllRowsItemText: 'All'
   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767); // Adjust the breakpoint according to your needs
+    };
 
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const customStyles = {
+    rows: {
+      style: {
+        minHeight: '72px' // override the row height
+      }
+    },
+    headCells: {
+      style: {
+        paddingLeft: '8px', // override the cell padding for head cells
+        paddingRight: '8px'
+      }
+    },
+    cells: {
+      style: {
+        paddingLeft: '8px', // override the cell padding for data cells
+        paddingRight: '8px'
+      }
+    }
+  };
   return (
     <>
       <Container
@@ -179,10 +211,12 @@ export const MyCampaigns = (): JSX.Element => {
         </Col>
         <Col
           md={9}
-          sm={9}
+          sm={12}
           className="d-flex flex-column justify-content-center  align-items-center bg-light m-1 p-2"
+          style={{ overflow: 'auto' }}
         >
           <DataTable
+            customStyles={customStyles}
             pagination
             paginationPerPage={10}
             paginationRowsPerPageOptions={[5, 8, 10]}
@@ -190,10 +224,9 @@ export const MyCampaigns = (): JSX.Element => {
             columns={columns}
             data={dataTable}
             fixedHeader
-            responsive={false}
+            responsive={true}
             striped
             highlightOnHover
-            fixedHeaderScrollHeight="300px"
           />
         </Col>
       </Container>

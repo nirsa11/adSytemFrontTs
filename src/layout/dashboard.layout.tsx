@@ -21,7 +21,9 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     minHeight: '100vh',
-    maxHeight: '100vh'
+    maxHeight: '100vh',
+    flex: 1,
+    overflow: 'auto'
   };
   return (
     <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column `}>
