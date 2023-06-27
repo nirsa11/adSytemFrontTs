@@ -84,6 +84,7 @@ export const MyCampaigns = (): JSX.Element => {
       dispatch(setAlert({ message: error.message, type: 'danger' }));
     }
   };
+
   const columns: TableColumn<AddCampaignState>[] = [
     {
       name: 'שם הקמפיין',
