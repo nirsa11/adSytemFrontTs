@@ -55,7 +55,7 @@ export const addCampaignSchema: ZodType<Partial<AddCampaginState>> = applyTransl
       path: ['budget']
     })
     .refine((data) => data.budget > data.dailyBudget, {
-      message: 'התקציב חייב ליהיות גדול יותר מהתקציב היומי',
+      message: 'התקציב חייב להיות גדול יותר מהתקציב היומי',
       path: ['budget']
     })
 );

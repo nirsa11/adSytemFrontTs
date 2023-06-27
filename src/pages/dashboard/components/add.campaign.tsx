@@ -24,6 +24,7 @@ import {
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
 import { CampaignEntity, CampaignStatusEnum } from '../../../common/types/entities/campagin.entity';
+import { InputDateComponent } from '../../../ui/inputDate.ui';
 
 const initialState: AddCampaginState = {
   name: '',
@@ -183,16 +184,14 @@ export const AddCampaign = (): JSX.Element => {
                 />
               </Col>
               <Col xs={12} md={6} className="p-3">
-                <InputComponent
-                  key="endDate"
-                  register={register}
-                  name="endDate"
+                <InputDateComponent
                   label="תאריך סיום"
+                  name="endDate"
+                  register={register}
                   type="date"
                   placeholder="הכנס ח.פ"
                   value={state && state.endDate}
-                  handleChange={handleChange}
-                  errors={errors}
+                  setState={setState}
                 />
               </Col>
               <Col xs={12} md={4} className="p-3">

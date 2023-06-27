@@ -42,6 +42,7 @@ export const InputDateComponent: React.FC<InputDateProps> = ({
               [name]: date
             }))
           }
+          minDate={new Date()}
           dateFormat="dd/MM/yyyy"
           onFocus={handleFocus}
           style={{ width: '100%' }}
