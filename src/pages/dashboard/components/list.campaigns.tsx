@@ -174,10 +174,13 @@ export const MyCampaigns = (): JSX.Element => {
             </Button>
           </div>
         </ModalUIComponent>
+        <Col md={9} className="d-flex justify-content-start">
+          <h3 className="text-light">רשימת הקמפיינים</h3>
+        </Col>
         <Col
           md={9}
           sm={9}
-          className="d-flex flex-column justify-content-center  align-items-center bg-light m-1"
+          className="d-flex flex-column justify-content-center  align-items-center bg-light m-1 p-2"
         >
           <DataTable
             pagination
@@ -187,7 +190,10 @@ export const MyCampaigns = (): JSX.Element => {
             columns={columns}
             data={dataTable}
             fixedHeader
-            responsive={true}
+            responsive={false}
+            striped
+            highlightOnHover
+            fixedHeaderScrollHeight="300px"
           />
         </Col>
       </Container>

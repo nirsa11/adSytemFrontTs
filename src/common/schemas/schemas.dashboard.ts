@@ -36,15 +36,28 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
 export type ValidationEditCompanySchema = z.infer<typeof editCompanySchema>;
 
 export const addCampaignSchema: ZodType<Partial<AddCampaginState>> = applyTranslations(
-  z.object({
-    name: z.string().nonempty('שדה זה הינו שדה חובה').min(2).max(20),
-    dailyBudget: z.string().transform((val) => parseFloat(val)),
-    endDate: z.preprocess((arg) => {
-      if (typeof arg == 'string' || arg instanceof Date) return new Date(arg);
-    }, z.date()),
-    budget: z.string().transform((val) => parseFloat(val)),
-    status: z.string().nonempty()
-  })
+  z
+    .object({
+      name: z.string().nonempty('שדה זה הינו שדה חובה').min(2).max(20),
+      dailyBudget: z.string().transform((val) => parseFloat(val)),
+      endDate: z.preprocess((arg) => {
+        if (typeof arg == 'string' || arg instanceof Date) return new Date(arg);
+      }, z.date()),
+      budget: z.string().transform((val) => parseFloat(val)),
+      status: z.string().nonempty()
+    })
+    .refine((data) => data.dailyBudget > 0, {
+      message: 'המספר חייב להיות גדול מ 0',
+      path: ['dailyBudget']
+    })
+    .refine((data) => data.budget > 0, {
+      message: 'המספר חייב להיות גדול מ 0',
+      path: ['budget']
+    })
+    .refine((data) => data.budget > data.dailyBudget, {
+      message: 'התקציב חייב ליהיות גדול יותר מהתקציב היומי',
+      path: ['budget']
+    })
 );
 
 export type ValidationAddCampaginSchema = z.infer<typeof addCampaignSchema>;

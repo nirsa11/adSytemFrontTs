@@ -24,12 +24,10 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
     maxHeight: '100vh'
   };
   return (
-    <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column  `}>
+    <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column `}>
       <NavBar />
 
-      <Col className="d-flex  flex-column justify-content-center align-items-center mb-5">
-        {children}
-      </Col>
+      <Col className="d-flex  flex-column justify-content-top">{children}</Col>
     </Container>
   );
 };

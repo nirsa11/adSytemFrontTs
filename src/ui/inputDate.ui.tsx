@@ -42,7 +42,7 @@ export const InputDateComponent: React.FC<InputDateProps> = ({
               [name]: date
             }))
           }
-          dateFormat="MM/dd/yyyy"
+          dateFormat="dd/MM/yyyy"
           onFocus={handleFocus}
           style={{ width: '100%' }}
         />

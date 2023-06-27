@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Col } from 'react-bootstrap';
 import LogoOne from '../assets/logo-login-1.png';
@@ -15,9 +15,24 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const NavBar = () => {
   const location = useLocation();
+  const [isMobile, setIsMobile] = useState(false);
+
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767); // Adjust the breakpoint according to your needs
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const logOut = () => {
     dispatch(setUser(null));
@@ -33,9 +48,10 @@ export const NavBar = () => {
       variant="dark"
       fixed="top"
       expand="lg"
-      className={`${styles.navbarGreenBorder} bg-transparent mx-auto`}
+      className={`${styles.navbarGreenBorder} ${isMobile ? '' : 'bg-transparent'}  mx-auto`}
       as={Col}
       md={9}
+      style={{ position: 'relative', minWidth: `${isMobile ? '100%' : ''}` }}
     >
       <Navbar.Brand className="p-2">
         <img src={LogoOne} alt="Logo 1" className="logo-image" width="80px" />

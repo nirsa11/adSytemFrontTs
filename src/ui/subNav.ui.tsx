@@ -31,7 +31,7 @@ export const SubNavBar = () => {
     <Navbar
       as={Col}
       md={9}
-      className={`${styles.navbarGreenBorder} bg-transparent nopadding bg-danger bg-dark`}
+      className={`${styles.navbarGreenBorder} bg-transparent nopadding bg-danger bg-dark justify-content-center mx-auto`}
       style={{ backgroundColor: 'red !important' }}
     >
       <Nav className="justify-content-center align-items-center" as={Col} md={12}>

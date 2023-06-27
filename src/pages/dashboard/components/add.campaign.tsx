@@ -126,12 +126,14 @@ export const AddCampaign = (): JSX.Element => {
         className="d-flex flex-column  justify-content-center  align-items-center p-1"
         fluid
       >
+        <Col md={9} className="d-flex justify-content-start">
+          <h3 className="text-light">יצירת קמפיין</h3>
+        </Col>
         <Col
           md={9}
           sm={9}
           className="d-flex flex-column justify-content-center  align-items-center bg-light m-1"
         >
-          <h5 className="align-self-start">הוסף חברה</h5>
           <Form
             className="d-flex flex-column mt-5 border-1 bg-light"
             style={{ maxHeight: '100vh' }}
