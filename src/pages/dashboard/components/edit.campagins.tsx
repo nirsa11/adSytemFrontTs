@@ -50,8 +50,10 @@ const initialState: EditCampaignState = {
 };
 
 /**
- * A functional component that renders a form for editing a user's company profile.
- * @returns {JSX.Element} - A form for editing a user's company profile.
+ * A component that allows the user to edit a campaign. The component displays a form with fields for the campaign name,
+ * end date, budget, daily budget, and status. The user can edit these fields and submit the form to update the campaign.
+ * If the update is successful, the user is redirected to the "My Campaigns" page.
+ * @returns {JSX.Element} - A form for editing a campaign.
  */
 export const EditCampaign = (): JSX.Element => {
   const dispatch = useDispatch();

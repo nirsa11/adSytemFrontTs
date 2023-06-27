@@ -7,6 +7,9 @@ import { MyCampaigns } from '../pages/dashboard/components/list.campaigns';
 import { Campaign } from '../pages/dashboard/components/campaigns.dashboard';
 import { EditCampaign } from '../pages/dashboard/components/edit.campagins';
 
+/**
+ * Represents the properties of a route in a React application.
+ */
 export class RouteProps {
   path: string;
   name: string;
@@ -15,6 +18,16 @@ export class RouteProps {
   nestedRoutes?: RouteProps[];
 }
 
+/**
+ * An array of route objects that define the routes for the application.
+ * @type {RouteProps[]}
+ * @property {string} path - The path of the route.
+ * @property {string} name - The name of the route.
+ * @property {boolean} public - Whether or not the route is public.
+ * @property {ReactNode} component - The component to render for the route.
+ * @property {RouteProps[] | undefined} nestedRoutes - An optional array of nested routes.
+ * @returns None
+ */
 export const mainRoutes: RouteProps[] = [
   {
     path: '/auth',
@@ -71,6 +84,12 @@ export const mainRoutes: RouteProps[] = [
 ];
 export type NavRoute = Pick<RouteProps, 'path' | 'name'>;
 
+/**
+ * An array of navigation routes for the dashboard.
+ * @type {NavRoute[]}
+ * @property {string} path - The path of the route.
+ * @property {string} name - The name of the route.
+ */
 export const navRoutes: NavRoute[] = [
   {
     path: '/dashboard',

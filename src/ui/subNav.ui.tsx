@@ -24,7 +24,11 @@ let navRoutes: RouteProps[] = [
   }
 ];
 
-export const SubNavBar = () => {
+/**
+ * A sub-navigation bar component that displays a list of links to different routes.
+ * @returns {JSX.Element} - The sub-navigation bar component.
+ */
+export const SubNavBar = (): JSX.Element => {
   const location = useLocation();
 
   return (

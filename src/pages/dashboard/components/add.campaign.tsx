@@ -35,8 +35,8 @@ const initialState: AddCampaginState = {
 };
 
 /**
- * A functional component that renders a form for editing a user's company profile.
- * @returns {JSX.Element} - A form for editing a user's company profile.
+ * Renders a form for creating a new campaign. The form includes fields for the campaign name, daily budget, total budget, end date, and status.
+ * @returns {JSX.Element} - A form for creating a new campaign.
  */
 export const AddCampaign = (): JSX.Element => {
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);

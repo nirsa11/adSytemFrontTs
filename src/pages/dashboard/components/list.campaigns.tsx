@@ -27,6 +27,13 @@ export class AddCampaignState {
   createdAt: string;
 }
 
+/**
+ * A functional component that displays a list of campaigns for a user. The component
+ * retrieves the list of campaigns from the Redux store and displays them in a DataTable.
+ * The user can edit or delete campaigns from the list. The component also includes a
+ * modal for confirming the deletion of a campaign.
+ * @returns {JSX.Element} - A JSX element that displays the list of campaigns.
+ */
 export const MyCampaigns = (): JSX.Element => {
   const campaigns: CampaignEntity[] = useSelector(
     (state: RootState) => state?.user?.user.companies[0].campaigns
