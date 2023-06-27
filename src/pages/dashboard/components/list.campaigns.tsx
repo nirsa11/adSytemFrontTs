@@ -47,11 +47,11 @@ export const MyCampaigns = (): JSX.Element => {
         return {
           id: campaign.id,
           name: campaign.name,
-          endDate: timestampToDate(campaign.endDate),
+          endDate: new Date(campaign.endDate).toLocaleDateString(),
           budget: campaign.budget.toString(),
           dailyBudget: campaign.dailyBudget.toString(),
           createdBy: userName,
-          createdAt: timestampToDate(campaign.createdAt),
+          createdAt: new Date(campaign.createdAt).toLocaleDateString(),
           status: campaign.status
         };
       })
@@ -91,10 +91,7 @@ export const MyCampaigns = (): JSX.Element => {
       name: 'שם הקמפיין',
       selector: (row) => row.name
     },
-    {
-      name: 'תאריך סיום',
-      selector: (row) => row.endDate
-    },
+
     {
       name: 'תקציב',
       selector: (row) => row.budget
@@ -110,6 +107,10 @@ export const MyCampaigns = (): JSX.Element => {
     {
       name: 'נוצר בתאריך',
       selector: (row) => row.createdAt
+    },
+    {
+      name: 'תאריך סיום',
+      selector: (row) => row.endDate
     },
     {
       name: 'סטטוס',

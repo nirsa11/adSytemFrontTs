@@ -192,6 +192,7 @@ export const AddCampaign = (): JSX.Element => {
                   placeholder="הכנס ח.פ"
                   value={state && state.endDate}
                   setState={setState}
+                  errors={errors}
                 />
               </Col>
               <Col xs={12} md={4} className="p-3">
