@@ -20,3 +20,15 @@ export interface AddCampaginState {
   dailyBudget: number;
   status: CampaignStatusEnum;
 }
+
+export class MyCampaignState {
+  id: number;
+  name: string;
+  endDate: string;
+  budget: string;
+  dailyBudget: string;
+  status: CampaignStatusEnum;
+  createdBy: string;
+  createdAt: string;
+  companyId: number;
+}
