@@ -9,8 +9,8 @@ import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
 import {
-  addCampagin,
-  updateCampaign,
+  ApiAddCampagin,
+  ApiUpdateCampaign,
   updateCompleteUser
 } from '../../../common/services/api.service';
 import { InputComponent } from '../../../ui/input.ui';
@@ -120,7 +120,7 @@ export const EditCampaign = (): JSX.Element => {
         companyId: user.companies[0].id
       };
 
-      const campaignUpdated: CampaignEntity = await updateCampaign(payload);
+      const campaignUpdated: CampaignEntity = await ApiUpdateCampaign(payload);
 
       if (campaignUpdated) {
         const companies = user.companies.map((company) => {

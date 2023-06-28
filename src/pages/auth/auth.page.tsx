@@ -8,7 +8,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import backgroundImage from './../../assets/bg.png';
 import { ResetPasswordPage } from './components/resetPassword.auth';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { checkTokenApi } from '../../common/services/api.service';
+import { ApicheckToken } from '../../common/services/api.service';
 import { UserEntity } from '../../common/types/entities/user.entity';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -56,7 +56,7 @@ export const AuthPage = (): JSX.Element => {
 
   useEffect(() => {
     if (token) {
-      checkTokenApi({ token })
+      ApicheckToken({ token })
         .then((response) => {
           if (response) {
             setResetPassword(true);
