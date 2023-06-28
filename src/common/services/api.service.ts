@@ -87,7 +87,7 @@ export const ApiResetEmail = async ({ email }: { email: string }): Promise<UserE
  * @returns {Promise<boolean>} - a promise that resolves to true if the token is valid, false otherwise
  * @throws {Error} - if there is an error making the API request
  */
-export const checkTokenApi = async ({ token }: { token: string }): Promise<boolean> => {
+export const ApicheckToken = async ({ token }: { token: string }): Promise<boolean> => {
   try {
     const response = await httpRequest.get('/users/forgotpasswordtoken', { params: { token } });
 
@@ -108,7 +108,7 @@ export const checkTokenApi = async ({ token }: { token: string }): Promise<boole
  * @returns {Promise<UserEntity>} - A promise that resolves with the updated user object.
  * @throws {Error} - If there is an error updating the user.
  */
-export const updateUser = async (userUpdates: Partial<UserEntity>): Promise<UserEntity> => {
+export const ApiUpdateUser = async (userUpdates: Partial<UserEntity>): Promise<UserEntity> => {
   try {
     const response: AxiosResponse<any, any> = await httpRequest.put('/users', { ...userUpdates });
 
@@ -118,7 +118,7 @@ export const updateUser = async (userUpdates: Partial<UserEntity>): Promise<User
   }
 };
 
-export const addCampagin = async (
+export const ApiAddCampagin = async (
   campaignPayload: Omit<CampaignEntity, 'id'>
 ): Promise<CampaignEntity> => {
   try {
@@ -132,7 +132,9 @@ export const addCampagin = async (
   }
 };
 
-export const updateCampaign = async (campaignPayload: CampaignEntity): Promise<CampaignEntity> => {
+export const ApiUpdateCampaign = async (
+  campaignPayload: CampaignEntity
+): Promise<CampaignEntity> => {
   try {
     const response: AxiosResponse<any, any> = await httpRequest.patch(
       `/campaigns/${campaignPayload.id}`,

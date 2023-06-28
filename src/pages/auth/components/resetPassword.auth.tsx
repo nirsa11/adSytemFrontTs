@@ -22,8 +22,8 @@ import { UserEntity } from '../../../common/types/entities/user.entity';
 import {
   ApiLogin,
   ApiResetEmail,
-  checkTokenApi,
-  updateUser
+  ApicheckToken,
+  ApiUpdateUser
 } from '../../../common/services/api.service';
 import { setUser } from '../../../redux/userSlice';
 import { ResetPasswordPageState } from '../../../common/types/interface/state/authState.interface';
@@ -64,7 +64,7 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
 
   const handleSubmitButton = async () => {
     try {
-      const user: UserEntity = await updateUser({ password: state.password });
+      const user: UserEntity = await ApiUpdateUser({ password: state.password });
       if (user) {
         dispatch(
           setAlert({

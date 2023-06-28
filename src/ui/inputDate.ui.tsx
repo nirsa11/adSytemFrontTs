@@ -45,7 +45,6 @@ export const InputDateComponent: React.FC<InputDateProps> = ({
           minDate={new Date()}
           dateFormat="dd/MM/yyyy"
           onFocus={handleFocus}
-          style={{ width: '100%' }}
         />
 
         {errors && errors[name] ? (

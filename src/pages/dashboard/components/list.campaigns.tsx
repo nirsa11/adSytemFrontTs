@@ -8,11 +8,11 @@ import { CampaignEntity, CampaignStatusEnum } from '../../../common/types/entiti
 import { timestampToDate } from '../../../common/utils';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PencilSquare, TrashFill } from 'react-bootstrap-icons';
+import { PencilSquare, TrashFill, DatabaseAdd } from 'react-bootstrap-icons';
 import { ModalUIComponent } from '../../../ui/modal.ui';
 import { ButtonUI } from '../../../ui/button.ui';
 import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.interface';
-import { deleteCampaignApi } from '../../../common/services/api.service';
+import { ApiAddCampagin, deleteCampaignApi } from '../../../common/services/api.service';
 import { setAlert } from '../../../redux/errorSlice';
 import { setUser } from '../../../redux/userSlice';
 
@@ -25,6 +25,7 @@ export class AddCampaignState {
   status: CampaignStatusEnum;
   createdBy: string;
   createdAt: string;
+  companyId: number;
 }
 
 /**
@@ -39,6 +40,7 @@ export const MyCampaigns = (): JSX.Element => {
     (state: RootState) => state?.user?.user.companies[0].campaigns
   );
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
+  const companyId: number = user.companies[0].id;
 
   const [modal, setModal] = useState<boolean>(false);
   const [campaignToDelete, setCampaignToDelete] = useState<AddCampaignState>(null);
@@ -59,7 +61,8 @@ export const MyCampaigns = (): JSX.Element => {
           dailyBudget: campaign.dailyBudget.toString(),
           createdBy: userName,
           createdAt: new Date(campaign.createdAt).toLocaleDateString(),
-          status: campaign.status
+          status: campaign.status,
+          companyId: companyId
         };
       })
   );
@@ -88,6 +91,41 @@ export const MyCampaigns = (): JSX.Element => {
       dispatch(setUser({ ...user, companies: companies, rememberMe: true }));
 
       setModal(false);
+    } catch (error) {
+      dispatch(setAlert({ message: error.message, type: 'danger' }));
+    }
+  };
+
+  const hadnleDuplicate = async (row: AddCampaignState) => {
+    try {
+      const campaignPayload: Omit<CampaignEntity, 'id'> = {
+        budget: parseInt(row.budget),
+        companyId: row.companyId,
+        createdBy: user.id,
+        dailyBudget: parseInt(row.dailyBudget),
+        endDate: new Date(row.endDate).getTime(),
+        name: row.name,
+        status: row.status
+      };
+
+      const campaignCreated: CampaignEntity = await ApiAddCampagin(campaignPayload);
+
+      const newCampaigns = [
+        ...dataTable,
+        {
+          id: campaignCreated.id,
+          name: campaignCreated.name,
+          endDate: new Date(campaignCreated.endDate).toLocaleDateString(),
+          budget: campaignCreated.budget.toString(),
+          dailyBudget: campaignCreated.dailyBudget.toString(),
+          createdBy: userName,
+          createdAt: new Date(campaignCreated.createdAt).toLocaleDateString(),
+          status: campaignCreated.status,
+          companyId: companyId
+        }
+      ];
+
+      setDataTable(newCampaigns);
     } catch (error) {
       dispatch(setAlert({ message: error.message, type: 'danger' }));
     }
@@ -127,9 +165,10 @@ export const MyCampaigns = (): JSX.Element => {
       name: 'Actions',
       cell: (row) => (
         <>
-          <div className="d-flex justify-content-between col-md-6">
+          <div className="d-flex justify-content-between col-md-7">
             <PencilSquare onClick={() => handleEdit(row)} />
             <TrashFill color="red" onClick={() => handleDeleteModal(row)} />
+            <DatabaseAdd color="blue" onClick={() => hadnleDuplicate(row)} />
           </div>
         </>
       ),
