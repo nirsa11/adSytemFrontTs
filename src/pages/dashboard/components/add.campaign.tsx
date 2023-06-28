@@ -8,7 +8,7 @@ import { UserEntity } from '../../../common/types/entities/user.entity';
 import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
-import { ApiAddCampagin, updateCompleteUser } from '../../../common/services/api.service';
+import { ApiAddCampaign, updateCompleteUser } from '../../../common/services/api.service';
 import { InputComponent } from '../../../ui/input.ui';
 import { ButtonUI } from '../../../ui/button.ui';
 import { RootState } from '../../../redux/store';
@@ -23,7 +23,7 @@ import {
   editCompanySchema
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
-import { CampaignEntity, CampaignStatusEnum } from '../../../common/types/entities/campagin.entity';
+import { CampaignEntity, CampaignStatusEnum, CampaignTargetEnum } from '../../../common/types/entities/campagin.entity';
 import { InputDateComponent } from '../../../ui/inputDate.ui';
 
 const initialState: AddCampaginState = {
@@ -31,7 +31,8 @@ const initialState: AddCampaginState = {
   dailyBudget: 0,
   endDate: new Date(),
   budget: 0,
-  status: CampaignStatusEnum.paused
+  status: CampaignStatusEnum.paused,
+  target: CampaignTargetEnum.traffic
 };
 
 /**
@@ -80,11 +81,12 @@ export const AddCampaign = (): JSX.Element => {
         dailyBudget:
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
-        status: CampaignStatusEnum[state.status],
-        companyId: user.companies[0].id
+        status: state.status,
+        companyId: user.companies[0].id,
+        target: state.target,
       };
 
-      const campaignCreated: CampaignEntity = await ApiAddCampagin(payload);
+      const campaignCreated: CampaignEntity = await ApiAddCampaign(payload);
 
       if (campaignCreated) {
         const companies = user.companies.map((company, index) => {
@@ -196,7 +198,23 @@ export const AddCampaign = (): JSX.Element => {
                 />
               </Col>
               <Col xs={12} md={4} className="p-3">
-                <Form.Label htmlFor="mySelect">בחר את סטטוס הקמפיין</Form.Label>
+                <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין</Form.Label>
+                <Form.Select
+                  {...register('target')}
+                  name="target"
+                  value={state && state.target}
+                  onChange={handleSelectChange}
+                  defaultValue={CampaignTargetEnum.traffic}
+                >
+                  {Object.values(CampaignTargetEnum).map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Col>
+              <Col xs={12} md={4} className="p-3">
+                <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין</Form.Label>
                 <Form.Select
                   {...register('status')}
                   name="status"
@@ -204,11 +222,14 @@ export const AddCampaign = (): JSX.Element => {
                   onChange={handleSelectChange}
                   defaultValue={CampaignStatusEnum.active}
                 >
-                  {Object.values(CampaignStatusEnum).map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  {Object.values(CampaignStatusEnum).map((option) => {
+
+                    if(option === CampaignStatusEnum.completed) return null;
+                    return <option key={option} value={option}>
+                        {option}
+                      </option>
+                  }
+                  )}
                 </Form.Select>
               </Col>
             </Row>

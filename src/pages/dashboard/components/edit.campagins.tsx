@@ -9,7 +9,7 @@ import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
 import {
-  ApiAddCampagin,
+  ApiAddCampaign,
   ApiUpdateCampaign,
   updateCompleteUser
 } from '../../../common/services/api.service';
