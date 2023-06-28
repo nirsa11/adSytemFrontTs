@@ -1,4 +1,4 @@
-import { Button, Col, Container } from 'react-bootstrap';
+import { Button, Col, Container, Form } from 'react-bootstrap';
 import DataTable, { PaginationOptions, TableColumn } from 'react-data-table-component';
 import { UserEntity } from '../../../common/types/entities/user.entity';
 import { RootState } from '../../../redux/store';
@@ -15,18 +15,8 @@ import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.i
 import { ApiAddCampaign, deleteCampaignApi } from '../../../common/services/api.service';
 import { setAlert } from '../../../redux/errorSlice';
 import { setUser } from '../../../redux/userSlice';
-
-export class AddCampaignState {
-  id: number;
-  name: string;
-  endDate: string;
-  budget: string;
-  dailyBudget: string;
-  status: CampaignStatusEnum;
-  createdBy: string;
-  createdAt: string;
-  companyId: number;
-}
+import { FilterDateEnum, FilterDateEnumKeys } from '../../../common/types/enum/campaign.enum';
+import { MyCampaignState } from '../../../common/types/interface/state/dashboard.interface';
 
 /**
  * A functional component that displays a list of campaigns for a user. The component
@@ -41,16 +31,15 @@ export const MyCampaigns = (): JSX.Element => {
   );
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
   const companyId: number = user.companies[0].id;
-
   const [modal, setModal] = useState<boolean>(false);
-  const [campaignToDelete, setCampaignToDelete] = useState<AddCampaignState>(null);
+  const [campaignToDelete, setCampaignToDelete] = useState<MyCampaignState>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
-
+  const [dateFilterValue, setDateFilterValue] = useState<FilterDateEnum | string>('');
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
 
-  const [dataTable, setDataTable] = useState<AddCampaignState[]>(
+  const [dataTable, setDataTable] = useState<MyCampaignState[]>(
     campaigns &&
       campaigns.map((campaign) => {
         return {
@@ -67,12 +56,53 @@ export const MyCampaigns = (): JSX.Element => {
       })
   );
 
-  const handleDeleteModal = (row: AddCampaignState) => {
+  // useEffect(() => {}, [dataTable]);
+
+  /**
+   * Handles the deletion of a campaign by displaying a modal and setting the campaign to be deleted.
+   * @param {MyCampaignState} row - The campaign to be deleted.
+   * @returns None
+   */
+  const handleDeleteModal = (row: MyCampaignState) => {
     setModal(true);
 
     setCampaignToDelete(row);
   };
 
+  /**
+   * Handles the change event of a select element and filters the data table based on the selected value.
+   * @param {React.ChangeEvent<HTMLSelectElement>} event - The change event object.
+   * @returns None
+   */
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value: FilterDateEnum = event.target.value as unknown as FilterDateEnum;
+
+    //in case of ---
+    if (!FilterDateEnum[value]) return;
+
+    const resultDate = new Date();
+
+    resultDate.setDate(resultDate.getDate() - FilterDateEnumKeys[value]);
+
+    resultDate.setHours(0, 0, 0, 0);
+
+    var dataFiltered: MyCampaignState[] = dataTable.filter(
+      (row) => new Date(row.createdAt).getTime() > resultDate.getTime()
+    );
+
+    if (dataFiltered.length) {
+      setDataTable(dataFiltered);
+      setDateFilterValue(FilterDateEnum[value]);
+    } else {
+      alert('אין רשומות התואמות את החיפוש שלך');
+    }
+  };
+
+  /**
+   * Deletes a campaign from the server and updates the user's data accordingly.
+   * @returns None
+   * @throws {Error} If there is an error deleting the campaign or updating the user's data.
+   */
   const deleteCampaign = async () => {
     try {
       const response = await deleteCampaignApi(campaignToDelete.id);
@@ -96,7 +126,7 @@ export const MyCampaigns = (): JSX.Element => {
     }
   };
 
-  const hadnleDuplicate = async (row: AddCampaignState) => {
+  const hadnleDuplicate = async (row: MyCampaignState) => {
     try {
       const campaignPayload: Omit<CampaignEntity, 'id'> = {
         budget: parseInt(row.budget),
@@ -126,12 +156,37 @@ export const MyCampaigns = (): JSX.Element => {
       ];
 
       setDataTable(newCampaigns);
+
+      if (campaignCreated) {
+        const companies = user.companies.map((company, index) => {
+          if (index === 0) {
+            if (company.campaigns && company.campaigns.length) {
+              // Push the value to the existing property
+              const campaigns = [...company.campaigns, campaignCreated];
+              return {
+                ...company,
+                campaigns: campaigns
+              };
+            } else {
+              // Create the property and assign an array with the value
+              const campaigns = [campaignCreated];
+              return {
+                ...company,
+                campaigns: campaigns
+              };
+            }
+          }
+          return company;
+        });
+
+        dispatch(setUser({ ...user, companies: companies, rememberMe: true }));
+      }
     } catch (error) {
       dispatch(setAlert({ message: error.message, type: 'danger' }));
     }
   };
 
-  const columns: TableColumn<AddCampaignState>[] = [
+  const columns: TableColumn<MyCampaignState>[] = [
     {
       name: 'שם הקמפיין',
       selector: (row) => row.name
@@ -150,7 +205,19 @@ export const MyCampaigns = (): JSX.Element => {
       selector: (row) => row.createdBy
     },
     {
-      name: 'נוצר בתאריך',
+      name: (
+        <div className="d-flex flex-column">
+          נוצר בתאריך
+          <select name="status" onChange={handleSelectChange}>
+            <option>---</option>
+            {Object.values(FilterDateEnum).map((option, index) => (
+              <option key={option} value={Object.keys(FilterDateEnum)[index]}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+      ),
       selector: (row) => row.createdAt
     },
     {
@@ -177,7 +244,7 @@ export const MyCampaigns = (): JSX.Element => {
     }
   ];
 
-  const handleEdit = (campaign: AddCampaignState) => {
+  const handleEdit = (campaign: MyCampaignState) => {
     navigate(`/dashboard/edit-campaign/${campaign.id}`, {
       state: {
         campaign
@@ -193,6 +260,7 @@ export const MyCampaigns = (): JSX.Element => {
     selectAllRowsItem: false,
     selectAllRowsItemText: 'All'
   };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 767); // Adjust the breakpoint according to your needs
@@ -225,6 +293,7 @@ export const MyCampaigns = (): JSX.Element => {
       }
     }
   };
+
   return (
     <>
       <Container
@@ -254,7 +323,12 @@ export const MyCampaigns = (): JSX.Element => {
           </div>
         </ModalUIComponent>
         <Col md={9} className="d-flex justify-content-start">
-          <h3 className="text-light">רשימת הקמפיינים</h3>
+          <div className="d-flex  col-md-3 justify-content-between">
+            <h3 className="text-light ml-2"> רשימת הקמפיינים</h3>
+            {dateFilterValue ? (
+              <h6 className="text-light align-self-center mr-3">({dateFilterValue})</h6>
+            ) : null}
+          </div>
         </Col>
         <Col
           md={9}
