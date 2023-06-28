@@ -12,7 +12,7 @@ import { PencilSquare, TrashFill, DatabaseAdd } from 'react-bootstrap-icons';
 import { ModalUIComponent } from '../../../ui/modal.ui';
 import { ButtonUI } from '../../../ui/button.ui';
 import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.interface';
-import { ApiAddCampagin, deleteCampaignApi } from '../../../common/services/api.service';
+import { ApiAddCampaign, deleteCampaignApi } from '../../../common/services/api.service';
 import { setAlert } from '../../../redux/errorSlice';
 import { setUser } from '../../../redux/userSlice';
 
@@ -108,7 +108,7 @@ export const MyCampaigns = (): JSX.Element => {
         status: row.status
       };
 
-      const campaignCreated: CampaignEntity = await ApiAddCampagin(campaignPayload);
+      const campaignCreated: CampaignEntity = await ApiAddCampaign(campaignPayload);
 
       const newCampaigns = [
         ...dataTable,

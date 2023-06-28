@@ -1,4 +1,4 @@
-import { CampaignStatusEnum } from '../../entities/campagin.entity';
+import { CampaignStatusEnum, CampaignTargetEnum } from '../../entities/campagin.entity';
 
 export interface EditCompanyPageState {
   name: string;
@@ -19,4 +19,5 @@ export interface AddCampaginState {
   budget?: number;
   dailyBudget: number;
   status: CampaignStatusEnum;
+  target: CampaignTargetEnum;
 }

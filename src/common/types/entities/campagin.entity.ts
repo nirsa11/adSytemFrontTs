@@ -1,8 +1,16 @@
 export enum CampaignStatusEnum {
-  active = 'active',
-  paused = 'paused',
-  completed = 'completed'
+  active = 'פעיל',
+  paused = 'טיוטה',
+  completed = 'הושלם'
 }
+
+export enum CampaignTargetEnum {
+  traffic = 'טראפיק',
+  leads = 'לידים',
+  sales = 'מכירות',
+  appPromoting = 'קידום אפליקציה',
+}
+
 
 export class CampaignEntity {
   id?: number;
@@ -14,4 +22,5 @@ export class CampaignEntity {
   dailyBudget: number;
   createdAt?: number = new Date().getTime();
   companyId: number;
+  target?: CampaignTargetEnum;
 }

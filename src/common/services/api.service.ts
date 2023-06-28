@@ -118,7 +118,7 @@ export const ApiUpdateUser = async (userUpdates: Partial<UserEntity>): Promise<U
   }
 };
 
-export const ApiAddCampagin = async (
+export const ApiAddCampaign = async (
   campaignPayload: Omit<CampaignEntity, 'id'>
 ): Promise<CampaignEntity> => {
   try {
