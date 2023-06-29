@@ -1,4 +1,6 @@
-import { CampaignStatusEnum, CampaignTargetEnum } from '../../entities/campagin.entity';
+import { CampaignStatusEnum } from "../../enum/campaignStatus.enum";
+import { CampaignTargetEnum } from "../../enum/campaignTarget.enum";
+
 
 export interface EditCompanyPageState {
   name: string;
@@ -32,4 +34,5 @@ export class MyCampaignState {
   createdBy: string;
   createdAt: string;
   companyId: number;
+  target: CampaignTargetEnum;
 }

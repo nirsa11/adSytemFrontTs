@@ -24,7 +24,9 @@ import {
   editCompanySchema
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
-import { CampaignEntity, CampaignStatusEnum } from '../../../common/types/entities/campagin.entity';
+import { CampaignEntity } from '../../../common/types/entities/campagin.entity';
+import {CampaignStatusEnum} from '../../../common/types/enum/campaignStatus.enum';
+import {CampaignTargetEnum} from '../../../common/types/enum/campaignTarget.enum';
 import { InputDateComponent } from '../../../ui/inputDate.ui';
 
 export class EditCampaignState {
@@ -36,6 +38,7 @@ export class EditCampaignState {
   status: CampaignStatusEnum;
   createdBy: string;
   createdAt: string;
+  target: CampaignTargetEnum.traffic
 }
 
 const initialState: EditCampaignState = {
@@ -46,7 +49,8 @@ const initialState: EditCampaignState = {
   dailyBudget: '',
   createdBy: '',
   createdAt: '',
-  status: CampaignStatusEnum.active
+  status: CampaignStatusEnum.active,
+  target: CampaignTargetEnum.traffic
 };
 
 /**
@@ -70,7 +74,8 @@ export const EditCampaign = (): JSX.Element => {
     dailyBudget: campaign.dailyBudget,
     createdBy: campaign.createdBy,
     createdAt: campaign.createdAt,
-    status: campaign.status
+    status: campaign.status,
+    target: campaign.target
   });
 
   const {
@@ -84,7 +89,7 @@ export const EditCampaign = (): JSX.Element => {
       endDate: campaign.endDate,
       budget: campaign.budget,
       dailyBudget: campaign.dailyBudget,
-      status: campaign.status
+      status: campaign.status,
     },
     mode: 'onBlur',
     delayError: 500
@@ -117,7 +122,8 @@ export const EditCampaign = (): JSX.Element => {
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
         status: CampaignStatusEnum[state.status],
-        companyId: user.companies[0].id
+        companyId: user.companies[0].id,
+        target: state.target
       };
 
       const campaignUpdated: CampaignEntity = await ApiUpdateCampaign(payload);
