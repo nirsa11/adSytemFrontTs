@@ -23,7 +23,11 @@ import {
   editCompanySchema
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
-import { CampaignEntity, CampaignStatusEnum, CampaignTargetEnum } from '../../../common/types/entities/campagin.entity';
+import {
+  CampaignEntity,
+  CampaignStatusEnum,
+  CampaignTargetEnum
+} from '../../../common/types/entities/campagin.entity';
 import { InputDateComponent } from '../../../ui/inputDate.ui';
 
 const initialState: AddCampaginState = {
@@ -83,7 +87,7 @@ export const AddCampaign = (): JSX.Element => {
         createdBy: user.id,
         status: state.status,
         companyId: user.companies[0].id,
-        target: state.target,
+        target: state.target
       };
 
       const campaignCreated: CampaignEntity = await ApiAddCampaign(payload);
@@ -197,7 +201,8 @@ export const AddCampaign = (): JSX.Element => {
                   errors={errors}
                 />
               </Col>
-              <Col xs={12} md={4} className="p-3">
+
+              <Col xs={12} md={12} className="p-3 d-flex  justify-content- bg-dark">
                 <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין</Form.Label>
                 <Form.Select
                   {...register('target')}
@@ -212,8 +217,6 @@ export const AddCampaign = (): JSX.Element => {
                     </option>
                   ))}
                 </Form.Select>
-              </Col>
-              <Col xs={12} md={4} className="p-3">
                 <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין</Form.Label>
                 <Form.Select
                   {...register('status')}
@@ -223,13 +226,13 @@ export const AddCampaign = (): JSX.Element => {
                   defaultValue={CampaignStatusEnum.active}
                 >
                   {Object.values(CampaignStatusEnum).map((option) => {
-
-                    if(option === CampaignStatusEnum.completed) return null;
-                    return <option key={option} value={option}>
+                    if (option === CampaignStatusEnum.completed) return null;
+                    return (
+                      <option key={option} value={option}>
                         {option}
                       </option>
-                  }
-                  )}
+                    );
+                  })}
                 </Form.Select>
               </Col>
             </Row>
