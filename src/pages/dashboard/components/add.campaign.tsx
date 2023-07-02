@@ -23,11 +23,9 @@ import {
   editCompanySchema
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
-import {
-  CampaignEntity,
-  CampaignStatusEnum,
-  CampaignTargetEnum
-} from '../../../common/types/entities/campagin.entity';
+import { CampaignEntity } from '../../../common/types/entities/campagin.entity';
+import { CampaignStatusEnum } from '../../../common/types/enum/campaignStatus.enum';
+import { CampaignTargetEnum } from '../../../common/types/enum/campaignTarget.enum';
 import { InputDateComponent } from '../../../ui/inputDate.ui';
 
 const initialState: AddCampaginState = {

@@ -4,7 +4,6 @@ import {
   EditCompanyPageState
 } from '../types/interface/state/dashboard.interface';
 import { applyTranslations } from '.';
-import { CampaignStatusEnum } from '../types/entities/campagin.entity';
 
 export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTranslations(
   z

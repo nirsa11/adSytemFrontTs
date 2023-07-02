@@ -4,7 +4,7 @@ import { UserEntity } from '../../../common/types/entities/user.entity';
 import { RootState } from '../../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { CompanyEntity } from '../../../common/types/entities/company.entity';
-import { CampaignEntity, CampaignStatusEnum } from '../../../common/types/entities/campagin.entity';
+import { CampaignEntity } from '../../../common/types/entities/campagin.entity';
 import { timestampToDate } from '../../../common/utils';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +51,8 @@ export const MyCampaigns = (): JSX.Element => {
           createdBy: userName,
           createdAt: new Date(campaign.createdAt).toLocaleDateString(),
           status: campaign.status,
-          companyId: companyId
+          companyId: companyId,
+          target: campaign.target
         };
       })
   );
@@ -126,7 +127,7 @@ export const MyCampaigns = (): JSX.Element => {
     }
   };
 
-  const hadnleDuplicate = async (row: MyCampaignState) => {
+  const handleDuplicate = async (row: MyCampaignState) => {
     try {
       const campaignPayload: Omit<CampaignEntity, 'id'> = {
         budget: parseInt(row.budget),
@@ -135,7 +136,8 @@ export const MyCampaigns = (): JSX.Element => {
         dailyBudget: parseInt(row.dailyBudget),
         endDate: new Date(row.endDate).getTime(),
         name: row.name,
-        status: row.status
+        status: row.status,
+        target: row.target
       };
 
       const campaignCreated: CampaignEntity = await ApiAddCampaign(campaignPayload);
@@ -151,6 +153,7 @@ export const MyCampaigns = (): JSX.Element => {
           createdBy: userName,
           createdAt: new Date(campaignCreated.createdAt).toLocaleDateString(),
           status: campaignCreated.status,
+          target: campaignCreated.target,
           companyId: companyId
         }
       ];
@@ -235,7 +238,7 @@ export const MyCampaigns = (): JSX.Element => {
           <div className="d-flex justify-content-between col-md-7">
             <PencilSquare onClick={() => handleEdit(row)} />
             <TrashFill color="red" onClick={() => handleDeleteModal(row)} />
-            <DatabaseAdd color="blue" onClick={() => hadnleDuplicate(row)} />
+            <DatabaseAdd color="blue" onClick={() => handleDuplicate(row)} />
           </div>
         </>
       ),
