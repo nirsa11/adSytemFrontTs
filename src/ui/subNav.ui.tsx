@@ -12,15 +12,15 @@ import { MyCampaigns } from '../pages/dashboard/components/list.campaigns';
 let navRoutes: RouteProps[] = [
   {
     path: '/dashboard/',
-    name: 'הוסף קמפיין',
-    public: false,
-    component: <AddCampaign />
-  },
-  {
-    path: '/dashboard/my-campaigns',
     name: 'הקמפיינים שלי',
     public: false,
     component: <MyCampaigns />
+  },
+  {
+    path: '/dashboard/add-campaign',
+    name: 'הוסף קמפיין',
+    public: false,
+    component: <AddCampaign />
   }
 ];
 

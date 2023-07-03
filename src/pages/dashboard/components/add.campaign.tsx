@@ -93,7 +93,7 @@ export const AddCampaign = (): JSX.Element => {
       if (campaignCreated) {
         const company: CompanyEntity = {
           ...user.company,
-          campaigns: [...user?.company?.campaigns, campaignCreated]
+          campaigns: [...(user?.company?.campaigns ?? []), campaignCreated]
         };
 
         dispatch(setUser({ ...user, company: company, rememberMe: true }));
