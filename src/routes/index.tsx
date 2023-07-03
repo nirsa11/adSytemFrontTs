@@ -94,9 +94,5 @@ export const navRoutes: NavRoute[] = [
   {
     path: '/dashboard',
     name: 'קמפיינים'
-  },
-  {
-    path: '/dashboard/edit-profile',
-    name: 'פרופיל'
   }
 ];

@@ -29,7 +29,7 @@
 
 } */
 
-.nav-item:nth-child(2):after {
+.nav-item:nth-child(2):after:not(.nav-item .dropdown) {
     position: relative !important;
     display: inline-block !important;
     content: "";
