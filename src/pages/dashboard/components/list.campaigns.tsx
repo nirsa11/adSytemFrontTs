@@ -175,6 +175,10 @@ export const MyCampaigns = (): JSX.Element => {
       name: 'שם הקמפיין',
       selector: (row) => row.name
     },
+    {
+      name: 'מטרת הקמפיין',
+      selector: (row) => row.target
+    },
 
     {
       name: 'תקציב',
