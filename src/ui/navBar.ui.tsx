@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Navbar, Nav, Container, Col } from 'react-bootstrap';
+import { Navbar, Nav, Container, Col, NavDropdown } from 'react-bootstrap';
 import LogoOne from '../assets/logo-login-1.png';
 import LogoTwo from '../assets/logo-login-2.png';
 import styles from './style/navbar.module.css';
@@ -18,6 +18,7 @@ export const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
+  const [selectedDropDown, setSelectedDropDown] = useState(userName);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -62,6 +63,7 @@ export const NavBar = () => {
         <Nav className="p-3 justify-content-end" as={Col} col={12}>
           {navRoutes.map((route, index) => (
             <Nav.Link
+              onClick={() => setSelectedDropDown(userName)}
               key={index}
               as={Link}
               to={route.path}
@@ -72,9 +74,23 @@ export const NavBar = () => {
               {route.name}
             </Nav.Link>
           ))}
-          <Nav.Link className={`${styles.navLink} ${styles.navLinkLogout} p-2`} onClick={logOut}>
-            שלום {userName} <ArrowRight />
-          </Nav.Link>
+
+          <NavDropdown
+            title={selectedDropDown}
+            id="basic-nav-dropdown"
+            style={{ color: 'white !important' }}
+          >
+            <NavDropdown.Item
+              as={Link}
+              to={'/dashboard/edit-profile'}
+              onClick={() => setSelectedDropDown('פרופיל')}
+            >
+              פרופיל
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={'/auth'} onClick={logOut}>
+              יציאה מהחשבון
+            </NavDropdown.Item>
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
