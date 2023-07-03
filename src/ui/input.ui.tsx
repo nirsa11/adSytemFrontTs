@@ -12,7 +12,8 @@ export const InputComponent: React.FC<InputProps> = ({
   errors,
   handleChange,
   value,
-  defaultValue
+  defaultValue,
+  required
 }) => {
   const [focused, setFocused] = useState<boolean>(false);
   const handleFocus = (event) => {
@@ -28,7 +29,9 @@ export const InputComponent: React.FC<InputProps> = ({
   const error = errors && errors[name] && (errors[name].message as string);
   return (
     <Form.Group as={Row} className="d-flex">
-      <Form.Label className={focused ? 'shrink' : 'align-self-end '}>{label}</Form.Label>
+      <Form.Label className={focused ? 'shrink' : 'align-self-end '}>{`${label} ${
+        required ? '*' : ''
+      } `}</Form.Label>
       <Col sm={8}>
         <Form.Control
           type={type}

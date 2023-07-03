@@ -15,23 +15,12 @@ import { RootState } from '../../../redux/store';
 import { EditCompanyPageState } from '../../../common/types/interface/state/dashboard.interface';
 import {
   ValidationEditCompanySchema,
+  editAnalystRegisterSchema,
   editCompanySchema
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
-
-const initialState: EditCompanyPageState = {
-  name: '',
-  email: '',
-  password: '',
-  address: '',
-  mobileNumber: '',
-  confirmPassword: '',
-  businessId: '',
-  companyName: '',
-  nameForTaxInvoice: '',
-  role: 0,
-  error: ''
-};
+import { UserRoleEnum } from '../../../common/types/enum/userRole.enum';
+import { analystRegisterSchema } from '../../../common/schemas/schemas.auth';
 
 /**
  * A functional component that renders a form for editing a user's company profile.
@@ -42,16 +31,19 @@ export const EditCompanyPage = (): JSX.Element => {
   const [state, setState] = useState<EditCompanyPageState>({
     name: user.name,
     email: user.email,
+    role: user.role,
     password: user.password,
-    address: user.company.address,
     mobileNumber: user.mobileNumber,
-    businessId: user.company.businessId,
     confirmPassword: '',
-    companyName: user.company.name,
-    nameForTaxInvoice: user.company.nameForTaxInvoice,
-    error: '',
-    role: 0
+    ...(user.role !== UserRoleEnum.ANALYST && {
+      businessId: user.company.businessId,
+      address: user.company.address,
+      companyName: user.company.name,
+      nameForTaxInvoice: user.company.nameForTaxInvoice
+    }),
+    error: ''
   });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -60,17 +52,22 @@ export const EditCompanyPage = (): JSX.Element => {
     handleSubmit,
     formState: { errors }
   } = useForm<ValidationEditCompanySchema>({
-    resolver: zodResolver(editCompanySchema),
+    resolver: zodResolver(
+      user.role == UserRoleEnum.ANALYST ? editAnalystRegisterSchema : editCompanySchema
+    ),
     defaultValues: {
       name: user.name,
       email: user.email,
+      role: user.role,
       password: user.password,
-      address: user.company.address,
       mobileNumber: user.mobileNumber,
-      businessId: user.company.businessId,
       confirmPassword: '',
-      companyName: user.company.name,
-      nameForTaxInvoice: user.company.nameForTaxInvoice
+      ...(user.role !== UserRoleEnum.ANALYST && {
+        businessId: user.company.businessId,
+        address: user.company.address,
+        companyName: user.company.name,
+        nameForTaxInvoice: user.company.nameForTaxInvoice
+      })
     },
     mode: 'onBlur',
     delayError: 500
@@ -92,13 +89,15 @@ export const EditCompanyPage = (): JSX.Element => {
         password: state.password,
         mobileNumber: state.mobileNumber,
         role: user.role,
-        company: {
-          id: user.company.id,
-          address: state.address,
-          businessId: state.businessId,
-          name: state.companyName,
-          nameForTaxInvoice: state.nameForTaxInvoice
-        } as CompanyEntity
+        ...(user.role !== UserRoleEnum.ANALYST && {
+          company: {
+            businessId: state.businessId,
+            address: state.address,
+            name: state.companyName,
+            nameForTaxInvoice: state.nameForTaxInvoice,
+            type: user.company.type
+          }
+        })
       };
 
       const userUpdated: UserEntity = await updateCompleteUser(payload as UserEntity);
@@ -136,131 +135,216 @@ export const EditCompanyPage = (): JSX.Element => {
             style={{ maxHeight: '100vh' }}
             onSubmit={handleSubmit(() => handleSubmitButton())}
           >
-            <Row>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="companyName"
-                  register={register}
-                  name="companyName"
-                  label="שם חברה"
-                  type="text"
-                  placeholder="הכנס שם חברה"
-                  value={state && state.companyName}
-                  // defaultValue={user && state.companyName}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="nameForTaxInvoice"
-                  register={register}
-                  name="nameForTaxInvoice"
-                  label="שם לצורך חשבונית מס"
-                  type="text"
-                  placeholder="הכנס שם לצורך חשבונית"
-                  value={state && state.nameForTaxInvoice}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="businessId"
-                  register={register}
-                  name="businessId"
-                  label="ח.פ תעודת זהות"
-                  type="text"
-                  placeholder="הכנס ח.פ"
-                  value={state && state.businessId}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="address"
-                  register={register}
-                  name="address"
-                  label="כתובת"
-                  type="text"
-                  placeholder="הכנס כתובת"
-                  value={state && state.address}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="name"
-                  register={register}
-                  name="name"
-                  label="איש קשר"
-                  type="text"
-                  placeholder="הכנס שם אישר קשר"
-                  value={state && state.name}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="mobileNumber"
-                  register={register}
-                  name="mobileNumber"
-                  label="טלפון"
-                  type="tel"
-                  placeholder="הכנס מספר נייד של איש קשר"
-                  value={state && state.mobileNumber}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-            </Row>
+            {user.role == UserRoleEnum.ANALYST ? (
+              <>
+                <Row>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="name"
+                      register={register}
+                      name="name"
+                      label="איש קשר"
+                      type="text"
+                      placeholder="הכנס שם אישר קשר"
+                      value={state && state.name}
+                      handleChange={handleChange}
+                      required={true}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="mobileNumber"
+                      register={register}
+                      name="mobileNumber"
+                      label="טלפון"
+                      type="tel"
+                      placeholder="הכנס מספר נייד של איש קשר"
+                      value={state && state.mobileNumber}
+                      handleChange={handleChange}
+                      required={true}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="email"
+                      register={register}
+                      name="email"
+                      label='דוא"ל'
+                      type="email"
+                      placeholder='הכנס דוא"ל'
+                      value={state && state.email}
+                      handleChange={handleChange}
+                      required={true}
+                      errors={errors}
+                    />
+                  </Col>
+                </Row>
 
-            <Row>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="email"
-                  register={register}
-                  name="email"
-                  label='דוא"ל'
-                  type="email"
-                  placeholder='הכנס דוא"ל'
-                  value={state && state.email}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="password"
-                  register={register}
-                  name="password"
-                  label="סיסמה"
-                  type="password"
-                  placeholder="הכנס סיסמה"
-                  value={state && state.password}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-              <Col xs={12} md={4} className="gap-3">
-                <InputComponent
-                  key="confirmPassword"
-                  register={register}
-                  name="confirmPassword"
-                  label="אימות סיסמה"
-                  type="password"
-                  placeholder="הכנס שוב את הסיסמה"
-                  value={state && state.confirmPassword}
-                  handleChange={handleChange}
-                  errors={errors}
-                />
-              </Col>
-            </Row>
+                <Row>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="password"
+                      register={register}
+                      name="password"
+                      label="סיסמה"
+                      type="password"
+                      placeholder="הכנס סיסמה"
+                      value={state && state.password}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="confirmPassword"
+                      register={register}
+                      name="confirmPassword"
+                      label="אימות סיסמה"
+                      type="password"
+                      placeholder="הכנס שוב את הסיסמה"
+                      value={state && state.confirmPassword}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                </Row>
+              </>
+            ) : (
+              <>
+                <Row>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="companyName"
+                      register={register}
+                      name="companyName"
+                      label="שם חברה"
+                      type="text"
+                      placeholder="הכנס שם חברה"
+                      value={state && state.companyName}
+                      // defaultValue={user && state.companyName}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="nameForTaxInvoice"
+                      register={register}
+                      name="nameForTaxInvoice"
+                      label="שם לצורך חשבונית מס"
+                      type="text"
+                      placeholder="הכנס שם לצורך חשבונית"
+                      value={state && state.nameForTaxInvoice}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="businessId"
+                      register={register}
+                      name="businessId"
+                      label="ח.פ תעודת זהות"
+                      type="text"
+                      placeholder="הכנס ח.פ"
+                      required={true}
+                      value={state && state.businessId}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="address"
+                      register={register}
+                      name="address"
+                      label="כתובת"
+                      type="text"
+                      placeholder="הכנס כתובת"
+                      value={state && state.address}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="name"
+                      register={register}
+                      name="name"
+                      label="איש קשר"
+                      type="text"
+                      placeholder="הכנס שם אישר קשר"
+                      required={true}
+                      value={state && state.name}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="mobileNumber"
+                      register={register}
+                      name="mobileNumber"
+                      label="טלפון"
+                      type="tel"
+                      required={true}
+                      placeholder="הכנס מספר נייד של איש קשר"
+                      value={state && state.mobileNumber}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="email"
+                      register={register}
+                      name="email"
+                      label='דוא"ל'
+                      type="email"
+                      required={true}
+                      placeholder='הכנס דוא"ל'
+                      value={state && state.email}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="password"
+                      register={register}
+                      name="password"
+                      label="סיסמה"
+                      type="password"
+                      placeholder="הכנס סיסמה"
+                      value={state && state.password}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                  <Col xs={12} md={4} className="gap-3">
+                    <InputComponent
+                      key="confirmPassword"
+                      register={register}
+                      name="confirmPassword"
+                      label="אימות סיסמה"
+                      type="password"
+                      placeholder="הכנס שוב את הסיסמה"
+                      value={state && state.confirmPassword}
+                      handleChange={handleChange}
+                      errors={errors}
+                    />
+                  </Col>
+                </Row>
+              </>
+            )}
+
             <Row>
               <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">
                 <ButtonUI text={'שמירה'} />
