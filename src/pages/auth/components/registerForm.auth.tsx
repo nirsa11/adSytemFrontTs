@@ -100,87 +100,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
     }
   };
 
-  const AnalystForm = (): JSX.Element => {
-    return (
-      <>
-        <Row>
-          <Col xs={12} md={6} className="gap-3">
-            <InputComponent
-              key="name"
-              register={register}
-              name="name"
-              label="איש קשר"
-              type="text"
-              placeholder="הכנס שם אישר קשר"
-              value={state && state.name}
-              handleChange={handleChange}
-              errors={errors}
-            />
-          </Col>
-          <Col xs={12} md={6} className="gap-3">
-            <InputComponent
-              key="mobileNumber"
-              register={register}
-              name="mobileNumber"
-              label="טלפון"
-              type="tel"
-              placeholder="הכנס מספר נייד של איש קשר"
-              value={state && state.mobileNumber}
-              handleChange={handleChange}
-              errors={errors}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} md={6} className="gap-3">
-            <InputComponent
-              key="email"
-              register={register}
-              name="email"
-              label='דוא"ל'
-              type="email"
-              placeholder='הכנס דוא"ל'
-              value={state && state.email}
-              handleChange={handleChange}
-              errors={errors}
-            />
-          </Col>
-          <Col xs={12} md={6} className="gap-3">
-            <InputComponent
-              key="password"
-              register={register}
-              name="password"
-              label="סיסמה"
-              type="password"
-              placeholder="הכנס סיסמה"
-              value={state && state.password}
-              handleChange={handleChange}
-              errors={errors}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} md={6} className="gap-3">
-            <InputComponent
-              key="confirmPassword"
-              register={register}
-              name="confirmPassword"
-              label="אימות סיסמה"
-              type="password"
-              placeholder="הכנס שוב את הסיסמה"
-              value={state && state.confirmPassword}
-              handleChange={handleChange}
-              errors={errors}
-            />
-          </Col>
-          <Col className="col-md-6 col-sm-12 align-self-end p-2">
-            <ButtonUI text={'שמירה'} />
-          </Col>
-        </Row>
-      </>
-    );
-  };
-
   return (
     <Container>
       <Form
@@ -202,6 +121,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.name}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="gap-3">
@@ -215,6 +135,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.mobileNumber}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
             </Row>
@@ -230,6 +151,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.email}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="gap-3">
@@ -243,6 +165,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.password}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
             </Row>
@@ -258,6 +181,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.confirmPassword}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col className="col-md-6 col-sm-12 align-self-end p-2">
@@ -279,6 +203,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.companyName}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="gap-3">
@@ -307,6 +232,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.businessId}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="gap-3">
@@ -335,6 +261,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.name}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="gap-3">
@@ -348,6 +275,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.mobileNumber}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
             </Row>
@@ -363,6 +291,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.email}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="gap-3">
@@ -376,6 +305,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.password}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
             </Row>
@@ -391,6 +321,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   value={state && state.confirmPassword}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col className="col-md-6 col-sm-12 align-self-end p-2">

@@ -163,6 +163,7 @@ export const LoginPage = (): JSX.Element => {
               value={stateReset && stateReset.emailReset}
               handleChange={handleChangeResetPassword}
               errors={errorsResetPassword}
+              required={true}
             />
           </Row>
           <Row md={12}>
@@ -189,6 +190,7 @@ export const LoginPage = (): JSX.Element => {
             defaultValue=""
             value={state && state.email}
             handleChange={handleChange}
+            required={true}
             errors={errors}
           />
         </Row>
@@ -203,6 +205,7 @@ export const LoginPage = (): JSX.Element => {
             defaultValue=""
             value={state && state.password}
             handleChange={handleChange}
+            required={true}
             errors={errors}
           />
         </Row>

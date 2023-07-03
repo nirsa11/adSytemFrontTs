@@ -10,6 +10,7 @@ export interface InputProps {
   defaultValue?: string;
   handleChange: ChangeEventHandler<HTMLInputElement>;
   errors?: FieldErrors;
+  required?: boolean;
   register?: (name: string, RegisterOptions?) => { onChange; onBlur; name; ref };
 }
 export interface InputDateProps {

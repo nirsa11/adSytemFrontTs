@@ -141,6 +141,7 @@ export const AddCampaign = (): JSX.Element => {
                   // defaultValue={user && state.companyName}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="p-3">
@@ -154,6 +155,7 @@ export const AddCampaign = (): JSX.Element => {
                   value={state && state.dailyBudget}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
             </Row>
@@ -169,11 +171,12 @@ export const AddCampaign = (): JSX.Element => {
                   value={state && state.budget}
                   handleChange={handleChange}
                   errors={errors}
+                  required={true}
                 />
               </Col>
               <Col xs={12} md={6} className="p-3">
                 <InputDateComponent
-                  label="תאריך סיום"
+                  label="תאריך סיום * "
                   name="endDate"
                   register={register}
                   type="date"
@@ -186,7 +189,7 @@ export const AddCampaign = (): JSX.Element => {
 
               <Col xs={12} md={5} className="p-3">
                 <div className="d-flex ml-auto flex-column ">
-                  <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין</Form.Label>
+                  <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין *</Form.Label>
                   <Form.Select
                     {...register('target')}
                     name="target"
@@ -204,7 +207,7 @@ export const AddCampaign = (): JSX.Element => {
               </Col>
               <Col xs={12} md={5} className="p-3">
                 <div className="d-flex ml-auto flex-column">
-                  <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין</Form.Label>
+                  <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין *</Form.Label>
                   <Form.Select
                     {...register('status')}
                     name="status"

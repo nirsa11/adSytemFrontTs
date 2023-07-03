@@ -1,13 +1,13 @@
-import { CampaignStatusEnum } from "../../enum/campaignStatus.enum";
-import { CampaignTargetEnum } from "../../enum/campaignTarget.enum";
-
+import { CampaignStatusEnum } from '../../enum/campaignStatus.enum';
+import { CampaignTargetEnum } from '../../enum/campaignTarget.enum';
+import { UserRoleEnum } from '../../enum/userRole.enum';
 
 export interface EditCompanyPageState {
   name: string;
   email: string;
   password?: string;
   mobileNumber: string;
-  role: number;
+  role: UserRoleEnum;
   confirmPassword?: string;
   companyName: string;
   nameForTaxInvoice: string;
@@ -15,6 +15,7 @@ export interface EditCompanyPageState {
   address: string;
   error: string;
 }
+
 export interface AddCampaginState {
   name: string;
   endDate: Date;
