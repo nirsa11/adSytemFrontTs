@@ -1,5 +1,5 @@
 import { AuthLayout } from '../../../layout/auth.layout';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../auth.css';
 import { InputProps } from '../../../common/types/interface/ui/inputProps.interface';
 import { FormComponent } from '../../../ui/form.ui';
@@ -20,223 +20,57 @@ import { setUser } from '../../../redux/userSlice';
 import { UserEntity } from '../../../common/types/entities/user.entity';
 import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { setAlert } from '../../../redux/errorSlice';
+import { RolePage } from './role.auth';
+import { UserRoleEnum } from '../../../common/types/enum/userRole.enum';
+import { RegisterForm } from './registerForm.auth';
 
-const initialState: RegisterPageState = {
-  name: '',
-  email: '',
-  password: '',
-  address: '',
-  mobileNumber: '',
-  confirmPassword: '',
-  businessId: '',
-  companyName: '',
-  nameForTaxInvoice: '',
-  role: 0,
-  error: ''
-};
+const stepsArray = ['role', 'register'];
+
+export enum StepsArrayEnum {
+  role = 'role',
+  register = 'register'
+}
 
 /**
  * A functional component that renders a registration form for a user to sign up.
  * @returns {JSX.Element} - The JSX element that contains the registration form.
  */
 export const RegisterPage = (): JSX.Element => {
-  const [state, setState] = useState<RegisterPageState>(initialState);
+  const [step, setStep] = useState<StepsArrayEnum>(StepsArrayEnum.role);
+  const [role, setRole] = useState<UserRoleEnum | null>(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<ValidationRegisterSchema>({
-    resolver: zodResolver(registerSchema),
-    mode: 'onBlur',
-    delayError: 500
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
+  const getComponent = (): JSX.Element => {
+    if (step === 'register') {
+      return <RegisterForm role={role} />;
+    } else {
+      return <RolePage setRole={setRole} role={role} />;
+    }
   };
 
-  const handleSubmitButton = async (): Promise<void> => {
-    try {
-      const payload: UserEntity = {
-        name: state.name,
-        email: state.email,
-        password: state.password,
-        mobileNumber: state.mobileNumber,
-        role: 1,
-        companies: [
-          {
-            address: state.address,
-            businessId: state.businessId,
-            name: state.companyName,
-            nameForTaxInvoice: state.nameForTaxInvoice
-          } as CompanyEntity
-        ]
-      };
-
-      const user: UserEntity = await ApiRegister(payload as UserEntity);
-
-      if (user) {
-        dispatch(setUser({ ...user, rememberMe: true }));
-        dispatch(setAlert({ message: `ברוך הבא ${user.name}`, type: 'success' }));
-
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      setState((prevState) => ({
-        ...prevState,
-        error: error.message
-      }));
-      dispatch(setAlert({ message: error.message, type: 'danger' }));
+  const setStepByclick = (): StepsArrayEnum => {
+    if (step === StepsArrayEnum.register) {
+      return StepsArrayEnum.role;
+    } else {
+      return StepsArrayEnum.register;
     }
   };
 
   return (
-    <>
-      <Container>
-        <Form
-          className="d-flex flex-column mt-5 "
-          style={{ maxHeight: '100vh' }}
-          onSubmit={handleSubmit(() => handleSubmitButton())}
+    <Container className="d-flex flex-column align-items-stretch align-items-center justify-content-center ">
+      {getComponent()}
+
+      <div className={`${step == 'role' ? 'align-self-end' : 'align-self-start'} mt-3`}>
+        <Button
+          className="btn btn-primary"
+          onClick={() => setStep(setStepByclick)}
+          disabled={role ? false : true}
         >
-          <Row>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="companyName"
-                register={register}
-                name="companyName"
-                label="שם חברה"
-                type="text"
-                placeholder="הכנס שם חברה"
-                value={state && state.companyName}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="nameForTaxInvoice"
-                register={register}
-                name="nameForTaxInvoice"
-                label="שם לצורך חשבונית מס"
-                type="text"
-                placeholder="הכנס שם לצורך חשבונית"
-                value={state && state.nameForTaxInvoice}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="businessId"
-                register={register}
-                name="businessId"
-                label="ח.פ תעודת זהות"
-                type="text"
-                placeholder="הכנס ח.פ"
-                value={state && state.businessId}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="address"
-                register={register}
-                name="address"
-                label="כתובת"
-                type="text"
-                placeholder="הכנס כתובת"
-                value={state && state.address}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="name"
-                register={register}
-                name="name"
-                label="איש קשר"
-                type="text"
-                placeholder="הכנס שם אישר קשר"
-                value={state && state.name}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="mobileNumber"
-                register={register}
-                name="mobileNumber"
-                label="טלפון"
-                type="tel"
-                placeholder="הכנס מספר נייד של איש קשר"
-                value={state && state.mobileNumber}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="email"
-                register={register}
-                name="email"
-                label='דוא"ל'
-                type="email"
-                placeholder='הכנס דוא"ל'
-                value={state && state.email}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="password"
-                register={register}
-                name="password"
-                label="סיסמה"
-                type="password"
-                placeholder="הכנס סיסמה"
-                value={state && state.password}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6} className="gap-3">
-              <InputComponent
-                key="confirmPassword"
-                register={register}
-                name="confirmPassword"
-                label="אימות סיסמה"
-                type="password"
-                placeholder="הכנס שוב את הסיסמה"
-                value={state && state.confirmPassword}
-                handleChange={handleChange}
-                errors={errors}
-              />
-            </Col>
-            <Col className="col-md-6 col-sm-12 align-self-end p-2">
-              <ButtonUI text={'שמירה'} />
-            </Col>
-          </Row>
-        </Form>
-      </Container>
-    </>
+          {step == 'role' ? 'הבא' : 'הקודם'}
+        </Button>
+      </div>
+    </Container>
   );
 };
