@@ -121,7 +121,7 @@ export const EditCampaign = (): JSX.Element => {
         dailyBudget:
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
-        status: CampaignStatusEnum[state.status],
+        status: state.status,
         companyId: user.company.id,
         target: state.target
       };

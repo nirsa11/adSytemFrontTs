@@ -32,7 +32,9 @@ export const MyCampaigns = (): JSX.Element => {
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
   const companyId: number = user?.company?.id;
   const [modal, setModal] = useState<boolean>(false);
+  const [modalDupli, setModalDupli] = useState<boolean>(false);
   const [campaignToDelete, setCampaignToDelete] = useState<MyCampaignState>(null);
+  const [campaignToDupli, setCampaignToDupli] = useState<MyCampaignState>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
@@ -68,6 +70,12 @@ export const MyCampaigns = (): JSX.Element => {
     setModal(true);
 
     setCampaignToDelete(row);
+  };
+
+  const handleDuplicateModal = (row: MyCampaignState) => {
+    setModalDupli(true);
+
+    setCampaignToDupli(row);
   };
 
   /**
@@ -112,7 +120,7 @@ export const MyCampaigns = (): JSX.Element => {
 
       const company: CompanyEntity = {
         ...user.company,
-        campaigns: user.company.campaigns.filter(({ id }) => id === campaignToDelete.id)
+        campaigns: user.company.campaigns.filter(({ id }) => id !== campaignToDelete.id)
       };
 
       setDataTable(dataTable.filter(({ id }) => id !== campaignToDelete.id));
@@ -124,17 +132,17 @@ export const MyCampaigns = (): JSX.Element => {
     }
   };
 
-  const handleDuplicate = async (row: MyCampaignState) => {
+  const handleDuplicate = async () => {
     try {
       const campaignPayload: Omit<CampaignEntity, 'id'> = {
-        budget: parseInt(row.budget),
-        companyId: row.companyId,
+        budget: parseInt(campaignToDupli.budget),
+        companyId: campaignToDupli.companyId,
         createdBy: user.id,
-        dailyBudget: parseInt(row.dailyBudget),
-        endDate: new Date(row.endDate).getTime(),
-        name: row.name,
-        status: row.status,
-        target: row.target
+        dailyBudget: parseInt(campaignToDupli.dailyBudget),
+        endDate: new Date(campaignToDupli.endDate).getTime(),
+        name: campaignToDupli.name,
+        status: campaignToDupli.status,
+        target: campaignToDupli.target
       };
 
       const campaignCreated: CampaignEntity = await ApiAddCampaign(campaignPayload);
@@ -164,6 +172,10 @@ export const MyCampaigns = (): JSX.Element => {
         };
 
         dispatch(setUser({ ...user, company, rememberMe: true }));
+
+        dispatch(setAlert({ message: 'הקמפיין שוכפל בהצלחה', type: 'success' }));
+
+        setModalDupli(false);
       }
     } catch (error) {
       dispatch(setAlert({ message: error.message, type: 'danger' }));
@@ -223,7 +235,7 @@ export const MyCampaigns = (): JSX.Element => {
           <div className="d-flex justify-content-between col-md-7">
             <PencilSquare onClick={() => handleEdit(row)} />
             <TrashFill color="red" onClick={() => handleDeleteModal(row)} />
-            <DatabaseAdd color="blue" onClick={() => handleDuplicate(row)} />
+            <DatabaseAdd color="blue" onClick={() => handleDuplicateModal(row)} />
           </div>
         </>
       ),
@@ -304,6 +316,32 @@ export const MyCampaigns = (): JSX.Element => {
             <Button
               size={SizeButtonEnum.sm}
               onClick={() => setModal(false)}
+              className="btn-warning btn"
+            >
+              בטל
+            </Button>
+          </div>
+        </ModalUIComponent>
+        <ModalUIComponent
+          show={modalDupli}
+          onHide={() => setModalDupli(false)}
+          title={'מחיקת קמפיין'}
+        >
+          <p>האם אתה בטוח שברצונך לשכפל את {campaignToDelete?.name} ? </p>
+
+          <div className="d-flex justify-content-end m-3">
+            <Button
+              size={SizeButtonEnum.sm}
+              onClick={() => handleDuplicate()}
+              className="btn-danger btn"
+            >
+              שכפל
+            </Button>
+            <div className="p-2"></div>
+
+            <Button
+              size={SizeButtonEnum.sm}
+              onClick={() => setModalDupli(false)}
               className="btn-warning btn"
             >
               בטל
