@@ -14,7 +14,8 @@ export const InputDateComponent: React.FC<InputDateProps> = ({
   errors,
   setState,
   value,
-  defaultValue
+  defaultValue,
+  minDate
 }) => {
   const [focused, setFocused] = useState<boolean>(false);
   const handleFocus = (event) => {
@@ -33,16 +34,16 @@ export const InputDateComponent: React.FC<InputDateProps> = ({
       <Form.Label className={focused ? 'shrink' : 'align-self-end '}>{label}</Form.Label>
       <Col sm={8}>
         <DatePicker
-          {...register('endDate')}
+          {...register(name)}
           className={`borderless ${focused ? 'focused' : ''}`}
           selected={new Date(value)}
-          onChange={(date) =>
+          onChange={(date) => {
             setState((prevState) => ({
               ...prevState,
-              [name]: date
-            }))
-          }
-          minDate={new Date()}
+              [name]: date.toDateString()
+            }));
+          }}
+          minDate={(minDate && new Date(minDate)) || new Date()}
           dateFormat="dd/MM/yyyy"
           onFocus={handleFocus}
         />

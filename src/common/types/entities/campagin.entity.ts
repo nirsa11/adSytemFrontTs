@@ -1,10 +1,11 @@
-import { CampaignStatusEnum } from "../enum/campaignStatus.enum";
-import { CampaignTargetEnum } from "../enum/campaignTarget.enum";
+import { CampaignStatusEnum } from '../enum/campaignStatus.enum';
+import { CampaignTargetEnum } from '../enum/campaignTarget.enum';
 
 export class CampaignEntity {
   id?: number;
   name: string;
   endDate: number;
+  startDate: number;
   budget: number;
   createdBy: number;
   status: CampaignStatusEnum;

@@ -32,6 +32,7 @@ const initialState: AddCampaginState = {
   name: '',
   dailyBudget: 0,
   endDate: new Date(),
+  startDate: new Date(),
   budget: 0,
   status: CampaignStatusEnum.paused,
   target: CampaignTargetEnum.traffic
@@ -79,6 +80,7 @@ export const AddCampaign = (): JSX.Element => {
       const payload: CampaignEntity = {
         name: state.name,
         endDate: new Date(state.endDate).getTime(),
+        startDate: new Date(state.startDate).getTime(),
         budget: typeof state.budget == 'number' ? state.budget : parseInt(state.budget),
         dailyBudget:
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
@@ -129,7 +131,7 @@ export const AddCampaign = (): JSX.Element => {
             onSubmit={handleSubmit(() => handleSubmitButton())}
           >
             <Row>
-              <Col xs={12} md={6} className="p-3">
+              <Col xs={12} md={4} className="p-3">
                 <InputComponent
                   key="name"
                   register={register}
@@ -144,7 +146,7 @@ export const AddCampaign = (): JSX.Element => {
                   required={true}
                 />
               </Col>
-              <Col xs={12} md={6} className="p-3">
+              <Col xs={12} md={4} className="p-3">
                 <InputComponent
                   key="dailyBudget"
                   register={register}
@@ -158,9 +160,7 @@ export const AddCampaign = (): JSX.Element => {
                   required={true}
                 />
               </Col>
-            </Row>
-            <Row>
-              <Col xs={12} md={6} className="p-3">
+              <Col xs={12} md={4} className="p-3">
                 <InputComponent
                   key="budget"
                   register={register}
@@ -174,19 +174,35 @@ export const AddCampaign = (): JSX.Element => {
                   required={true}
                 />
               </Col>
-              <Col xs={12} md={6} className="p-3">
+            </Row>
+            <Row>
+              <Col xs={12} md={4} className="p-3">
+                <InputDateComponent
+                  label="תאריך התחלה * "
+                  name="startDate"
+                  register={register}
+                  type="date"
+                  placeholder="הכנס ח.פ"
+                  value={state && state.startDate}
+                  setState={setState}
+                  errors={errors}
+                />
+              </Col>
+              <Col xs={12} md={4} className="p-3">
                 <InputDateComponent
                   label="תאריך סיום * "
                   name="endDate"
                   register={register}
                   type="date"
                   placeholder="הכנס ח.פ"
+                  minDate={state && state.startDate}
                   value={state && state.endDate}
                   setState={setState}
                   errors={errors}
                 />
               </Col>
-
+            </Row>
+            <Row className=" d-flex justify-content-between">
               <Col xs={12} md={5} className="p-3">
                 <div className="d-flex ml-auto flex-column ">
                   <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין *</Form.Label>
