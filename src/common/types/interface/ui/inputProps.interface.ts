@@ -22,6 +22,7 @@ export interface InputDateProps {
   defaultValue?: string;
   setState: any;
   errors?: FieldErrors;
+  minDate?: Date;
   register?: (name: string, RegisterOptions?) => { onChange; onBlur; name; ref };
 }
 

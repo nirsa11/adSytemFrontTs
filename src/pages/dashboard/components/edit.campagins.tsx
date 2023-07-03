@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -33,6 +33,7 @@ export class EditCampaignState {
   id: number;
   name: string;
   endDate: string;
+  startDate: string;
   budget: string;
   dailyBudget: string;
   status: CampaignStatusEnum;
@@ -40,18 +41,6 @@ export class EditCampaignState {
   createdAt: string;
   target: CampaignTargetEnum.traffic;
 }
-
-const initialState: EditCampaignState = {
-  id: 0,
-  name: '',
-  endDate: '',
-  budget: '',
-  dailyBudget: '',
-  createdBy: '',
-  createdAt: '',
-  status: CampaignStatusEnum.active,
-  target: CampaignTargetEnum.traffic
-};
 
 /**
  * A component that allows the user to edit a campaign. The component displays a form with fields for the campaign name,
@@ -70,6 +59,7 @@ export const EditCampaign = (): JSX.Element => {
     id: campaign.id,
     name: campaign.name,
     endDate: campaign.endDate,
+    startDate: campaign.startDate,
     budget: campaign.budget,
     dailyBudget: campaign.dailyBudget,
     createdBy: campaign.createdBy,
@@ -78,6 +68,10 @@ export const EditCampaign = (): JSX.Element => {
     target: campaign.target
   });
 
+  useEffect(() => {
+    console.log(state);
+    console.log(typeof state.endDate);
+  }, [state, setState]);
   const {
     register,
     handleSubmit,
@@ -87,6 +81,7 @@ export const EditCampaign = (): JSX.Element => {
     defaultValues: {
       name: campaign.name,
       endDate: campaign.endDate,
+      startDate: campaign.startDate,
       budget: campaign.budget,
       dailyBudget: campaign.dailyBudget,
       status: campaign.status
@@ -117,6 +112,7 @@ export const EditCampaign = (): JSX.Element => {
         id: state.id,
         name: state.name,
         endDate: new Date(state.endDate).getTime(),
+        startDate: new Date(state.startDate).getTime(),
         budget: typeof state.budget == 'number' ? state.budget : parseInt(state.budget),
         dailyBudget:
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
@@ -210,6 +206,17 @@ export const EditCampaign = (): JSX.Element => {
                   value={state && state.budget}
                   handleChange={handleChange}
                   errors={errors}
+                />
+              </Col>
+              <Col xs={12} md={6} className="p-3 d-flex">
+                <InputDateComponent
+                  label="תאריך התחלה"
+                  name="startDate"
+                  register={register}
+                  type="date"
+                  placeholder="הכנס ח.פ"
+                  value={state && state.startDate}
+                  setState={setState}
                 />
               </Col>
               <Col xs={12} md={6} className="p-3 d-flex">

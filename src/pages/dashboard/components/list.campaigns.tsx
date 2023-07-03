@@ -48,6 +48,7 @@ export const MyCampaigns = (): JSX.Element => {
           id: campaign.id,
           name: campaign.name,
           endDate: new Date(campaign.endDate).toLocaleDateString(),
+          startDate: new Date(campaign.startDate).toLocaleDateString(),
           budget: campaign.budget.toString(),
           dailyBudget: campaign.dailyBudget.toString(),
           createdBy: userName,
@@ -140,6 +141,7 @@ export const MyCampaigns = (): JSX.Element => {
         createdBy: user.id,
         dailyBudget: parseInt(campaignToDupli.dailyBudget),
         endDate: new Date(campaignToDupli.endDate).getTime(),
+        startDate: new Date(campaignToDupli.startDate).getTime(),
         name: campaignToDupli.name,
         status: campaignToDupli.status,
         target: campaignToDupli.target
@@ -153,6 +155,7 @@ export const MyCampaigns = (): JSX.Element => {
           id: campaignCreated.id,
           name: campaignCreated.name,
           endDate: new Date(campaignCreated.endDate).toLocaleDateString(),
+          startDate: new Date(campaignCreated.startDate).toLocaleDateString(),
           budget: campaignCreated.budget.toString(),
           dailyBudget: campaignCreated.dailyBudget.toString(),
           createdBy: userName,
@@ -219,6 +222,10 @@ export const MyCampaigns = (): JSX.Element => {
         </div>
       ),
       selector: (row) => row.createdAt
+    },
+    {
+      name: 'תאריך התחלה',
+      selector: (row) => row.startDate
     },
     {
       name: 'תאריך סיום',
