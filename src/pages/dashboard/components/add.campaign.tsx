@@ -84,35 +84,19 @@ export const AddCampaign = (): JSX.Element => {
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
         status: state.status,
-        companyId: user.companies[0].id,
+        companyId: user.company.id,
         target: state.target
       };
 
       const campaignCreated: CampaignEntity = await ApiAddCampaign(payload);
 
       if (campaignCreated) {
-        const companies = user.companies.map((company, index) => {
-          if (index === 0) {
-            if (company.campaigns && company.campaigns.length) {
-              // Push the value to the existing property
-              const campaigns = [...company.campaigns, campaignCreated];
-              return {
-                ...company,
-                campaigns: campaigns
-              };
-            } else {
-              // Create the property and assign an array with the value
-              const campaigns = [campaignCreated];
-              return {
-                ...company,
-                campaigns: campaigns
-              };
-            }
-          }
-          return company;
-        });
+        const company: CompanyEntity = {
+          ...user.company,
+          campaigns: [...user?.company?.campaigns, campaignCreated]
+        };
 
-        dispatch(setUser({ ...user, companies: companies, rememberMe: true }));
+        dispatch(setUser({ ...user, company: company, rememberMe: true }));
         dispatch(setAlert({ message: 'הקמפיין נוצר בהצלחה', type: 'success' }));
       }
     } catch (error) {
@@ -200,38 +184,44 @@ export const AddCampaign = (): JSX.Element => {
                 />
               </Col>
 
-              <Col xs={12} md={12} className="p-3 d-flex  justify-content- bg-dark">
-                <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין</Form.Label>
-                <Form.Select
-                  {...register('target')}
-                  name="target"
-                  value={state && state.target}
-                  onChange={handleSelectChange}
-                  defaultValue={CampaignTargetEnum.traffic}
-                >
-                  {Object.values(CampaignTargetEnum).map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Form.Select>
-                <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין</Form.Label>
-                <Form.Select
-                  {...register('status')}
-                  name="status"
-                  value={state && state.status}
-                  onChange={handleSelectChange}
-                  defaultValue={CampaignStatusEnum.active}
-                >
-                  {Object.values(CampaignStatusEnum).map((option) => {
-                    if (option === CampaignStatusEnum.completed) return null;
-                    return (
+              <Col xs={12} md={5} className="p-3">
+                <div className="d-flex ml-auto flex-column ">
+                  <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין</Form.Label>
+                  <Form.Select
+                    {...register('target')}
+                    name="target"
+                    value={state && state.target}
+                    onChange={handleSelectChange}
+                    defaultValue={CampaignTargetEnum.traffic}
+                  >
+                    {Object.values(CampaignTargetEnum).map((option) => (
                       <option key={option} value={option}>
                         {option}
                       </option>
-                    );
-                  })}
-                </Form.Select>
+                    ))}
+                  </Form.Select>
+                </div>
+              </Col>
+              <Col xs={12} md={5} className="p-3">
+                <div className="d-flex ml-auto flex-column">
+                  <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין</Form.Label>
+                  <Form.Select
+                    {...register('status')}
+                    name="status"
+                    value={state && state.status}
+                    onChange={handleSelectChange}
+                    defaultValue={CampaignStatusEnum.active}
+                  >
+                    {Object.values(CampaignStatusEnum).map((option) => {
+                      if (option === CampaignStatusEnum.completed) return null;
+                      return (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      );
+                    })}
+                  </Form.Select>
+                </div>
               </Col>
             </Row>
             <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">

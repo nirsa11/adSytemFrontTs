@@ -1,3 +1,4 @@
+import { UserRoleEnum } from '../enum/userRole.enum';
 import { CompanyEntity } from './company.entity';
 
 export class UserEntity {
@@ -11,9 +12,9 @@ export class UserEntity {
 
   mobileNumber: string;
 
-  role: number;
+  role: UserRoleEnum;
 
-  companies?: CompanyEntity[];
+  company?: CompanyEntity;
 
   createdAt?: Date;
 

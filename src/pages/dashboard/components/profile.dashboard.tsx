@@ -43,12 +43,12 @@ export const EditCompanyPage = (): JSX.Element => {
     name: user.name,
     email: user.email,
     password: user.password,
-    address: user.companies[0].address,
+    address: user.company.address,
     mobileNumber: user.mobileNumber,
-    businessId: user.companies[0].businessId,
+    businessId: user.company.businessId,
     confirmPassword: '',
-    companyName: user.companies[0].name,
-    nameForTaxInvoice: user.companies[0].nameForTaxInvoice,
+    companyName: user.company.name,
+    nameForTaxInvoice: user.company.nameForTaxInvoice,
     error: '',
     role: 0
   });
@@ -65,12 +65,12 @@ export const EditCompanyPage = (): JSX.Element => {
       name: user.name,
       email: user.email,
       password: user.password,
-      address: user.companies[0].address,
+      address: user.company.address,
       mobileNumber: user.mobileNumber,
-      businessId: user.companies[0].businessId,
+      businessId: user.company.businessId,
       confirmPassword: '',
-      companyName: user.companies[0].name,
-      nameForTaxInvoice: user.companies[0].nameForTaxInvoice
+      companyName: user.company.name,
+      nameForTaxInvoice: user.company.nameForTaxInvoice
     },
     mode: 'onBlur',
     delayError: 500
@@ -91,16 +91,14 @@ export const EditCompanyPage = (): JSX.Element => {
         email: state.email,
         password: state.password,
         mobileNumber: state.mobileNumber,
-        role: 1,
-        companies: [
-          {
-            id: user.companies[0].id,
-            address: state.address,
-            businessId: state.businessId,
-            name: state.companyName,
-            nameForTaxInvoice: state.nameForTaxInvoice
-          } as CompanyEntity
-        ]
+        role: user.role,
+        company: {
+          id: user.company.id,
+          address: state.address,
+          businessId: state.businessId,
+          name: state.companyName,
+          nameForTaxInvoice: state.nameForTaxInvoice
+        } as CompanyEntity
       };
 
       const userUpdated: UserEntity = await updateCompleteUser(payload as UserEntity);

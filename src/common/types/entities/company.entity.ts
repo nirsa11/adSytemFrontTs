@@ -1,4 +1,8 @@
 import { CampaignEntity } from './campagin.entity';
+export enum CompanyTypeEnum {
+  BUSINESS = 'BUSINESS',
+  AGENCY = 'AGENCY'
+}
 
 export class CompanyEntity {
   id?: number;
@@ -12,6 +16,8 @@ export class CompanyEntity {
   address: string;
 
   createdAt?: Date;
+
+  type: CompanyTypeEnum;
 
   public campaigns: CampaignEntity[];
 }

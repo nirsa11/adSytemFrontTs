@@ -27,10 +27,10 @@ import { MyCampaignState } from '../../../common/types/interface/state/dashboard
  */
 export const MyCampaigns = (): JSX.Element => {
   const campaigns: CampaignEntity[] = useSelector(
-    (state: RootState) => state?.user?.user.companies[0].campaigns
+    (state: RootState) => state?.user?.user.company.campaigns
   );
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
-  const companyId: number = user.companies[0].id;
+  const companyId: number = user.company.id;
   const [modal, setModal] = useState<boolean>(false);
   const [campaignToDelete, setCampaignToDelete] = useState<MyCampaignState>(null);
   const dispatch = useDispatch();
@@ -110,16 +110,13 @@ export const MyCampaigns = (): JSX.Element => {
 
       dispatch(setAlert({ message: 'הקמפיין נמחק בהצלחה', type: 'success' }));
 
-      const companies = user.companies.map((company) => {
-        const campaigns = company.campaigns.filter(({ id }) => id !== campaignToDelete.id);
-        return {
-          ...company,
-          campaigns: campaigns
-        };
-      });
+      const company: CompanyEntity = {
+        ...user.company,
+        campaigns: user.company.campaigns.filter(({ id }) => id === campaignToDelete.id)
+      };
 
       setDataTable(dataTable.filter(({ id }) => id !== campaignToDelete.id));
-      dispatch(setUser({ ...user, companies: companies, rememberMe: true }));
+      dispatch(setUser({ ...user, company, rememberMe: true }));
 
       setModal(false);
     } catch (error) {
@@ -161,28 +158,12 @@ export const MyCampaigns = (): JSX.Element => {
       setDataTable(newCampaigns);
 
       if (campaignCreated) {
-        const companies = user.companies.map((company, index) => {
-          if (index === 0) {
-            if (company.campaigns && company.campaigns.length) {
-              // Push the value to the existing property
-              const campaigns = [...company.campaigns, campaignCreated];
-              return {
-                ...company,
-                campaigns: campaigns
-              };
-            } else {
-              // Create the property and assign an array with the value
-              const campaigns = [campaignCreated];
-              return {
-                ...company,
-                campaigns: campaigns
-              };
-            }
-          }
-          return company;
-        });
+        const company: CompanyEntity = {
+          ...user.company,
+          campaigns: [...user?.company?.campaigns, campaignCreated]
+        };
 
-        dispatch(setUser({ ...user, companies: companies, rememberMe: true }));
+        dispatch(setUser({ ...user, company, rememberMe: true }));
       }
     } catch (error) {
       dispatch(setAlert({ message: error.message, type: 'danger' }));

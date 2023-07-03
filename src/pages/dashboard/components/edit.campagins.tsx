@@ -25,8 +25,8 @@ import {
 } from '../../../common/schemas/schemas.dashboard';
 import { DashboardLayout } from '../../../layout/dashboard.layout';
 import { CampaignEntity } from '../../../common/types/entities/campagin.entity';
-import {CampaignStatusEnum} from '../../../common/types/enum/campaignStatus.enum';
-import {CampaignTargetEnum} from '../../../common/types/enum/campaignTarget.enum';
+import { CampaignStatusEnum } from '../../../common/types/enum/campaignStatus.enum';
+import { CampaignTargetEnum } from '../../../common/types/enum/campaignTarget.enum';
 import { InputDateComponent } from '../../../ui/inputDate.ui';
 
 export class EditCampaignState {
@@ -38,7 +38,7 @@ export class EditCampaignState {
   status: CampaignStatusEnum;
   createdBy: string;
   createdAt: string;
-  target: CampaignTargetEnum.traffic
+  target: CampaignTargetEnum.traffic;
 }
 
 const initialState: EditCampaignState = {
@@ -89,7 +89,7 @@ export const EditCampaign = (): JSX.Element => {
       endDate: campaign.endDate,
       budget: campaign.budget,
       dailyBudget: campaign.dailyBudget,
-      status: campaign.status,
+      status: campaign.status
     },
     mode: 'onBlur',
     delayError: 500
@@ -122,28 +122,25 @@ export const EditCampaign = (): JSX.Element => {
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
         status: CampaignStatusEnum[state.status],
-        companyId: user.companies[0].id,
+        companyId: user.company.id,
         target: state.target
       };
 
       const campaignUpdated: CampaignEntity = await ApiUpdateCampaign(payload);
 
       if (campaignUpdated) {
-        const companies = user.companies.map((company) => {
-          const campaigns = company.campaigns.map((campaign) => {
-            if (campaign.id === campaignUpdated.id) {
+        const company: CompanyEntity = {
+          ...user.company,
+          campaigns: user.company.campaigns.map((campaign) => {
+            if (campaign.id === state.id) {
               return campaignUpdated;
+            } else {
+              return campaign;
             }
-            return campaign;
-          });
+          })
+        };
 
-          return {
-            ...company,
-            campaigns: campaigns
-          };
-        });
-
-        dispatch(setUser({ ...user, companies: companies, rememberMe: true }));
+        dispatch(setUser({ ...user, company, rememberMe: true }));
         dispatch(setAlert({ message: 'הקמפיין עודכן בהצלחה', type: 'success' }));
         navigate('/dashboard/my-campaigns');
       }
