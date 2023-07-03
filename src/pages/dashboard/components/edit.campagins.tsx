@@ -239,6 +239,22 @@ export const EditCampaign = (): JSX.Element => {
                   ))}
                 </Form.Select>
               </Col>
+              <Col xs={12} md={4} className="p-3">
+                <Form.Label htmlFor="mySelect">בחר את מטרת הקמפיין</Form.Label>
+                <Form.Select
+                  {...register('target')}
+                  name="target"
+                  value={state && state.target}
+                  onChange={handleSelectChange}
+                  defaultValue={CampaignTargetEnum.appPromoting}
+                >
+                  {Object.values(CampaignTargetEnum).map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Col>
             </Row>
             <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">
               <ButtonUI text={'שמירה'} />

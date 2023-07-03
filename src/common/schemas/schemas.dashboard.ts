@@ -64,7 +64,8 @@ export const addCampaignSchema: ZodType<Partial<AddCampaginState>> = applyTransl
       //   if (typeof arg == 'string' || arg instanceof Date) return new Date(arg);
       // }, z.date()),
       budget: z.string().transform((val) => parseFloat(val)),
-      status: z.string().nonempty()
+      status: z.string().nonempty(),
+      target: z.string().nonempty()
     })
     .refine((data) => data.dailyBudget > 0, {
       message: 'המספר חייב להיות גדול מ 0',
