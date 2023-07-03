@@ -27,10 +27,10 @@ import { MyCampaignState } from '../../../common/types/interface/state/dashboard
  */
 export const MyCampaigns = (): JSX.Element => {
   const campaigns: CampaignEntity[] = useSelector(
-    (state: RootState) => state?.user?.user.company.campaigns
+    (state: RootState) => state?.user?.user?.company?.campaigns
   );
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
-  const companyId: number = user.company.id;
+  const companyId: number = user?.company?.id;
   const [modal, setModal] = useState<boolean>(false);
   const [campaignToDelete, setCampaignToDelete] = useState<MyCampaignState>(null);
   const dispatch = useDispatch();

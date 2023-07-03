@@ -60,13 +60,13 @@ export const mainRoutes: RouteProps[] = [
         component: <Campaign />,
         nestedRoutes: [
           {
-            path: '/dashboard/',
+            path: '/dashboard/add-campaign',
             name: 'הוסף קמפיין',
             public: false,
             component: <AddCampaign />
           },
           {
-            path: '/dashboard/my-campaigns',
+            path: '/dashboard/',
             name: 'הקמפיינים שלי',
             public: false,
             component: <MyCampaigns />
