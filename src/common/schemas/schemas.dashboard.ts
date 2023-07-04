@@ -22,9 +22,9 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
       }),
 
       companyName: z.string().nonempty('שדה זה הינו שדה חובה').min(3).max(20),
-      nameForTaxInvoice: z.string().nonempty('שדה זה הינו שדה חובה').min(3).max(20),
       businessId: z.string().nonempty('שדה זה הינו שדה חובה').min(5).max(20),
-      address: z.string().nonempty('שדה זה הינו שדה חובה').min(6).max(50)
+      nameForTaxInvoice: z.optional(z.string()),
+      address: z.optional(z.string())
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'הסיסמה אינה תואמת',
