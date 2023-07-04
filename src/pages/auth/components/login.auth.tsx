@@ -140,7 +140,7 @@ export const LoginPage = (): JSX.Element => {
       }
     } catch (error) {
       dispatch(setAlert({ message: error.message || 'משהו השתבש', type: 'danger' }));
-
+      console.log(error);
       dispatch(setUser(null));
       removeCookies('accessToken');
       removeCookies('tokenTime');
