@@ -197,7 +197,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   key="companyName"
                   register={register}
                   name="companyName"
-                  label={`${role === UserRoleEnum.BUSINESS_OWNER ? 'שם חברה' : 'שם חברת פרסום'}`}
+                  label={`${role === UserRoleEnum.OWNER ? 'שם חברה' : 'שם חברת פרסום'}`}
                   type="text"
                   placeholder="הכנס שם חברה"
                   value={state && state.companyName}
