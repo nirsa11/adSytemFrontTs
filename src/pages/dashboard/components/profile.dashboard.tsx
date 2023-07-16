@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserEntity } from '../../../common/types/entities/user.entity';
-import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
 import { updateCompleteUser } from '../../../common/services/api.service';
@@ -13,14 +12,8 @@ import { InputComponent } from '../../../ui/input.ui';
 import { ButtonUI } from '../../../ui/button.ui';
 import { RootState } from '../../../redux/store';
 import { EditCompanyPageState } from '../../../common/types/interface/state/dashboard.interface';
-import {
-  ValidationEditCompanySchema,
-  editAnalystRegisterSchema,
-  editCompanySchema
-} from '../../../common/schemas/schemas.dashboard';
-import { DashboardLayout } from '../../../layout/dashboard.layout';
+import { ValidationEditCompanySchema, editAnalystRegisterSchema, editCompanySchema } from '../../../common/schemas/schemas.dashboard';
 import { UserRoleEnum } from '../../../common/types/enum/userRole.enum';
-import { analystRegisterSchema } from '../../../common/schemas/schemas.auth';
 
 /**
  * A functional component that renders a form for editing a user's company profile.
@@ -118,21 +111,20 @@ export const EditCompanyPage = (): JSX.Element => {
   return (
     <>
       <Container
-        className="d-flex flex-column  justify-content-center  align-items-center p-1 col-md-12 d-flex flex-column "
+        className="profile-dashboard d-flex flex-column justify-content-center align-items-center p-1 col-md-12 d-flex flex-column "
         fluid
       >
-        <Col md={9} className="d-flex justify-content-start">
+        <Col md={10} className="d-flex justify-content-start">
           <h5 className="text-light">ערוך את הפרופיל שלך</h5>
         </Col>
         <Col
-          md={9}
+          md={10}
           sm={9}
-          className="d-flex flex-column justify-content-center  align-items-center bg-light m-1"
+          className="d-flex flex-column justify-content-center align-items-center bg-light m-1"
         >
           <h5 className="align-self-start"></h5>
           <Form
             className="d-flex flex-column mt-5 border-1 bg-light"
-            style={{ maxHeight: '100vh' }}
             onSubmit={handleSubmit(() => handleSubmitButton())}
           >
             {user.role == UserRoleEnum.ANALYST ? (
@@ -347,7 +339,8 @@ export const EditCompanyPage = (): JSX.Element => {
 
             <Row>
               <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">
-                <ButtonUI text={'שמירה'} />
+                {/* <ButtonUI text={'שמירה'} /> */}
+                <button  id='btn-ui'>שמירה</button>
               </Col>
             </Row>
           </Form>

@@ -4,9 +4,7 @@ import {
   ResetPasswordPageState,
   ResetPasswordState
 } from '../types/interface/state/authState.interface';
-import { InputProps } from '../types/interface/ui/inputProps.interface';
 import { z, ZodType } from 'zod';
-
 import { applyTranslations } from '.';
 
 export const registerSchema: ZodType<Partial<RegisterPageState>> = applyTranslations(

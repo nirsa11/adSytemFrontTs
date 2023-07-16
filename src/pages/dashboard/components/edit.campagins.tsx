@@ -152,13 +152,13 @@ export const EditCampaign = (): JSX.Element => {
   return (
     <>
       <Container
-        className="d-flex flex-column  justify-content-center  align-items-center p-1"
+        className="edit-campaign d-flex flex-column justify-content-center align-items-center p-1"
         fluid
       >
         <Col
-          md={9}
+          md={10}
           sm={9}
-          className="d-flex flex-column justify-content-center  align-items-center bg-light m-1"
+          className="d-flex flex-column justify-content-center align-items-center bg-light m-1"
         >
           <h5 className="align-self-start">הוסף חברה</h5>
           <Form
@@ -264,7 +264,8 @@ export const EditCampaign = (): JSX.Element => {
               </Col>
             </Row>
             <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">
-              <ButtonUI text={'שמירה'} />
+              {/* <ButtonUI text={'שמירה'} /> */}
+              <button id='btn-ui'>שמירה</button>
             </Col>
           </Form>
         </Col>

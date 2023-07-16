@@ -2,17 +2,16 @@ import { NavTabsProps } from '../../common/types/interface/ui/navTabsProps.inter
 import { AuthLayout } from '../../layout/auth.layout';
 import { NavTabs } from '../../ui/navTab.ui';
 import { LoginPage } from './components/login.auth';
-import React, { ElementType, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RegisterPage } from './components/register.auth';
 import { Col, Container, Row } from 'react-bootstrap';
-import backgroundImage from './../../assets/bg.png';
+import backgroundImage from './../../assets/img/bg.png';
 import { ResetPasswordPage } from './components/resetPassword.auth';
-import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ApicheckToken } from '../../common/services/api.service';
 import { UserEntity } from '../../common/types/entities/user.entity';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { createBrowserHistory } from 'history';
 import { setAlert } from '../../redux/errorSlice';
 
 type NavTabKey = 'login' | 'register';
@@ -21,7 +20,7 @@ let navTabsArray: NavTabsProps[] = [
   {
     isDefault: true,
     key: 'login',
-    title: 'התחברות',
+    title: 'כניסה',
     Component: <LoginPage />,
     shrink: true
   },
@@ -74,7 +73,7 @@ export const AuthPage = (): JSX.Element => {
   return (
     <>
       <AuthLayout backgroundImage={backgroundImage} shrink={shrink}>
-        <Container className="mt-5" fluid>
+        <Container className="register-login-container mt-3" fluid>
           <Row variant={Col} md={12} sm={12} lg={12}>
             {resetPassword ? (
               <ResetPasswordPage setToken={setToken} setResetPassword={setResetPassword} />

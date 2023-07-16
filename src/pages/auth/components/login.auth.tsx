@@ -1,31 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import '../auth.css';
-import { FormComponent } from '../../../ui/form.ui';
-import { InputProps } from '../../../common/types/interface/ui/inputProps.interface';
 import { InputComponent } from '../../../ui/input.ui';
-import { Button, Col, Form, FormGroup, Modal, Nav, Row } from 'react-bootstrap';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Form, Modal, Row } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  ValidationLoginSchema,
-  ValidationResetSchema,
-  loginSchema,
-  resetEmailSchema
-} from '../../../common/schemas/schemas.auth';
+import { ValidationLoginSchema, ValidationResetSchema, loginSchema, resetEmailSchema } from '../../../common/schemas/schemas.auth';
 import { ButtonUI } from '../../../ui/button.ui';
 import { UserEntity } from '../../../common/types/entities/user.entity';
 import { ApiLogin, ApiResetEmail } from '../../../common/services/api.service';
 import { setUser } from '../../../redux/userSlice';
-import {
-  LoginPageState,
-  ResetPasswordState
-} from '../../../common/types/interface/state/authState.interface';
+import { LoginPageState, ResetPasswordState } from '../../../common/types/interface/state/authState.interface';
 import { ModalUIComponent } from '../../../ui/modal.ui';
 import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.interface';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import { useDispatch } from 'react-redux';
 import { setAlert } from '../../../redux/errorSlice';
 import { removeCookies } from '../../../common/utils';
 
@@ -168,15 +156,14 @@ export const LoginPage = (): JSX.Element => {
           </Row>
           <Row md={12}>
             <Modal.Footer className="d-flex justify-content-start">
-              <ButtonUI text={'שלח מייל לאיפוס'} size={SizeButtonEnum.sm} />
+              <button id='btn-ui'>שלח מייל לאיפוס</button>
             </Modal.Footer>
           </Row>
         </Form>
       </ModalUIComponent>
       <Form
-        className="d-flex flex-column mt-5 "
+        className="d-flex flex-column mt-5"
         noValidate
-        style={{ maxHeight: '100vh' }}
         onSubmit={handleSubmit(handleSubmitButton)}
       >
         <Row className="col-md-12 mx-auto gap-5">
@@ -210,8 +197,8 @@ export const LoginPage = (): JSX.Element => {
           />
         </Row>
 
-        <Row className="mt-5">
-          <div className="d-flex  flex-row " style={{ marginRight: '1rem' }}>
+        <Row className="login-checkbox">
+          <div className="d-flex flex-row">
             <Form.Check // prettier-ignore
               type={'checkbox'}
               label="זכור אותי"
@@ -221,17 +208,13 @@ export const LoginPage = (): JSX.Element => {
                   ...prevState,
                   rememberMe: !state.rememberMe
                 }))
-              }
-            />
-            <a className="link" onClick={() => setModal(!modal)}>
-              {' '}
-              שכחתי סיסמה
-            </a>
+              } />
+            <a className="link" onClick={() => setModal(!modal)}>{' '}שכחתי סיסמה</a>
           </div>
         </Row>
 
-        <Row className="col-md-3 col-sm-6 align-self-start  m-5">
-          <ButtonUI text={'כניסה'} />{' '}
+        <Row className="col-md-3 col-sm-6 align-self-start m-5">
+          <button id='btn-ui'>כניסה</button>
         </Row>
       </Form>
     </div>

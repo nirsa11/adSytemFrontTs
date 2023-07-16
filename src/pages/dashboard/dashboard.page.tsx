@@ -1,10 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { setUser } from '../../redux/userSlice';
-import { removeCookies } from '../../common/utils';
+import { Outlet } from 'react-router-dom';
 import { DashboardLayout } from '../../layout/dashboard.layout';
-import { RootState } from '../../redux/store';
-import { UserEntity } from '../../common/types/entities/user.entity';
 
 /**
  * A functional component that renders the dashboard page layout and its child components.

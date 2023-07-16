@@ -1,6 +1,5 @@
 export enum CampaignStatusEnum {
-    active = 'פעיל',
-    paused = 'טיוטה',
-    completed = 'הושלם'
-  }
-  
+  active = 'פעיל',
+  paused = 'טיוטה',
+  completed = 'הושלם'
+}

@@ -1,6 +1,4 @@
-import { InputProps } from '../../../common/types/interface/ui/inputProps.interface';
-import { FormComponent } from '../../../ui/form.ui';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { InputComponent } from '../../../ui/input.ui';
 import { useState } from 'react';
 import { RegisterPageState } from '../../../common/types/interface/state/authState.interface';
@@ -103,8 +101,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
   return (
     <Container>
       <Form
-        className="d-flex flex-column mt-5 "
-        style={{ maxHeight: '100vh' }}
+        className="d-flex flex-column"
         onSubmit={handleSubmit(() => handleSubmitButton())}
       >
         {role == UserRoleEnum.ANALYST ? (
@@ -185,7 +182,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                 />
               </Col>
               <Col className="col-md-6 col-sm-12 align-self-end p-2">
-                <ButtonUI text={'שמירה'} />
+                {/* <ButtonUI text={'שמירה'} /> */}
+                <button id='btn-ui'>שמירה</button>
               </Col>
             </Row>
           </>
@@ -325,7 +323,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                 />
               </Col>
               <Col className="col-md-6 col-sm-12 align-self-end p-2">
-                <ButtonUI text={'שמירה'} />
+              <button id='btn-ui'>שמירה</button>
               </Col>
             </Row>
           </>

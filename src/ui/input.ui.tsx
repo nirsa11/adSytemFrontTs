@@ -1,7 +1,7 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { InputProps } from '../common/types/interface/ui/inputProps.interface';
-import './style/input.css'; // Import custom CSS file
+
 
 export const InputComponent: React.FC<InputProps> = ({
   name,
@@ -28,10 +28,10 @@ export const InputComponent: React.FC<InputProps> = ({
   };
   const error = errors && errors[name] && (errors[name].message as string);
   return (
-    <Form.Group as={Row} className="d-flex">
-      <Form.Label className={focused ? 'shrink' : 'align-self-end '}>{`${label} ${
-        required ? '*' : ''
-      } `}</Form.Label>
+    <Form.Group as={Row} className="input-ui input-ui d-flex">
+      <Form.Label className={focused ? 'shrink' : 'align-self-end '}>
+        {`${label} ${required ? '*' : ''} `}
+        </Form.Label>
       <Col sm={8}>
         <Form.Control
           type={type}
@@ -44,7 +44,7 @@ export const InputComponent: React.FC<InputProps> = ({
           placeholder={placeholder}
           onFocus={handleFocus}
           onChange={handleChange}
-          //  onBlur={handleBlur}
+        //  onBlur={handleBlur}
         />
         {errors && errors[name] ? (
           <small className="text-danger">

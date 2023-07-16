@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { Fade } from 'react-bootstrap';
-import { ReactNode } from 'react';
 import { NavTabsProps, TabsProps } from '../common/types/interface/ui/navTabsProps.interface';
-import './style/navTab.css';
+
 /**
  * A component that renders a set of navigation tabs based on the provided props.
  * @param {TabsProps} tabsProps - An array of objects containing the properties for each tab.
  * @param {function} setShrink - A function to set the state of whether or not the tabs should shrink.
  * @returns A set of navigation tabs that can be rendered in a React application.
  */
+
 export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
   const getDefault = (): string => {
     const defaultProp: NavTabsProps = tabsProps.find((prop) => prop.isDefault)!;
@@ -34,11 +34,7 @@ export const NavTabs: React.FC<TabsProps> = ({ tabsProps, setShrink }) => {
 
   return (
     <Tabs
-      defaultActiveKey={defaultTab}
-      className="d-flex flex-row tab-menu"
-      transition={Fade}
-      onSelect={handleSelect}
-    >
+      defaultActiveKey={defaultTab} className="navtab-ui d-flex flex-row" transition={Fade} onSelect={handleSelect} >
       {tabsProps.map((prop) => {
         return (
           <Tab key={prop.key} eventKey={prop.key} title={prop.title} disabled={prop.disabled}>

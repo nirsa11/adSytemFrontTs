@@ -6,20 +6,16 @@
   color: white !important;
 }
 
+.active,
 .navLink:hover {
   color: #84be42 !important;
 }
 
-.active {
-  color: #84be42 !important;
-}
 
-.navLink ,.active{
-  font-size: 1.3rem !important;
+.navLink{
+  font-size: 1.3rem;
 }
 
 .navLink.navLinkLogout {
   color: rgb(151, 151, 151) !important;
-
 }
-

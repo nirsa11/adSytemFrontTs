@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
-import bg from '../assets/bg.png';
+import { Container, Col } from 'react-bootstrap';
+import bg from '../assets/img/bg.png';
 import { NavBar } from '../ui/navBar.ui';
 
 interface LayoutProps {
@@ -26,7 +26,7 @@ export const DashboardLayout: React.FC<LayoutProps> = ({ children }) => {
     overflow: 'auto'
   };
   return (
-    <Container fluid style={layoutStyle} className={`nopadding no-gap d-flex flex-column `}>
+    <Container fluid style={layoutStyle} className={`dashboard-layout nopadding no-gap d-flex flex-column`}>
       <NavBar />
 
       <Col className="d-flex  flex-column justify-content-top">{children}</Col>

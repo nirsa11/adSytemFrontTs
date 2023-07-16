@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Navbar, Nav, Container, Col, NavDropdown } from 'react-bootstrap';
-import LogoOne from '../assets/logo-login-1.png';
-import LogoTwo from '../assets/logo-login-2.png';
-import styles from './style/navbar.module.css';
-
-import { ArrowRight } from 'react-bootstrap-icons';
-
-import { NavRoute, navRoutes } from '../routes';
+import { Navbar, Nav, Col, NavDropdown } from 'react-bootstrap';
+import { navRoutes } from '../routes';
 import { setUser } from '../redux/userSlice';
 import { removeCookies } from '../common/utils';
 import { RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
+import LogoOne from '../assets/img/logo-login-1.png';
+import LogoTwo from '../assets/img/logo-login-2.png';
+import styles from'../assets/scss/ui/_navbar.module.scss';
 
 export const NavBar = () => {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
-
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
   const [selectedDropDown, setSelectedDropDown] = useState(userName);
   const navigate = useNavigate();
@@ -49,9 +45,9 @@ export const NavBar = () => {
       variant="dark"
       fixed="top"
       expand="lg"
-      className={`${styles.navbarGreenBorder} ${isMobile ? '' : 'bg-transparent'}  mx-auto`}
+      className={`navbar-ui ${styles.navbarGreenBorder} ${isMobile ? '' : 'bg-transparent'} mx-auto`}
       as={Col}
-      md={9}
+      md={10}
       style={{ position: 'relative', minWidth: `${isMobile ? '100%' : ''}` }}
     >
       <Navbar.Brand className="p-2">
@@ -78,7 +74,6 @@ export const NavBar = () => {
           <NavDropdown
             title={selectedDropDown}
             id="basic-nav-dropdown"
-            style={{ color: 'white !important' }}
           >
             <NavDropdown.Item
               as={Link}

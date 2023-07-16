@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { AxiosService } from './axios.service';
-import { LoginPageState, RegisterPageState } from '../types/interface/state/authState.interface';
+import { LoginPageState } from '../types/interface/state/authState.interface';
 import { UserEntity } from '../types/entities/user.entity';
 import { setCookies } from '../utils';
 import { CampaignEntity } from '../types/entities/campagin.entity';
