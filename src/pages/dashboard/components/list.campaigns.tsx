@@ -5,12 +5,10 @@ import { RootState } from '../../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { CampaignEntity } from '../../../common/types/entities/campagin.entity';
-import { timestampToDate } from '../../../common/utils';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PencilSquare, TrashFill, DatabaseAdd } from 'react-bootstrap-icons';
 import { ModalUIComponent } from '../../../ui/modal.ui';
-import { ButtonUI } from '../../../ui/button.ui';
 import { SizeButtonEnum } from '../../../common/types/interface/ui/buttonProps.interface';
 import { ApiAddCampaign, deleteCampaignApi } from '../../../common/services/api.service';
 import { setAlert } from '../../../redux/errorSlice';
@@ -25,6 +23,7 @@ import { MyCampaignState } from '../../../common/types/interface/state/dashboard
  * modal for confirming the deletion of a campaign.
  * @returns {JSX.Element} - A JSX element that displays the list of campaigns.
  */
+
 export const MyCampaigns = (): JSX.Element => {
   const campaigns: CampaignEntity[] = useSelector(
     (state: RootState) => state?.user?.user?.company?.campaigns
@@ -43,21 +42,21 @@ export const MyCampaigns = (): JSX.Element => {
 
   const [dataTable, setDataTable] = useState<MyCampaignState[]>(
     campaigns &&
-      campaigns.map((campaign) => {
-        return {
-          id: campaign.id,
-          name: campaign.name,
-          endDate: new Date(campaign.endDate).toLocaleDateString(),
-          startDate: new Date(campaign.startDate).toLocaleDateString(),
-          budget: campaign.budget.toString(),
-          dailyBudget: campaign.dailyBudget.toString(),
-          createdBy: userName,
-          createdAt: new Date(campaign.createdAt).toLocaleDateString(),
-          status: campaign.status,
-          companyId: companyId,
-          target: campaign.target
-        };
-      })
+    campaigns.map((campaign) => {
+      return {
+        id: campaign.id,
+        name: campaign.name,
+        endDate: new Date(campaign.endDate).toLocaleDateString(),
+        startDate: new Date(campaign.startDate).toLocaleDateString(),
+        budget: campaign.budget.toString(),
+        dailyBudget: campaign.dailyBudget.toString(),
+        createdBy: userName,
+        createdAt: new Date(campaign.createdAt).toLocaleDateString(),
+        status: campaign.status,
+        companyId: companyId,
+        target: campaign.target
+      };
+    })
   );
 
   // useEffect(() => {}, [dataTable]);
@@ -303,85 +302,40 @@ export const MyCampaigns = (): JSX.Element => {
 
   return (
     <>
-      <Container
-        className="d-flex flex-column  justify-content-center  align-items-center p-1"
-        fluid
-      >
+      <Container className="list-campaign d-flex flex-column justify-content-center  align-items-center p-1" fluid >
         <ModalUIComponent show={modal} onHide={() => setModal(false)} title={'מחיקת קמפיין'}>
           <p>האם אתה בטוח שברצונך למחוק את {campaignToDelete?.name} ? </p>
-
           <div className="d-flex justify-content-end m-3">
-            <Button
-              size={SizeButtonEnum.sm}
-              onClick={() => deleteCampaign()}
-              className="btn-danger btn"
-            >
-              מחק
-            </Button>
+            {/* <Button size={SizeButtonEnum.sm} onClick={() => deleteCampaign()} className="btn-danger btn" >מחק</Button> */}
+            <button id='btn-ui' onClick={() => deleteCampaign()} className="btn-danger btn">מחק</button>
             <div className="p-2"></div>
-
-            <Button
-              size={SizeButtonEnum.sm}
-              onClick={() => setModal(false)}
-              className="btn-warning btn"
-            >
-              בטל
-            </Button>
+            {/* <Button size={SizeButtonEnum.sm} onClick={() => setModal(false)} className="btn-warning btn">בטל</Button> */}
+            <button id='btn-ui' onClick={() => setModal(false)} className="btn-warning btn">בטל</button>
           </div>
         </ModalUIComponent>
-        <ModalUIComponent
-          show={modalDupli}
-          onHide={() => setModalDupli(false)}
-          title={'מחיקת קמפיין'}
-        >
+
+        <ModalUIComponent show={modalDupli} onHide={() => setModalDupli(false)} title={'מחיקת קמפיין'} >
           <p>האם אתה בטוח שברצונך לשכפל את {campaignToDelete?.name} ? </p>
-
           <div className="d-flex justify-content-end m-3">
-            <Button
-              size={SizeButtonEnum.sm}
-              onClick={() => handleDuplicate()}
-              className="btn-danger btn"
-            >
-              שכפל
-            </Button>
+            {/* <Button size={SizeButtonEnum.sm} onClick={() => handleDuplicate()} className="btn-danger btn">שכפל</Button> */}
+            <button id='btn-ui' onClick={() => handleDuplicate()} className="btn-danger btn">שכפל</button>
             <div className="p-2"></div>
-
-            <Button
-              size={SizeButtonEnum.sm}
-              onClick={() => setModalDupli(false)}
-              className="btn-warning btn"
-            >
-              בטל
-            </Button>
+            <button id='btn-ui' onClick={() => setModalDupli(false)} className="btn-warning btn">בטל</button>
+            {/* <Button size={SizeButtonEnum.sm} onClick={() => setModalDupli(false)} className="btn-warning btn" >בטל</Button> */}
           </div>
         </ModalUIComponent>
-        <Col md={9} className="d-flex justify-content-start">
+
+        <Col md={10} className="d-flex justify-content-start">
           <div className="d-flex  col-md-3 justify-content-between">
             <h3 className="text-light ml-2"> רשימת הקמפיינים</h3>
-            {dateFilterValue ? (
-              <h6 className="text-light align-self-center mr-3">({dateFilterValue})</h6>
-            ) : null}
+            {dateFilterValue ? (<h6 className="text-light align-self-center mr-3">({dateFilterValue})</h6>) : null}
           </div>
         </Col>
+
         <Col
-          md={9}
-          sm={12}
-          className="d-flex flex-column justify-content-center  align-items-center bg-light m-1 p-2"
-          style={{ overflow: 'auto' }}
-        >
-          <DataTable
-            customStyles={customStyles}
-            pagination
-            paginationPerPage={10}
-            paginationRowsPerPageOptions={[5, 8, 10]}
-            paginationComponentOptions={paginationOptions}
-            columns={columns}
-            data={dataTable}
-            fixedHeader
-            responsive={true}
-            striped
-            highlightOnHover
-          />
+          md={10} sm={12} className="d-flex flex-column justify-content-center  align-items-center bg-light m-1 p-2" style={{ overflow: 'auto' }}>
+          <DataTable customStyles={customStyles} pagination paginationPerPage={10} paginationRowsPerPageOptions={[5, 8, 10]}
+            paginationComponentOptions={paginationOptions} columns={columns} data={dataTable} fixedHeader responsive={true} striped highlightOnHover />
         </Col>
       </Container>
     </>

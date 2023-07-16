@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { AuthPage } from '../pages/auth/auth.page';
 import { DashboardPage } from '../pages/dashboard/dashboard.page';
 import { EditCompanyPage } from '../pages/dashboard/components/profile.dashboard';
@@ -31,7 +30,7 @@ export class RouteProps {
 export const mainRoutes: RouteProps[] = [
   {
     path: '/auth',
-    name: 'התחברות',
+    name: 'כניסה',
     public: true,
     component: <AuthPage />
   },

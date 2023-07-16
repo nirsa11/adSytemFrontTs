@@ -1,0 +1,84 @@
+.auth-layout {
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .left-col {
+    overflow-x: clip;
+    transition: 0.3s ease-in-out;
+    z-index: 11;
+    background-color: #fff;
+
+    &.grow {
+      transform: scaleX(1);
+    }
+
+    p#text {
+      width: 90%;
+    }
+
+    button#dropdown-basic {
+      display: inline-block;
+      background-color: #84be42;
+      border: none;
+      min-width: 190px;
+    }
+
+    .parent {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .d-flex.row {
+        margin-block: 10px;
+
+        label {
+          height: auto;
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .register-login-container {
+      .tab-content {
+        width: 90%;
+      }
+    }
+
+    .login-checkbox {
+      height: 30px;
+      margin-top: 10px;
+    }
+  }
+
+  .right-col {
+
+    .image-animation:hover {
+      animation: circle-growth 2s ease-in-out;
+    }
+  }
+}
+
+
+@keyframes circle-growth {
+  0% {
+    transform: scale(1) rotate(0deg);
+
+  }
+
+  100% {
+    transform: scale(1.2) rotate(360deg);
+
+  }
+
+}
+
+
+@media (max-width: 576px) {
+  .parent {
+    padding: 1rem;
+    margin: 3rem 0 0;
+    // padding: 1rem !important;
+    // margin: 3rem 0 0 !important;
+  }
+}

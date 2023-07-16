@@ -1,7 +1,16 @@
-.alert-container {
+.alert-ui {
+  position: fixed;
+  z-index: 1555555;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  text-align: center;
+
+  .alert-container {
     position: absolute;
     top: 0;
-    width: 100%;
+    width: 300px;
     display: flex;
     justify-content: center;
     opacity: 0;
@@ -9,38 +18,36 @@
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
-    
-  }
-  .alert-container{
-    width: 300px;
     text-align: center;
   }
-  
+
   @keyframes slideDown {
     from {
       transform: translateY(-100%);
       opacity: 0;
     }
+
     to {
       transform: translateY(0);
       opacity: 1;
     }
   }
-  
+
   .alert-transition-enter {
     opacity: 0;
   }
-  
+
   .alert-transition-enter-active {
     opacity: 1;
     transition: opacity 300ms;
   }
-  
+
   .alert-transition-exit {
     opacity: 1;
   }
-  
+
   .alert-transition-exit-active {
     opacity: 0;
     transition: opacity 300ms;
   }
+}

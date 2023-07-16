@@ -1,7 +1,6 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
-import { InputDateProps, InputProps } from '../common/types/interface/ui/inputProps.interface';
-import './style/input.css'; // Import custom CSS file
+import { InputDateProps } from '../common/types/interface/ui/inputProps.interface';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -30,7 +29,7 @@ export const InputDateComponent: React.FC<InputDateProps> = ({
   };
   const error = errors && errors[name] && (errors[name].message as string);
   return (
-    <Form.Group as={Row} className="d-flex">
+    <Form.Group as={Row} className="input-date-ui d-flex">
       <Form.Label className={focused ? 'shrink' : 'align-self-end '}>{label}</Form.Label>
       <Col sm={8}>
         <DatePicker

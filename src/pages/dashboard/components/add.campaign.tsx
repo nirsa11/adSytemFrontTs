@@ -1,5 +1,5 @@
-import React, { ReactEventHandler, useEffect, useState } from 'react';
-import { Button, Col, Container, Form, FormSelect, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -8,21 +8,12 @@ import { UserEntity } from '../../../common/types/entities/user.entity';
 import { CompanyEntity } from '../../../common/types/entities/company.entity';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
-import { ApiAddCampaign, updateCompleteUser } from '../../../common/services/api.service';
+import { ApiAddCampaign } from '../../../common/services/api.service';
 import { InputComponent } from '../../../ui/input.ui';
 import { ButtonUI } from '../../../ui/button.ui';
 import { RootState } from '../../../redux/store';
-import {
-  AddCampaginState,
-  EditCompanyPageState
-} from '../../../common/types/interface/state/dashboard.interface';
-import {
-  ValidationAddCampaginSchema,
-  ValidationEditCompanySchema,
-  addCampaignSchema,
-  editCompanySchema
-} from '../../../common/schemas/schemas.dashboard';
-import { DashboardLayout } from '../../../layout/dashboard.layout';
+import { AddCampaginState } from '../../../common/types/interface/state/dashboard.interface';
+import { ValidationAddCampaginSchema, addCampaignSchema, } from '../../../common/schemas/schemas.dashboard';
 import { CampaignEntity } from '../../../common/types/entities/campagin.entity';
 import { CampaignStatusEnum } from '../../../common/types/enum/campaignStatus.enum';
 import { CampaignTargetEnum } from '../../../common/types/enum/campaignTarget.enum';
@@ -114,24 +105,23 @@ export const AddCampaign = (): JSX.Element => {
   return (
     <>
       <Container
-        className="d-flex flex-column  justify-content-center  align-items-center p-1"
+        className="add-campaign d-flex flex-column justify-content-center align-items-center p-1"
         fluid
       >
-        <Col md={9} className="d-flex justify-content-start">
+        <Col md={10} className="d-flex justify-content-start">
           <h3 className="text-light">יצירת קמפיין</h3>
         </Col>
         <Col
-          md={9}
+          md={10}
           sm={9}
-          className="d-flex flex-column justify-content-center  align-items-center bg-light m-1"
+          className="d-flex flex-column justify-content-center align-items-center bg-light m-1"
         >
           <Form
-            className="d-flex flex-column mt-5 border-1 bg-light"
-            style={{ maxHeight: '100vh' }}
+            className="add-campaign-form d-flex flex-column m-4 border-1 bg-light"
             onSubmit={handleSubmit(() => handleSubmitButton())}
           >
             <Row>
-              <Col xs={12} md={4} className="p-3">
+              <Col xs={12} md={4}>
                 <InputComponent
                   key="name"
                   register={register}
@@ -140,13 +130,12 @@ export const AddCampaign = (): JSX.Element => {
                   type="text"
                   placeholder="הכנס שם קמפיין"
                   value={state && state.name}
-                  // defaultValue={user && state.companyName}
                   handleChange={handleChange}
                   errors={errors}
                   required={true}
                 />
               </Col>
-              <Col xs={12} md={4} className="p-3">
+              <Col xs={12} md={4}>
                 <InputComponent
                   key="dailyBudget"
                   register={register}
@@ -160,14 +149,14 @@ export const AddCampaign = (): JSX.Element => {
                   required={true}
                 />
               </Col>
-              <Col xs={12} md={4} className="p-3">
+              <Col xs={12} md={4}>
                 <InputComponent
                   key="budget"
                   register={register}
                   name="budget"
                   label="תקציב כולל"
                   type="number"
-                  placeholder="הכנס ח.פ"
+                  placeholder="הכנס תקציב כולל"
                   value={state && state.budget}
                   handleChange={handleChange}
                   errors={errors}
@@ -176,7 +165,7 @@ export const AddCampaign = (): JSX.Element => {
               </Col>
             </Row>
             <Row>
-              <Col xs={12} md={4} className="p-3">
+              <Col xs={12} md={4}>
                 <InputDateComponent
                   label="תאריך התחלה * "
                   name="startDate"
@@ -188,7 +177,7 @@ export const AddCampaign = (): JSX.Element => {
                   errors={errors}
                 />
               </Col>
-              <Col xs={12} md={4} className="p-3">
+              <Col xs={12} md={4}>
                 <InputDateComponent
                   label="תאריך סיום * "
                   name="endDate"
@@ -203,7 +192,7 @@ export const AddCampaign = (): JSX.Element => {
               </Col>
             </Row>
             <Row className=" d-flex justify-content-between">
-              <Col xs={12} md={5} className="p-3">
+              <Col xs={12} md={5}>
                 <div className="d-flex ml-auto flex-column ">
                   <Form.Label htmlFor="myTargetSelect">בחר את מטרת הקמפיין *</Form.Label>
                   <Form.Select
@@ -221,7 +210,7 @@ export const AddCampaign = (): JSX.Element => {
                   </Form.Select>
                 </div>
               </Col>
-              <Col xs={12} md={5} className="p-3">
+              <Col xs={12} md={5}>
                 <div className="d-flex ml-auto flex-column">
                   <Form.Label htmlFor="myStatusSelect">בחר את סטטוס הקמפיין *</Form.Label>
                   <Form.Select
@@ -243,8 +232,8 @@ export const AddCampaign = (): JSX.Element => {
                 </div>
               </Col>
             </Row>
-            <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">
-              <ButtonUI text={'שמירה'} />
+            <Col xs={12} md={12} className="d-flex justify-content-center mt-3">
+              <button id='btn-ui'>שמירה</button>
             </Col>
           </Form>
         </Col>

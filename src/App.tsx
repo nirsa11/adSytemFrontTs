@@ -1,16 +1,14 @@
-import React, { ReactNode, useEffect } from 'react';
-import { AuthPage } from './pages/auth/auth.page';
 import { Loader } from './ui/loader';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
-import { setLoader } from './redux/loaderSlice';
 import { mainRoutes } from './routes';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AlertComponent } from './ui/alert.ui';
-import { clearAlert } from './redux/errorSlice';
 import { ProtectedRoute } from './routes/protected.route';
 import { UserEntity } from './common/types/entities/user.entity';
 import { RouteProps } from './routes/';
+import './assets/scss/styles.scss'
+
 /**
  * The main component of the application that renders the routes and other components.
  * @returns {JSX.Element} - The JSX element of the App component.

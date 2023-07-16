@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import '../auth.css';
-import { FormComponent } from '../../../ui/form.ui';
-import { InputProps } from '../../../common/types/interface/ui/inputProps.interface';
+import React, { useState } from 'react';
 import { InputComponent } from '../../../ui/input.ui';
-import { Button, Col, Form, FormGroup, Modal, Nav, Row } from 'react-bootstrap';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Form, Row } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -98,9 +95,8 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
   return (
     <div>
       <Form
-        className="d-flex flex-column mt-5 "
+        className="d-flex flex-column"
         noValidate
-        style={{ maxHeight: '100vh' }}
         onSubmit={handleSubmit(handleSubmitButton)}
       >
         <Row className="col-md-12 mx-auto gap-5">
@@ -134,7 +130,8 @@ export const ResetPasswordPage = ({ setToken, setResetPassword }) => {
         </Row>
         {state && state.error ? <p className="text-danger">{state.error as string}</p> : ''}
         <Row md={3} className="m-2">
-          <ButtonUI text={'אפס סיסמה'} />
+          {/* <ButtonUI text={'אפס סיסמה'} /> */}
+          <button id='btn-ui'>אפס סיסמא</button>
         </Row>
       </Form>
     </div>

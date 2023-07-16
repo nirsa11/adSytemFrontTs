@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Navbar, Nav, Container, Col } from 'react-bootstrap';
-import LogoOne from '../assets/logo-login-1.png';
-import LogoTwo from '../assets/logo-login-2.png';
-import styles from './style/navbar.module.css';
-import { ArrowRight } from 'react-bootstrap-icons';
-import { NavRoute, RouteProps, mainRoutes } from '../routes';
+import { Navbar, Nav, Col } from 'react-bootstrap';
+import styles from'../assets/scss/ui/_navbar.module.scss';
+import {  RouteProps } from '../routes';
 import { AddCampaign } from '../pages/dashboard/components/add.campaign';
 import { MyCampaigns } from '../pages/dashboard/components/list.campaigns';
 
@@ -34,9 +31,8 @@ export const SubNavBar = (): JSX.Element => {
   return (
     <Navbar
       as={Col}
-      md={9}
-      className={`${styles.navbarGreenBorder} bg-transparent nopadding bg-danger bg-dark justify-content-center mx-auto`}
-      style={{ backgroundColor: 'red !important' }}
+      md={10}
+      className={`subnav-ui ${styles.navbarGreenBorder} bg-transparent nopadding bg-danger bg-dark justify-content-center mx-auto`}
     >
       <Nav className="justify-content-center align-items-center" as={Col} md={12}>
         {navRoutes.map((route, index) => (
