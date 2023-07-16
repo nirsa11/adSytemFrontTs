@@ -6,7 +6,8 @@ import { UserEntity } from '../../../common/types/entities/user.entity';
 import { CompanyEntity, CompanyTypeEnum } from '../../../common/types/entities/company.entity';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { ApiRegister } from '../../../common/services/api.service';
+import { ApiUserRegister } from '../../../common/services/api.service';
+import { ApiCompanyRegister } from '../../../common/services/api.service';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
 import { useForm } from 'react-hook-form';
@@ -47,7 +48,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
     handleSubmit,
     formState: { errors }
   } = useForm<ValidationRegisterSchema>({
-    resolver: zodResolver(role == UserRoleEnum.ANALYST ? analystRegisterSchema : registerSchema),
+    resolver: zodResolver(role == UserRoleEnum.BASIC ? analystRegisterSchema : registerSchema),
     mode: 'onBlur',
     delayError: 500
   });
@@ -63,16 +64,18 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
 
   const handleSubmitButton = async (): Promise<void> => {
     try {
-      let payload: UserEntity;
-      payload = {
+      let userPayload: UserEntity;
+      userPayload = {
         name: state.name,
         email: state.email,
         password: state.password,
         mobileNumber: state.mobileNumber,
         role: role
       };
-      if (role !== UserRoleEnum.ANALYST) {
-        payload.company = {
+
+      let companyPayload: CompanyEntity;
+      if (role !== UserRoleEnum.BASIC) {
+        companyPayload = {
           address: state.address,
           businessId: state.businessId,
           name: state.companyName,
@@ -81,7 +84,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
         } as CompanyEntity;
       }
 
-      const user: UserEntity = await ApiRegister(payload as UserEntity);
+      const user: UserEntity = await ApiUserRegister(userPayload as UserEntity);
+      if (role !== UserRoleEnum.BASIC) {
+        const company: CompanyEntity = await ApiCompanyRegister(companyPayload as CompanyEntity);
+        console.log(company);
+      }
+
+      console.log(user);
 
       if (user) {
         dispatch(setUser({ ...user, rememberMe: true }));
@@ -100,11 +109,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
 
   return (
     <Container>
-      <Form
-        className="d-flex flex-column"
-        onSubmit={handleSubmit(() => handleSubmitButton())}
-      >
-        {role == UserRoleEnum.ANALYST ? (
+      <Form className="d-flex flex-column" onSubmit={handleSubmit(() => handleSubmitButton())}>
+        {role == UserRoleEnum.BASIC ? (
           <>
             <Row>
               <Col xs={12} md={6} className="gap-3">
@@ -183,7 +189,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
               </Col>
               <Col className="col-md-6 col-sm-12 align-self-end p-2">
                 {/* <ButtonUI text={'שמירה'} /> */}
-                <button id='btn-ui'>שמירה</button>
+                <button id="btn-ui">שמירה</button>
               </Col>
             </Row>
           </>
@@ -323,7 +329,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                 />
               </Col>
               <Col className="col-md-6 col-sm-12 align-self-end p-2">
-              <button id='btn-ui'>שמירה</button>
+                <button id="btn-ui">שמירה</button>
               </Col>
             </Row>
           </>

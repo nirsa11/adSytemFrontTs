@@ -4,6 +4,7 @@ import { LoginPageState } from '../types/interface/state/authState.interface';
 import { UserEntity } from '../types/entities/user.entity';
 import { setCookies } from '../utils';
 import { CampaignEntity } from '../types/entities/campagin.entity';
+import { CompanyEntity } from '../types/entities/company.entity';
 
 const httpRequest: AxiosInstance = new AxiosService().getClient();
 
@@ -32,11 +33,21 @@ export const ApiLogin = async ({ email, password }: LoginPageState) => {
  * @returns {Promise<UserEntity>} - A promise that resolves with the user's data if the registration is successful.
  * @throws {Error} - If there is an error during the registration process.
  */
-export const ApiRegister = async (data: UserEntity): Promise<UserEntity> => {
+export const ApiUserRegister = async (data: UserEntity): Promise<UserEntity> => {
   try {
     const response = await httpRequest.post('/users/register', data);
 
     setLoginCookies(response.data.accessToken);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const ApiCompanyRegister = async (data: CompanyEntity): Promise<CompanyEntity> => {
+  try {
+    const response = await httpRequest.post('/companies/register', data);
 
     return response.data;
   } catch (error) {
