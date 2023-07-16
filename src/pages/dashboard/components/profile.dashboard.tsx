@@ -12,7 +12,11 @@ import { InputComponent } from '../../../ui/input.ui';
 import { ButtonUI } from '../../../ui/button.ui';
 import { RootState } from '../../../redux/store';
 import { EditCompanyPageState } from '../../../common/types/interface/state/dashboard.interface';
-import { ValidationEditCompanySchema, editAnalystRegisterSchema, editCompanySchema } from '../../../common/schemas/schemas.dashboard';
+import {
+  ValidationEditCompanySchema,
+  editAnalystRegisterSchema,
+  editCompanySchema
+} from '../../../common/schemas/schemas.dashboard';
 import { UserRoleEnum } from '../../../common/types/enum/userRole.enum';
 
 /**
@@ -28,7 +32,7 @@ export const EditCompanyPage = (): JSX.Element => {
     password: user.password,
     mobileNumber: user.mobileNumber,
     confirmPassword: '',
-    ...(user.role !== UserRoleEnum.ANALYST && {
+    ...(user.role !== UserRoleEnum.BASIC && {
       businessId: user.company.businessId,
       address: user.company.address,
       companyName: user.company.name,
@@ -46,7 +50,7 @@ export const EditCompanyPage = (): JSX.Element => {
     formState: { errors }
   } = useForm<ValidationEditCompanySchema>({
     resolver: zodResolver(
-      user.role == UserRoleEnum.ANALYST ? editAnalystRegisterSchema : editCompanySchema
+      user.role == UserRoleEnum.BASIC ? editAnalystRegisterSchema : editCompanySchema
     ),
     defaultValues: {
       name: user.name,
@@ -55,7 +59,7 @@ export const EditCompanyPage = (): JSX.Element => {
       password: user.password,
       mobileNumber: user.mobileNumber,
       confirmPassword: '',
-      ...(user.role !== UserRoleEnum.ANALYST && {
+      ...(user.role !== UserRoleEnum.BASIC && {
         businessId: user.company.businessId,
         address: user.company.address,
         companyName: user.company.name,
@@ -82,7 +86,7 @@ export const EditCompanyPage = (): JSX.Element => {
         password: state.password,
         mobileNumber: state.mobileNumber,
         role: user.role,
-        ...(user.role !== UserRoleEnum.ANALYST && {
+        ...(user.role !== UserRoleEnum.BASIC && {
           company: {
             businessId: state.businessId,
             address: state.address,
@@ -127,7 +131,7 @@ export const EditCompanyPage = (): JSX.Element => {
             className="d-flex flex-column mt-5 border-1 bg-light"
             onSubmit={handleSubmit(() => handleSubmitButton())}
           >
-            {user.role == UserRoleEnum.ANALYST ? (
+            {user.role == UserRoleEnum.BASIC ? (
               <>
                 <Row>
                   <Col xs={12} md={4} className="gap-3">
@@ -340,7 +344,7 @@ export const EditCompanyPage = (): JSX.Element => {
             <Row>
               <Col xs={12} md={12} className="d-flex justify-content-center p-3 mt-3">
                 {/* <ButtonUI text={'שמירה'} /> */}
-                <button  id='btn-ui'>שמירה</button>
+                <button id="btn-ui">שמירה</button>
               </Col>
             </Row>
           </Form>
