@@ -7,7 +7,7 @@ import { CompanyEntity, CompanyTypeEnum } from '../../../common/types/entities/c
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ApiUserRegister } from '../../../common/services/api.service';
-import { ApiCompanyRegister } from '../../../common/services/api.service';
+// import { ApiCompanyRegister } from '../../../common/services/api.service';
 import { setUser } from '../../../redux/userSlice';
 import { setAlert } from '../../../redux/errorSlice';
 import { useForm } from 'react-hook-form';
@@ -27,7 +27,7 @@ const initialState: RegisterPageState = {
   address: '',
   mobileNumber: '',
   confirmPassword: '',
-  businessId: '',
+  businessNumber: '',
   companyName: '',
   nameForTaxInvoice: '',
   role: 0,
@@ -75,20 +75,27 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
 
       let companyPayload: CompanyEntity;
       if (role !== UserRoleEnum.BASIC) {
+        console.log('1')
         companyPayload = {
           address: state.address,
-          businessId: state.businessId,
+          businessNumber: state.businessNumber,
           name: state.companyName,
           nameForTaxInvoice: state.nameForTaxInvoice,
           type: role === UserRoleEnum.AGENT ? CompanyTypeEnum.AGENCY : CompanyTypeEnum.BUSINESS
         } as CompanyEntity;
       }
 
-      const user: UserEntity = await ApiUserRegister(userPayload as UserEntity);
       if (role !== UserRoleEnum.BASIC) {
-        const company: CompanyEntity = await ApiCompanyRegister(companyPayload as CompanyEntity);
-        console.log(company);
+        console.log(userPayload, 'userPayload');
+        userPayload.currCompany = companyPayload
+        console.log(userPayload.currCompany, 'userPayload.company');
       }
+      const user: UserEntity = await ApiUserRegister(userPayload as UserEntity);
+
+      // const user: UserEntity = await ApiUserRegister(userPayload as UserEntity);
+      // if (role !== UserRoleEnum.BASIC) {
+      //   const company: CompanyEntity = await ApiUserRegister(companyPayload as CompanyEntity);
+      //   console.log(company);
 
       console.log(user);
 
@@ -201,7 +208,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
                   key="companyName"
                   register={register}
                   name="companyName"
-                  label={`${role === UserRoleEnum.BUSINESS_OWNER ? 'שם חברה' : 'שם חברת פרסום'}`}
+                  label={`${role === UserRoleEnum.OWNER ? 'שם חברה' : 'שם חברת פרסום'}`}
                   type="text"
                   placeholder="הכנס שם חברה"
                   value={state && state.companyName}
@@ -227,13 +234,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ role }) => {
             <Row>
               <Col xs={12} md={6} className="gap-3">
                 <InputComponent
-                  key="businessId"
+                  key="businessNumber"
                   register={register}
-                  name="businessId"
+                  name="businessNumber"
                   label="ח.פ תעודת זהות"
                   type="text"
                   placeholder="הכנס ח.פ"
-                  value={state && state.businessId}
+                  value={state && state.businessNumber}
                   handleChange={handleChange}
                   errors={errors}
                   required={true}

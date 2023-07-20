@@ -121,6 +121,7 @@ export const LoginPage = (): JSX.Element => {
   const handleSubmitButton = async () => {
     try {
       const user: UserEntity = await ApiLogin(state as LoginPageState);
+      console.log("IN LOGIN: ", user);
       if (user) {
         dispatch(setUser({ ...user, rememberMe: state.rememberMe }));
         dispatch(setAlert({ message: `ברוך שובך ${user.name}`, type: 'success' }));

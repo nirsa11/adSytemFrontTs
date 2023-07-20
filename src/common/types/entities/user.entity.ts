@@ -1,5 +1,6 @@
 import { UserRoleEnum } from '../enum/userRole.enum';
 import { CompanyEntity } from './company.entity';
+import { UserRoleEntity } from './userRole.entity';
 
 export class UserEntity {
   id?: number;
@@ -14,9 +15,11 @@ export class UserEntity {
 
   role: UserRoleEnum;
 
-  company?: CompanyEntity;
+  currCompany?: CompanyEntity;
 
   createdAt?: Date;
 
   rememberMe?: boolean;
+
+  userRoles?: UserRoleEntity[];
 }

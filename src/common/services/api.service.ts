@@ -5,6 +5,8 @@ import { UserEntity } from '../types/entities/user.entity';
 import { setCookies } from '../utils';
 import { CampaignEntity } from '../types/entities/campagin.entity';
 import { CompanyEntity } from '../types/entities/company.entity';
+import { RequestEntity } from '../types/entities/request.entity';
+import { BussinesAgencyLinkingState } from '../types/interface/state/dashboard.interface';
 
 const httpRequest: AxiosInstance = new AxiosService().getClient();
 
@@ -45,15 +47,15 @@ export const ApiUserRegister = async (data: UserEntity): Promise<UserEntity> => 
   }
 };
 
-export const ApiCompanyRegister = async (data: CompanyEntity): Promise<CompanyEntity> => {
-  try {
-    const response = await httpRequest.post('/companies/register', data);
+// export const ApiCompanyRegister = async (data: CompanyEntity): Promise<CompanyEntity> => {
+//   try {
+//     const response = await httpRequest.post('/companies/register', data);
 
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+//     return response.data;
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// };
 
 /**
  * Sends a PATCH request to the server to update a user's information.
@@ -197,4 +199,61 @@ export const setLoginCookies = (accessToken: string) => {
   setCookies('accessToken', accessToken, seventDays);
 
   setCookies('tokenTime', seventDays.toString(), seventDays);
+};
+
+/**
+ * Get all the business/agency requeste by making a GET request
+ *  * @throws {Error} If there is an error with the request.
+ */
+
+export const ApiGetBusinessRequests = async (id: number) => {
+  try {
+    const response = await httpRequest.get(`/requests/business-linkings/${id}`);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const ApiGetAgencyRequests = async (id: number) => {
+  try {
+    const response = await httpRequest.get(`/requests/agency-linkings/${id}`);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+
+/**
+ * send linking request to an agency/company by sending a POST request to the server with the provided businessId and agencyId.
+ * @param {BussinesAgencyLinkingState} BussinesAgencyLinkingState - An object containing the linking request's sender, businessId and agencyId.
+ * @throws {Error} If there is an error with the request.
+ */
+
+export const ApiBussinesAgencyLinkingRequests = async ({ businessId, agencyId, sender }: BussinesAgencyLinkingState) => {
+  try {
+    const response = await httpRequest.post('/requests/business-agency-linking', { businessId, agencyId, sender });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// ------------------------------------------------------------------------------------------------------------
+
+/**
+ * Sends a PATCH request to the server to update a user's information.
+ * @param {UserEntity} data - The updated user information to send to the server.
+ * @returns {Promise<UserEntity>} - A promise that resolves with the updated user information.
+ * @throws {Error} - If there is an error with the request.
+ */
+export const ApiApprovalRejectionRequest = async (request, status): Promise<UserEntity> => {
+  try {
+    const response = await httpRequest.patch(`/requests/business-agency-linking/${request.id}`, status);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
 };

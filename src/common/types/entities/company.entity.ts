@@ -11,7 +11,7 @@ export class CompanyEntity {
 
   nameForTaxInvoice: string;
 
-  businessId: string;
+  businessNumber: string;
 
   address: string;
 

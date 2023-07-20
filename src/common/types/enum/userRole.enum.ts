@@ -1,12 +1,12 @@
 export enum UserRoleEnum {
-  BUSINESS_OWNER = 'BUSINESS_OWNER',
+  OWNER = 'OWNER',
   AGENT = 'AGENT',
   // ANALYST = 'ANALYST',
-  BASIC = 'BASIC'
+  BASIC = 'BASIC',
 }
 
 export enum UserRoleEnumSelection {
-  BUSINESS_OWNER = 'בעל עסק',
+  OWNER = 'בעל עסק',
   AGENT = 'חברת פרסום',
   BASIC = 'משתמש רגיל'
 }

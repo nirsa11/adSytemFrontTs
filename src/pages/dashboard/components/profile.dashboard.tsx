@@ -33,10 +33,10 @@ export const EditCompanyPage = (): JSX.Element => {
     mobileNumber: user.mobileNumber,
     confirmPassword: '',
     ...(user.role !== UserRoleEnum.BASIC && {
-      businessId: user.company.businessId,
-      address: user.company.address,
-      companyName: user.company.name,
-      nameForTaxInvoice: user.company.nameForTaxInvoice
+      businessNumber: user.currCompany.businessNumber,
+      address: user.currCompany.address,
+      companyName: user.currCompany.name,
+      nameForTaxInvoice: user.currCompany.nameForTaxInvoice
     }),
     error: ''
   });
@@ -60,10 +60,10 @@ export const EditCompanyPage = (): JSX.Element => {
       mobileNumber: user.mobileNumber,
       confirmPassword: '',
       ...(user.role !== UserRoleEnum.BASIC && {
-        businessId: user.company.businessId,
-        address: user.company.address,
-        companyName: user.company.name,
-        nameForTaxInvoice: user.company.nameForTaxInvoice
+        businessNumber: user.currCompany.businessNumber,
+        address: user.currCompany.address,
+        companyName: user.currCompany.name,
+        nameForTaxInvoice: user.currCompany.nameForTaxInvoice
       })
     },
     mode: 'onBlur',
@@ -87,12 +87,12 @@ export const EditCompanyPage = (): JSX.Element => {
         mobileNumber: state.mobileNumber,
         role: user.role,
         ...(user.role !== UserRoleEnum.BASIC && {
-          company: {
-            businessId: state.businessId,
+          currCompany: {
+            businessNumber: state.businessNumber,
             address: state.address,
             name: state.companyName,
             nameForTaxInvoice: state.nameForTaxInvoice,
-            type: user.company.type
+            type: user.currCompany.type
           }
         })
       };
@@ -119,7 +119,7 @@ export const EditCompanyPage = (): JSX.Element => {
         fluid
       >
         <Col md={10} className="d-flex justify-content-start">
-          <h5 className="text-light">ערוך את הפרופיל שלך</h5>
+          <h1 className="text-light">ערוך את הפרופיל שלך</h1>
         </Col>
         <Col
           md={10}
@@ -239,14 +239,14 @@ export const EditCompanyPage = (): JSX.Element => {
                   </Col>
                   <Col xs={12} md={4} className="gap-3">
                     <InputComponent
-                      key="businessId"
+                      key="businessNumber"
                       register={register}
-                      name="businessId"
+                      name="businessNumber"
                       label="ח.פ תעודת זהות"
                       type="text"
                       placeholder="הכנס ח.פ"
                       required={true}
-                      value={state && state.businessId}
+                      value={state && state.businessNumber}
                       handleChange={handleChange}
                       errors={errors}
                     />

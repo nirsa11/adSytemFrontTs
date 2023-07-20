@@ -1,5 +1,4 @@
 .navtab-ui {
-    // width: 60% !important;
     border-bottom: 1px solid #d2d6d8;
     padding: 0;
     border: groove;
@@ -15,8 +14,8 @@
         color: #a7a7a7;
         position: relative;
         display: inline-block;
-        
-        &:hover{
+
+        &:hover {
             color: #84be42;
         }
     }
@@ -43,17 +42,17 @@
 
 @media (max-width: 576px) {
     .navtab-ui {
-        width: 100% !important;
+        width: 100%;
         margin-right: 0rem;
-        margin-top: -8rem !important;
+        margin-top: -8rem;
         display: flex;
         justify-content: center;
-        border-bottom: none !important;
+        border-bottom: none;
     }
 
     .nav-item:nth-child(2):after {
-        position: relative !important;
-        display: inline-block !important;
+        position: relative;
+        display: inline-block;
         content: "";
         position: absolute;
         top: 10px;

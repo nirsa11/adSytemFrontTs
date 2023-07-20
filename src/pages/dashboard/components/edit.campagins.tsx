@@ -118,7 +118,7 @@ export const EditCampaign = (): JSX.Element => {
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
         status: state.status,
-        companyId: user.company.id,
+        companyId: user.currCompany.id,
         target: state.target
       };
 
@@ -126,8 +126,8 @@ export const EditCampaign = (): JSX.Element => {
 
       if (campaignUpdated) {
         const company: CompanyEntity = {
-          ...user.company,
-          campaigns: user.company.campaigns.map((campaign) => {
+          ...user.currCompany,
+          campaigns: user.currCompany.campaigns.map((campaign) => {
             if (campaign.id === state.id) {
               return campaignUpdated;
             } else {
@@ -136,7 +136,7 @@ export const EditCampaign = (): JSX.Element => {
           })
         };
 
-        dispatch(setUser({ ...user, company, rememberMe: true }));
+        dispatch(setUser({ ...user, currCompany: company, rememberMe: true }));
         dispatch(setAlert({ message: 'הקמפיין עודכן בהצלחה', type: 'success' }));
         navigate('/dashboard/my-campaigns');
       }
@@ -238,6 +238,7 @@ export const EditCampaign = (): JSX.Element => {
                   value={state && state.status}
                   onChange={handleSelectChange}
                   defaultValue={CampaignStatusEnum.active}
+                  className='select'
                 >
                   {Object.values(CampaignStatusEnum).map((option) => (
                     <option key={option} value={option}>
@@ -254,6 +255,7 @@ export const EditCampaign = (): JSX.Element => {
                   value={state && state.target}
                   onChange={handleSelectChange}
                   defaultValue={CampaignTargetEnum.appPromoting}
+                  className='select'
                 >
                   {Object.values(CampaignTargetEnum).map((option) => (
                     <option key={option} value={option}>

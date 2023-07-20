@@ -5,6 +5,7 @@ import { AddCampaign } from '../pages/dashboard/components/add.campaign';
 import { MyCampaigns } from '../pages/dashboard/components/list.campaigns';
 import { Campaign } from '../pages/dashboard/components/campaigns.dashboard';
 import { EditCampaign } from '../pages/dashboard/components/edit.campagins';
+import { ManageRequestsPage } from '../pages/dashboard/components/manage.requests';
 
 /**
  * Represents the properties of a route in a React application.
@@ -51,6 +52,12 @@ export const mainRoutes: RouteProps[] = [
         name: 'פרופיל',
         public: false,
         component: <EditCompanyPage />
+      },
+      {
+        path: '/dashboard/requests',
+        name: 'בקשות ניהול',
+        public: false,
+        component: <ManageRequestsPage />
       },
       {
         path: '/dashboard',

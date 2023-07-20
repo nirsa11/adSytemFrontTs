@@ -1,5 +1,7 @@
+import { CompanyTypeEnum } from '../../entities/company.entity';
 import { CampaignStatusEnum } from '../../enum/campaignStatus.enum';
 import { CampaignTargetEnum } from '../../enum/campaignTarget.enum';
+import { RequestsStatusEnum } from '../../enum/requestsStatus.enum';
 import { UserRoleEnum } from '../../enum/userRole.enum';
 
 export interface EditCompanyPageState {
@@ -11,7 +13,7 @@ export interface EditCompanyPageState {
   confirmPassword?: string;
   companyName: string;
   nameForTaxInvoice: string;
-  businessId: string;
+  businessNumber: string;
   address: string;
   error: string;
 }
@@ -38,4 +40,17 @@ export class MyCampaignState {
   createdAt: string;
   companyId: number;
   target: CampaignTargetEnum;
+}
+
+export class BussinesAgencyRequestState {
+  id: number;
+  sender: string | number;
+  status?: RequestsStatusEnum;
+  target?: string | number;
+}
+
+export class BussinesAgencyLinkingState {
+  businessId: number;
+  agencyId: number;
+  sender: CompanyTypeEnum;
 }

@@ -22,7 +22,7 @@ export const editCompanySchema: ZodType<Partial<EditCompanyPageState>> = applyTr
       }),
 
       companyName: z.string().nonempty('שדה זה הינו שדה חובה').min(3).max(20),
-      businessId: z.string().nonempty('שדה זה הינו שדה חובה').min(5).max(20),
+      businessNumber: z.string().nonempty('שדה זה הינו שדה חובה').min(5).max(20),
       nameForTaxInvoice: z.optional(z.string()),
       address: z.optional(z.string())
     })

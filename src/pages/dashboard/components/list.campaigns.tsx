@@ -26,10 +26,10 @@ import { MyCampaignState } from '../../../common/types/interface/state/dashboard
 
 export const MyCampaigns = (): JSX.Element => {
   const campaigns: CampaignEntity[] = useSelector(
-    (state: RootState) => state?.user?.user?.company?.campaigns
+    (state: RootState) => state?.user?.user?.currCompany?.campaigns
   );
   const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
-  const companyId: number = user?.company?.id;
+  const companyId: number = user?.currCompany?.id;
   const [modal, setModal] = useState<boolean>(false);
   const [modalDupli, setModalDupli] = useState<boolean>(false);
   const [campaignToDelete, setCampaignToDelete] = useState<MyCampaignState>(null);
@@ -58,9 +58,7 @@ export const MyCampaigns = (): JSX.Element => {
       };
     })
   );
-
-  // useEffect(() => {}, [dataTable]);
-
+  
   /**
    * Handles the deletion of a campaign by displaying a modal and setting the campaign to be deleted.
    * @param {MyCampaignState} row - The campaign to be deleted.
@@ -119,12 +117,12 @@ export const MyCampaigns = (): JSX.Element => {
       dispatch(setAlert({ message: 'הקמפיין נמחק בהצלחה', type: 'success' }));
 
       const company: CompanyEntity = {
-        ...user.company,
-        campaigns: user.company.campaigns.filter(({ id }) => id !== campaignToDelete.id)
+        ...user.currCompany,
+        campaigns: user.currCompany.campaigns.filter(({ id }) => id !== campaignToDelete.id)
       };
 
       setDataTable(dataTable.filter(({ id }) => id !== campaignToDelete.id));
-      dispatch(setUser({ ...user, company, rememberMe: true }));
+      dispatch(setUser({ ...user, currCompany: company, rememberMe: true }));
 
       setModal(false);
     } catch (error) {
@@ -169,11 +167,11 @@ export const MyCampaigns = (): JSX.Element => {
 
       if (campaignCreated) {
         const company: CompanyEntity = {
-          ...user.company,
-          campaigns: [...user?.company?.campaigns, campaignCreated]
+          ...user.currCompany,
+          campaigns: [...user?.currCompany?.campaigns, campaignCreated]
         };
 
-        dispatch(setUser({ ...user, company, rememberMe: true }));
+        dispatch(setUser({ ...user, currCompany: company, rememberMe: true }));
 
         dispatch(setAlert({ message: 'הקמפיין שוכפל בהצלחה', type: 'success' }));
 
@@ -327,13 +325,13 @@ export const MyCampaigns = (): JSX.Element => {
 
         <Col md={10} className="d-flex justify-content-start">
           <div className="d-flex  col-md-3 justify-content-between">
-            <h3 className="text-light ml-2"> רשימת הקמפיינים</h3>
+            <h1 className="text-light ml-2"> רשימת הקמפיינים</h1>
             {dateFilterValue ? (<h6 className="text-light align-self-center mr-3">({dateFilterValue})</h6>) : null}
           </div>
         </Col>
 
         <Col
-          md={10} sm={12} className="d-flex flex-column justify-content-center  align-items-center bg-light m-1 p-2" style={{ overflow: 'auto' }}>
+          md={10} sm={12} className="table-container d-flex flex-column justify-content-center  align-items-center bg-light m-1 p-2" style={{ overflow: 'auto' }}>
           <DataTable customStyles={customStyles} pagination paginationPerPage={10} paginationRowsPerPageOptions={[5, 8, 10]}
             paginationComponentOptions={paginationOptions} columns={columns} data={dataTable} fixedHeader responsive={true} striped highlightOnHover />
         </Col>

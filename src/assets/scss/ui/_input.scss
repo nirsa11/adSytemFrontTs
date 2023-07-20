@@ -2,32 +2,33 @@
 .input-date-ui {
 
   .borderless {
-    border: none !important;
-    border-bottom: 1px solid #ccc !important;
+    border: none;
+    border-bottom: 1px solid #ccc;
     transition: border-color 0.3s;
     outline: none;
-    background: transparent !important;
-    border-radius: 0 !important;
+    background: transparent;
+    border-radius: 0;
   }
 
   .borderless:focus {
+    background: transparent;
     box-shadow: none;
-    border-bottom: 2px solid #ccc !important;
+    border-bottom: 2px solid #ccc;
   }
 
   /* Animation for the border transition */
   input:not(input[type="checkbox"], input[type="date"])::after {
-    content: "" !important;
-    display: block !important;
-    width: 0 !important;
-    height: 12px !important;
-    background-color: #555151 !important;
+    content: "";
+    display: block;
+    width: 0;
+    height: 12px;
+    background-color: #555151;
     /* Initial color for the animated border */
-    transition: width 0.3s !important;
+    transition: width 0.3s;
   }
 
   input:not([type='checkbox']):focus::after {
-    width: 100% !important;
+    width: 100%;
     /* Fills the border with the new color */
   }
 
@@ -51,6 +52,7 @@ label {
 
 /* Remove border from the input element when is focused */
 .form-control:focus,
-.form-select:focus {
-  box-shadow: none !important;
+.form-select.select:focus {
+  box-shadow: none;
+  border-color: #dee2e6;
 }

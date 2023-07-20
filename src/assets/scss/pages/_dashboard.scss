@@ -1,11 +1,39 @@
-.dashboard-layout{
-
-    label{
+.dashboard-layout {
+    label {
         height: 25px;
-    
     }
-    
-    .row{
+
+    .row {
         padding-bottom: 15px;
+    }
+
+    .list-campaign {
+        .table-container div:not(.sc-llYUbU.dScHDm, .sc-ezbkUp.isYBvc) {
+            width: 100%;
+
+            nav {
+                justify-content: center;
+            }
+        }
+    }
+
+    .manage-requests {
+
+        .input-container {
+            display: inline-block;
+
+            input {
+                text-align: right;
+
+                &::placeholder {
+                    text-align: right;
+                }
+            }
+        }
+
+        p,
+        h1 {
+            color: white;
+        }
     }
 }

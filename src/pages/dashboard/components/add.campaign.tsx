@@ -77,7 +77,7 @@ export const AddCampaign = (): JSX.Element => {
           typeof state.dailyBudget == 'number' ? state.dailyBudget : parseInt(state.dailyBudget),
         createdBy: user.id,
         status: state.status,
-        companyId: user.company.id,
+        companyId: user.currCompany.id,
         target: state.target
       };
 
@@ -85,11 +85,11 @@ export const AddCampaign = (): JSX.Element => {
 
       if (campaignCreated) {
         const company: CompanyEntity = {
-          ...user.company,
-          campaigns: [...(user?.company?.campaigns ?? []), campaignCreated]
+          ...user.currCompany,
+          campaigns: [...(user?.currCompany?.campaigns ?? []), campaignCreated]
         };
 
-        dispatch(setUser({ ...user, company: company, rememberMe: true }));
+        dispatch(setUser({ ...user, currCompany: company, rememberMe: true }));
         dispatch(setAlert({ message: 'הקמפיין נוצר בהצלחה', type: 'success' }));
       }
     } catch (error) {
@@ -109,7 +109,7 @@ export const AddCampaign = (): JSX.Element => {
         fluid
       >
         <Col md={10} className="d-flex justify-content-start">
-          <h3 className="text-light">יצירת קמפיין</h3>
+          <h1 className="text-light">יצירת קמפיין</h1>
         </Col>
         <Col
           md={10}
@@ -201,6 +201,7 @@ export const AddCampaign = (): JSX.Element => {
                     value={state && state.target}
                     onChange={handleSelectChange}
                     defaultValue={CampaignTargetEnum.traffic}
+                    className='select'
                   >
                     {Object.values(CampaignTargetEnum).map((option) => (
                       <option key={option} value={option}>
@@ -219,6 +220,7 @@ export const AddCampaign = (): JSX.Element => {
                     value={state && state.status}
                     onChange={handleSelectChange}
                     defaultValue={CampaignStatusEnum.active}
+                    className='select'
                   >
                     {Object.values(CampaignStatusEnum).map((option) => {
                       if (option === CampaignStatusEnum.completed) return null;

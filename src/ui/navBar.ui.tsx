@@ -8,17 +8,21 @@ import { RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import LogoOne from '../assets/img/logo-login-1.png';
 import LogoTwo from '../assets/img/logo-login-2.png';
-import styles from'../assets/scss/ui/_navbar.module.scss';
+import styles from '../assets/scss/ui/_navbar.module.scss';
+import { UserEntity } from '../common/types/entities/user.entity';
+import { SelectNavbarUi } from './select.navbar.ui';
 
 export const NavBar = () => {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
   const userName: string = useSelector((state: RootState) => state?.user?.user.name);
+  const user: UserEntity = useSelector((state: RootState) => state?.user?.user);
   const [selectedDropDown, setSelectedDropDown] = useState(userName);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(user.userRoles, 'user.userRoles')
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 767); // Adjust the breakpoint according to your needs
     };
@@ -56,7 +60,10 @@ export const NavBar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse as={Col} id="responsive-navbar-nav">
+
         <Nav className="p-3 justify-content-end" as={Col} col={12}>
+          {location.pathname === '/dashboard/requests' && <SelectNavbarUi />}
+          <Nav.Link href="dashboard/requests">בקשות ניהול</Nav.Link>
           {navRoutes.map((route, index) => (
             <Nav.Link
               onClick={() => setSelectedDropDown(userName)}
@@ -88,6 +95,6 @@ export const NavBar = () => {
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
-    </Navbar>
+    </Navbar >
   );
 };

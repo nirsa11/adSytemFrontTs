@@ -6,7 +6,7 @@ export class BaseState<T> {
 export class CompanyState {
   name: string;
   nameForTaxInvoice: string;
-  businessId: string;
+  businessNumber: string;
   address: string;
 }
 
@@ -19,7 +19,7 @@ export class RegisterPageState {
   confirmPassword: string;
   companyName: string;
   nameForTaxInvoice: string;
-  businessId: string;
+  businessNumber: string;
   address: string;
   error: string;
 }
